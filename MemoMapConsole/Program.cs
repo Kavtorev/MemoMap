@@ -1,4 +1,6 @@
 ﻿using System;
+using MemoMap.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace MemoMapConsole
 {
@@ -6,7 +8,10 @@ namespace MemoMapConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            using (MemoMapDbContext db = new MemoMapDbContext())
+            {
+                db.Database.Migrate();
+            }
         }
     }
 }
