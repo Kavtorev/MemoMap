@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoMap.Infrastructure.Migrations
 {
     [DbContext(typeof(MemoMapDbContext))]
-    [Migration("20201116194850_User_GroupTables")]
-    partial class User_GroupTables
+    [Migration("20201119170946_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,22 +22,22 @@ namespace MemoMap.Infrastructure.Migrations
 
             modelBuilder.Entity("GroupUser", b =>
                 {
-                    b.Property<int>("GroupsGroupId")
+                    b.Property<int>("GroupsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsersUserId")
+                    b.Property<int>("UsersId")
                         .HasColumnType("int");
 
-                    b.HasKey("GroupsGroupId", "UsersUserId");
+                    b.HasKey("GroupsId", "UsersId");
 
-                    b.HasIndex("UsersUserId");
+                    b.HasIndex("UsersId");
 
                     b.ToTable("GroupUser");
                 });
 
-            modelBuilder.Entity("MemoMap.Infrastructure.Group", b =>
+            modelBuilder.Entity("MemoMap.Domain.Group", b =>
                 {
-                    b.Property<int>("GroupId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -45,14 +45,14 @@ namespace MemoMap.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("GroupId");
+                    b.HasKey("Id");
 
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("MemoMap.Infrastructure.User", b =>
+            modelBuilder.Entity("MemoMap.Domain.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -66,22 +66,22 @@ namespace MemoMap.Infrastructure.Migrations
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("GroupUser", b =>
                 {
-                    b.HasOne("MemoMap.Infrastructure.Group", null)
+                    b.HasOne("MemoMap.Domain.Group", null)
                         .WithMany()
-                        .HasForeignKey("GroupsGroupId")
+                        .HasForeignKey("GroupsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MemoMap.Infrastructure.User", null)
+                    b.HasOne("MemoMap.Domain.User", null)
                         .WithMany()
-                        .HasForeignKey("UsersUserId")
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

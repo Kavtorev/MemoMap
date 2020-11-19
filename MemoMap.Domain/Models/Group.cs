@@ -1,16 +1,16 @@
-﻿using System;
+﻿using MemoMap.Domain.SeedWork;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MemoMap.Infrastructure
+namespace MemoMap.Domain
 {
-    public class Group
+    public class Group : Entity
     {
         /*
          group_id INT
          name string
         */
-        public int GroupId { get; set; }
         public string Name { get; set; }
 
         // many users can be in one group
