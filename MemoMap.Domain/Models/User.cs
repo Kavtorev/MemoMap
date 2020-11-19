@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MemoMap.Domain.SeedWork;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MemoMap.Infrastructure
+namespace MemoMap.Domain
 {
-    public class User
+    public class User : Entity
     {
         /*
          user_id int 
@@ -12,7 +13,6 @@ namespace MemoMap.Infrastructure
          password string
          role string
         */
-        public int UserId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
