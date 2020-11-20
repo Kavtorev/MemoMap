@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoMap.Infrastructure.Migrations
 {
     [DbContext(typeof(MemoMapDbContext))]
-    [Migration("20201120133106_InitialMigration")]
+    [Migration("20201120145940_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,19 +36,19 @@ namespace MemoMap.Infrastructure.Migrations
                     b.ToTable("GroupUser");
                 });
 
-            modelBuilder.Entity("MapPoint", b =>
+            modelBuilder.Entity("LocationMap", b =>
                 {
+                    b.Property<int>("LocationsId")
+                        .HasColumnType("int");
+
                     b.Property<int>("MapsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PointsId")
-                        .HasColumnType("int");
+                    b.HasKey("LocationsId", "MapsId");
 
-                    b.HasKey("MapsId", "PointsId");
+                    b.HasIndex("MapsId");
 
-                    b.HasIndex("PointsId");
-
-                    b.ToTable("MapPoint");
+                    b.ToTable("LocationMap");
                 });
 
             modelBuilder.Entity("MapRoute", b =>
@@ -96,27 +96,7 @@ namespace MemoMap.Infrastructure.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("MemoMap.Domain.Models.Map", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MapName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("Maps");
-                });
-
-            modelBuilder.Entity("MemoMap.Domain.Models.Point", b =>
+            modelBuilder.Entity("MemoMap.Domain.Models.Location", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,6 +115,26 @@ namespace MemoMap.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Points");
+                });
+
+            modelBuilder.Entity("MemoMap.Domain.Models.Map", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MapName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("Maps");
                 });
 
             modelBuilder.Entity("MemoMap.Domain.Models.Route", b =>
@@ -188,17 +188,17 @@ namespace MemoMap.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MapPoint", b =>
+            modelBuilder.Entity("LocationMap", b =>
                 {
-                    b.HasOne("MemoMap.Domain.Models.Map", null)
+                    b.HasOne("MemoMap.Domain.Models.Location", null)
                         .WithMany()
-                        .HasForeignKey("MapsId")
+                        .HasForeignKey("LocationsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MemoMap.Domain.Models.Point", null)
+                    b.HasOne("MemoMap.Domain.Models.Map", null)
                         .WithMany()
-                        .HasForeignKey("PointsId")
+                        .HasForeignKey("MapsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

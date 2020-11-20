@@ -108,24 +108,24 @@ namespace MemoMap.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MapPoint",
+                name: "LocationMap",
                 columns: table => new
                 {
-                    MapsId = table.Column<int>(type: "int", nullable: false),
-                    PointsId = table.Column<int>(type: "int", nullable: false)
+                    LocationsId = table.Column<int>(type: "int", nullable: false),
+                    MapsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MapPoint", x => new { x.MapsId, x.PointsId });
+                    table.PrimaryKey("PK_LocationMap", x => new { x.LocationsId, x.MapsId });
                     table.ForeignKey(
-                        name: "FK_MapPoint_Maps_MapsId",
+                        name: "FK_LocationMap_Maps_MapsId",
                         column: x => x.MapsId,
                         principalTable: "Maps",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MapPoint_Points_PointsId",
-                        column: x => x.PointsId,
+                        name: "FK_LocationMap_Points_LocationsId",
+                        column: x => x.LocationsId,
                         principalTable: "Points",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -185,9 +185,9 @@ namespace MemoMap.Infrastructure.Migrations
                 column: "UsersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MapPoint_PointsId",
-                table: "MapPoint",
-                column: "PointsId");
+                name: "IX_LocationMap_MapsId",
+                table: "LocationMap",
+                column: "MapsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MapRoute_RoutesId",
@@ -211,7 +211,7 @@ namespace MemoMap.Infrastructure.Migrations
                 name: "GroupUser");
 
             migrationBuilder.DropTable(
-                name: "MapPoint");
+                name: "LocationMap");
 
             migrationBuilder.DropTable(
                 name: "MapRoute");
