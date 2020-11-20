@@ -1,4 +1,5 @@
 ﻿using MemoMap.Domain;
+using MemoMap.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,10 @@ namespace MemoMap.Infrastructure
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<Map> Maps { get; set; }
+        public DbSet<Point> Points { get; set; }
+        public DbSet<Route> Routes { get; set; }
+
 
         // connection string
         protected override void OnConfiguring(DbContextOptionsBuilder options)

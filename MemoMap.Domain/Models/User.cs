@@ -1,4 +1,5 @@
-﻿using MemoMap.Domain.SeedWork;
+﻿using MemoMap.Domain.Models;
+using MemoMap.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,5 +20,6 @@ namespace MemoMap.Domain
 
         // user can be part of many groups
         public List<Group> Groups { get; set; }
+        public ICollection<Map> Maps { get; set; }
     }
 }
