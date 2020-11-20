@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MemoMap.Domain.Models
 {
-    public class Point: Entity
+    public class Location: Entity
     {
         /*
         point_id int
@@ -15,7 +15,7 @@ namespace MemoMap.Domain.Models
         date   Date
           */
 
-        public Point()
+        public Location()
         {
             Maps = new List<Map>();
         }

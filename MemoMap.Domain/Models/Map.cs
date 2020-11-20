@@ -11,13 +11,13 @@ namespace MemoMap.Domain.Models
         public Map()
         {
             Routes = new List<Route>();
-            Points = new List<Point>();
+            Locations = new List<Location>();
         }
         public string  MapName { get; set; }
         public int GroupId { get; set; }
         // one map can belong only to one group
         public Group Group { get; set; }
-        public ICollection<Point> Points { get; set; }
+        public ICollection<Location> Locations { get; set; }
         public ICollection<User> Users { get; set; }
         // one map can include many routes
         public ICollection<Route> Routes { get; set; }
