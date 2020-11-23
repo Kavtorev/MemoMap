@@ -14,13 +14,16 @@ namespace MemoMap.Infrastructure
         public DbSet<Map> Maps { get; set; }
         public DbSet<Location> Points { get; set; }
         public DbSet<Route> Routes { get; set; }
+        public DbSet<Note> Notes { get; set; }
 
         // raw DbContext
         public MemoMapDbContext() { }
         public MemoMapDbContext(DbContextOptions options):base(options) { }
 
 
-        // connection string
+        /*
+         Connection string
+        */
 
         // nevertheless we pass custom options to MemoMapDbContext, we need to specify db provider to make migrations
         protected override void OnConfiguring(DbContextOptionsBuilder options)
