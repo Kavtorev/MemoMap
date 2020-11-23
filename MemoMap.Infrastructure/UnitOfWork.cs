@@ -30,5 +30,7 @@ namespace MemoMap.Infrastructure
         public IRouteRepository RouteRepository => new RouteRepository(new MemoMapDbContext(Options));
 
         public IUserRepository UserRepository => new UserRepository(new MemoMapDbContext(Options));
+
+        public INoteRepository NoteRepository => new NoteRepository(new MemoMapDbContext(Options));
     }
 }
