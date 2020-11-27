@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MemoMap.UWP.ViewModels
 {
-    class UserGroupModel
+    class GroupViewModel
     {
     }
 }

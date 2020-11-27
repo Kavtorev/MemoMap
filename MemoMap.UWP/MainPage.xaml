@@ -8,7 +8,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <!-- Navigation menu -->
     <Grid>
-
+        <NavigationView IsSettingsVisible="True" ItemInvoked="NavigationView_ItemInvoked">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Groups" Icon="World" Tag="groups"/>
+                <NavigationViewItem Content="My Maps" Icon="Map" Tag="my_maps"/>
+            </NavigationView.MenuItems>
+            <Frame x:Name="MainFrame"/>
+        </NavigationView>
     </Grid>
 </Page>
