@@ -1,0 +1,22 @@
+﻿<Page
+    x:Class="MemoMap.UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MemoMap.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <!-- Navigation menu -->
+    <Grid>
+        <NavigationView IsSettingsVisible="True" ItemInvoked="NavigationView_ItemInvoked">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Groups" Icon="World" Tag="groups"/>
+                <NavigationViewItem Content="My Maps" Icon="Map" Tag="my_maps"/>
+                <NavigationViewItem Content="Map" Icon="Map" Tag="map"/>
+            </NavigationView.MenuItems>
+            <Frame x:Name="MainFrame"/>
+        </NavigationView>
+    </Grid>
+</Page>
