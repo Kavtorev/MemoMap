@@ -38,8 +38,5 @@ namespace MemoMap.UWP.Views.Map
             // MainPage.NotifyUser(result, NotifyType.StatusMessage);
             geoposition.Text = result;
         }
-
-        private void MemoMap_MapelementClick(MapControl sender, MapElementClickEventArgs args)
-        { }
     }
 }
