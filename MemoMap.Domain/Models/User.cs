@@ -19,7 +19,7 @@ namespace MemoMap.Domain
         public string Role { get; set; }
 
         // user can be part of many groups
-        public List<Group> Groups { get; set; }
-        public ICollection<Map> Maps { get; set; }
+        public ICollection<GroupUser> GroupUsers { get; set; }
+        public ICollection<UserMap> UserMaps { get; set; }
     }
 }

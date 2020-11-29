@@ -14,8 +14,13 @@ namespace MemoMap.Domain
         */
         public string Name { get; set; }
 
+        //public Group(string name)
+        //{
+        //    Name = name;
+        //}
+
         // many users can be in one group
-        public List<User> Users { get; set; }
+        public ICollection<GroupUser> GroupUsers { get; set; }
 
         // one group can include many maps
         public ICollection<Map> Maps { get; set; }
