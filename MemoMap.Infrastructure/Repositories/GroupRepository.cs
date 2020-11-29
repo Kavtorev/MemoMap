@@ -11,7 +11,7 @@ namespace MemoMap.Infrastructure.Repositories
     {
         public GroupRepository(MemoMapDbContext db):base(db)
         {
-
+            
         }
     }
 }

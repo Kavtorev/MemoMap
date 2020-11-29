@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MemoMap.UWP.ViewModels
 {
-    class MapViewModel
+    public class MapViewModel
     {
+
     }
 }

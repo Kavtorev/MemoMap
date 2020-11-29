@@ -12,7 +12,7 @@ namespace MemoMapConsole
         {
             DbContextOptionsBuilder<MemoMapDbContext> optionsBuilder = new DbContextOptionsBuilder<MemoMapDbContext>();
             optionsBuilder.UseSqlServer(connectionString);
-
+            
             IUnitOfWork UOW = new UnitOfWork(optionsBuilder.Options);
         }
     }
