@@ -1,8 +1,10 @@
-﻿using System;
+﻿using MemoMap.UWP.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -20,16 +22,27 @@ namespace MemoMap.UWP.Views.Group
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class GroupsPage : Page
+    public sealed partial class CreateGroupPage : Page
     {
-        public GroupsPage()
+        public GroupViewModel GroupViewModel { get; set; }
+        public CreateGroupPage()
         {
             this.InitializeComponent();
+            GroupViewModel = new GroupViewModel();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(CreateGroupPage));
+            await GroupViewModel.InsertAsync();
+            this.Frame.GoBack();
         }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Frame.CanGoBack)
+                this.Frame.GoBack();
+        }
+
+      
     }
 }
