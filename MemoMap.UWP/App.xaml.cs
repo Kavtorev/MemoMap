@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MemoMap.Domain;
+using MemoMap.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +25,9 @@ namespace MemoMap.UWP
     /// </summary>
     sealed partial class App : Application
     {
+        // connection string which allows UWP part to connect to the DB
+        public string connectionString = "Server=localhost; Initial Catalog=memo-map; Integrated Security = True; User ID=memomapAdmin; Password=admin; Connect Timeout = 30;";
+        public static IUnitOfWork UnitOfWork { get; set; }
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -39,6 +45,12 @@ namespace MemoMap.UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            // global UnitOfWork
+            DbContextOptionsBuilder<MemoMapDbContext> optionsBuilder = new DbContextOptionsBuilder<MemoMapDbContext>();
+            optionsBuilder.UseSqlServer(connectionString);
+            UnitOfWork = new UnitOfWork(optionsBuilder.Options);
+
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
