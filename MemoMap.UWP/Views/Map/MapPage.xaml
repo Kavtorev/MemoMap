@@ -15,16 +15,26 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
-        <!-- page title -->
-        <TextBlock Text="Map Page" FontSize="40" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Left"/>
-        
-        <!-- geo position user picked -->
-        <TextBlock Text="Output" FontSize="30" Grid.Column="0" VerticalAlignment="Center" TextAlignment="Right" Name="geoposition"/>
 
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- page title -->
+            <TextBlock Text="Map Page" FontSize="40" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Left"/>
+            <!-- geo position user picked -->
+            <TextBlock FontSize="20" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Name="latitude"/>
+            <TextBlock FontSize="20" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" TextAlignment="Center" Name="longtitute"/>
+            <Button IsEnabled="True" Click="Button_Click" Content="Add point" Grid.Column="3" FontSize="16" HorizontalAlignment="Right" CornerRadius="20"/>
+        </Grid>
+        
         <!-- content row -->
         <Maps:MapControl x:Name="MemoMap"
-                         Grid.Row="1" 
+                         Grid.Row="1"
                          ZoomInteractionMode="GestureAndControl"
                          TiltInteractionMode="GestureAndControl"
                          MapServiceToken="y5u3jsMhdvyHKgngvqEi~HaMfdHCJ_mjaxrQcErYZhA~AndzA0R4aQZ8y5Oyrpzxme12X5U6j_ZlF7SeczHMd6T1LNmoIpvvRpUZWxdghm9M"

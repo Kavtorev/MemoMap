@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 // library needed for map integration
 using Windows.UI.Xaml.Controls.Maps;
+using Windows.Devices.Geolocation;
+
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -32,11 +34,44 @@ namespace MemoMap.UWP.Views.Map
         private void MemoMap_MapTapped(MapControl sender, MapInputEventArgs args)
         {
             var GeoPosition = args.Location.Position;
-            string result = "latitude: " + GeoPosition.Latitude + " \nlongtitute: " + GeoPosition.Longitude;
 
-            // generate popup windows with interest point
+            // generate popup windows with interest point note form(point additional information)
             // MainPage.NotifyUser(result, NotifyType.StatusMessage);
-            geoposition.Text = result;
+            latitude.Text = GeoPosition.Latitude.ToString();
+            longtitute.Text = GeoPosition.Longitude.ToString();
+        }
+
+        public void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var landmarks = new List<MapElement>();
+
+            double lat = Convert.ToDouble(latitude.Text);
+            double longt = Convert.ToDouble(longtitute.Text);
+
+            // spec location
+            BasicGeoposition pos = new BasicGeoposition { Latitude = lat, Longitude = longt };
+            Geopoint position = new Geopoint(pos);
+
+            var spaceNeedleIcon = new MapIcon
+            {
+                Location = position,
+                NormalizedAnchorPoint = new Point(0.5, 1.0),
+                ZIndex = 0,
+                Title = "New Point"
+            };
+
+            landmarks.Add(spaceNeedleIcon);
+
+            var LandMarksLayer = new MapElementsLayer
+            {
+                ZIndex = 1,
+                MapElements = landmarks
+            };
+
+            MemoMap.Layers.Add(LandMarksLayer);
+
+            MemoMap.Center = position;
+            MemoMap.ZoomLevel = 14;
         }
     }
 }
