@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using MemoMap.UWP.Views.Group;
+using MemoMap.UWP.Views.GroupViews;
 using MemoMap.UWP.Views.Map;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -38,10 +38,7 @@ namespace MemoMap.UWP
                 // access the tag
                 switch (nav_item.Tag)
                 {
-                    // groups
-                    case "groups":
-                        MainFrame.Navigate(typeof(GroupsPage));
-                        break;
+                
                     // my maps
                     case "my_maps":
                         MainFrame.Navigate(typeof(MyMapsPage));
@@ -49,6 +46,10 @@ namespace MemoMap.UWP
                     case "create_group":
                         MainFrame.Navigate(typeof(CreateGroupPage));
                         break;
+                    case "view_groups":
+                        MainFrame.Navigate(typeof(ViewGroupPage));
+                        break;
+
                 }
             }
 
@@ -56,7 +57,7 @@ namespace MemoMap.UWP
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(typeof(GroupsPage));
+            MainFrame.Navigate(typeof(ViewGroupPage));
         }
     }
 }
