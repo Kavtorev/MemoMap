@@ -25,6 +25,8 @@ namespace MemoMap.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Group>().Ignore(g => g.FormattedDate);
+
             modelBuilder.Entity<GroupUser>().HasKey(bc => new { bc.GroupId, bc.UserId });
 
             modelBuilder.Entity<GroupUser>()
