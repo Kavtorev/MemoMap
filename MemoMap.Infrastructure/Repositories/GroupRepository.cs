@@ -1,4 +1,5 @@
-﻿using MemoMap.Domain;
+﻿
+using MemoMap.Domain.Models;
 using MemoMap.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
