@@ -31,6 +31,14 @@ namespace MemoMap.UWP.Views.Map
             this.InitializeComponent();
         }
 
+        //public void GetPosition()
+        //{
+        //    double lat = Convert.ToDouble(latitude.Text); 
+        //    double longt = Convert.ToDouble(longtitute.Text);
+
+        //    if (lat == null && longt == null) // put here the Notifier that user raise an exception
+        //}
+
         private void MemoMap_MapTapped(MapControl sender, MapInputEventArgs args)
         {
             var GeoPosition = args.Location.Position;
@@ -44,7 +52,7 @@ namespace MemoMap.UWP.Views.Map
         public void Button_Click(object sender, RoutedEventArgs e)
         {
             var landmarks = new List<MapElement>();
-
+            
             double lat = Convert.ToDouble(latitude.Text);
             double longt = Convert.ToDouble(longtitute.Text);
 
