@@ -16,8 +16,9 @@ namespace MemoMap.Infrastructure
             Options = options;
 
             // optional to Update-Database command
-            MemoMapDbContext db = new MemoMapDbContext(options);
-            db.Database.Migrate();
+            // app crashes if uncommented
+            //MemoMapDbContext db = new MemoMapDbContext(options);
+            //db.Database.Migrate();
 
         }
 

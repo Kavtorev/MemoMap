@@ -1,4 +1,5 @@
-﻿using MemoMap.Domain.SeedWork;
+﻿using MemoMap.Domain.Models;
+using MemoMap.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 using System.Text;

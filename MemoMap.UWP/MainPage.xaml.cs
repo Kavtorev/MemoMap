@@ -12,9 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using MemoMap.UWP.Views.Group;
+using MemoMap.UWP.Views.GroupViews;
 using MemoMap.UWP.Views.Map;
-
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -32,30 +31,33 @@ namespace MemoMap.UWP
 
         private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            
+
             NavigationViewItem nav_item = args.InvokedItemContainer as NavigationViewItem;
-            if(nav_item != null)
+            if (nav_item != null)
             {
                 // access the tag
                 switch (nav_item.Tag)
                 {
-                    // groups
-                    case "groups":
-                        MainFrame.Navigate(typeof(GroupsPage));
-                        break;
+                
                     // my maps
                     case "my_maps":
                         MainFrame.Navigate(typeof(MyMapsPage));
                         break;
-
-                    // map
-                    case "map":
-                        MainFrame.Navigate(typeof(MapPage));
+                    case "create_group":
+                        MainFrame.Navigate(typeof(CreateGroupPage));
                         break;
+                    case "view_groups":
+                        MainFrame.Navigate(typeof(ViewGroupPage));
+                        break;
+
                 }
             }
 
         }
 
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(typeof(ViewGroupPage));
+        }
     }
 }

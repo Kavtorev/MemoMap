@@ -1,4 +1,5 @@
-﻿using MemoMap.Domain;
+﻿
+using MemoMap.Domain.Models;
 using MemoMap.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,7 +12,7 @@ namespace MemoMap.Infrastructure.Repositories
     {
         public GroupRepository(MemoMapDbContext db):base(db)
         {
-
+            
         }
     }
 }

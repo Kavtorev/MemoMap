@@ -1,4 +1,5 @@
 ﻿using MemoMap.Domain.SeedWork;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,19 +14,24 @@ namespace MemoMap.Infrastructure.Repositories
         {
             _dbContext = db;
         }
-        public Task<T> CreateAsync(T e)
+        public async Task<T> CreateAsync(T e)
         {
-            throw new NotImplementedException();
+            T record = _dbContext.Set<T>().Add(e).Entity;
+            await _dbContext.SaveChangesAsync();
+            return record;
         }
 
-        public T Delete(T e)
+        public async Task<T> DeleteAsync(T e)
         {
-            throw new NotImplementedException();
+            T record = _dbContext.Set<T>().Remove(e).Entity;
+            await _dbContext.SaveChangesAsync();
+            return record;
         }
 
-        public Task<List<T>> FindAll()
+        public async Task<List<T>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            //vReturns a DbSet<TEntity> instance for access to entities of the given type in the context and the underlying store.
+            return await _dbContext.Set<T>().ToListAsync();
         }
 
         public T FindByID(int id)

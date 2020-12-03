@@ -8,13 +8,13 @@ namespace MemoMap.Domain.SeedWork
     public interface IRepository<T> where T:Entity
     {
         T Update(T e);
-        T Delete(T e);
+        Task<T> DeleteAsync(T e);
         // update and insert functionality in a one method, so we don't have to implement Create and Update separately
         T Upsert(T e);
 
         T FindByID(int id);
         // Asychronous methods return Task object.
         Task<T> CreateAsync(T e);   
-        Task<List<T>> FindAll();
+        Task<List<T>> FindAllAsync();
     }
 }
