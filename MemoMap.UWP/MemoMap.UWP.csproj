@@ -131,6 +131,9 @@
     <Compile Include="Views\GroupViews\ViewGroupPage.xaml.cs">
       <DependentUpon>ViewGroupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Map\MapPage.xaml.cs">
+      <DependentUpon>MapPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Map\MyMapsPage.xaml.cs">
       <DependentUpon>MyMapsPage.xaml</DependentUpon>
     </Compile>
@@ -166,6 +169,10 @@
     <Page Include="Views\GroupViews\ViewGroupPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Map\MapPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Map\MyMapsPage.xaml">
       <SubType>Designer</SubType>

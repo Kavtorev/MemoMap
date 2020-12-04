@@ -49,7 +49,9 @@ namespace MemoMap.UWP
                     case "view_groups":
                         MainFrame.Navigate(typeof(ViewGroupPage));
                         break;
-
+                    case "map":
+                        MainFrame.Navigate(typeof(MapPage));
+                        break;
                 }
             }
 

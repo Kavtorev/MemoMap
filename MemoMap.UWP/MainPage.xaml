@@ -16,6 +16,7 @@
                 <NavigationViewItem Content="View groups" Icon="List" Tag="view_groups"/>
                 <NavigationViewItem Content="My Maps" Icon="Map" Tag="my_maps"/>
                 <NavigationViewItem Content="Create a group" Icon="Edit" Tag="create_group" />
+                <NavigationViewItem Content="Map" Icon="Map" Tag="map"/>
             </NavigationView.MenuItems>
         <Frame x:Name="MainFrame"/>
     </NavigationView>
