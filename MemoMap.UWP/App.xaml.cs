@@ -6,10 +6,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Security.Authentication.Web.Core;
+using Windows.Security.Credentials;
+using Windows.Storage;
+using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -43,8 +48,20 @@ namespace MemoMap.UWP
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
+            //Getting token for cheking auth
+            string silentToken = await GetTokenSilentlyAsync();
+
+            if (silentToken != null)
+            {
+                // the token was obtained. store a reference to it or do something with it here.
+            }
+            else
+            {
+                //open auth form
+                AccountsSettingsPane.Show();
+            }
             // global UnitOfWork
             DbContextOptionsBuilder<MemoMapDbContext> optionsBuilder = new DbContextOptionsBuilder<MemoMapDbContext>();
             optionsBuilder.UseSqlServer(connectionString);
@@ -107,6 +124,36 @@ namespace MemoMap.UWP
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+        //retrieving token from storage
+        public async Task<string> GetTokenSilentlyAsync()
+        {
+            string providerId = ApplicationData.Current.LocalSettings.Values["CurrentUserProviderId"]?.ToString();
+            string accountId = ApplicationData.Current.LocalSettings.Values["CurrentUserId"]?.ToString();
+
+            if (null == providerId || null == accountId)
+            {
+                return null;
+            }
+            WebAccountProvider provider = await WebAuthenticationCoreManager.FindAccountProviderAsync(providerId);
+            WebAccount account = await WebAuthenticationCoreManager.FindAccountAsync(provider, accountId);
+            WebTokenRequest request = new WebTokenRequest(provider, "wl.basic");
+            WebTokenRequestResult result = await WebAuthenticationCoreManager.GetTokenSilentlyAsync(request, account);
+            if (result.ResponseStatus == WebTokenRequestStatus.UserInteractionRequired)
+            {
+                // Unable to get a token silently - you'll need to show the UI
+                return null;
+            }
+            else if (result.ResponseStatus == WebTokenRequestStatus.Success)
+            {
+                // Success
+                return result.ResponseData[0].Token;
+            }
+            else
+            {
+                // Other error 
+                return null;
+            }
         }
     }
 }

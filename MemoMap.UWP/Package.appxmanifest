@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="b1de363d-15f7-4477-80d8-bbd4860caccb"
-    Publisher="CN=jolhu"
+    Name="36108AndreiVolynkin.MemoMap"
+    Publisher="CN=1CFE975F-C59F-418E-9D00-0E60DCF76679"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="b1de363d-15f7-4477-80d8-bbd4860caccb" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="0ac231c4-2e46-4fd5-802b-2efcd4bad04a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>MemoMap.UWP</DisplayName>
-    <PublisherDisplayName>jolhu</PublisherDisplayName>
+    <DisplayName>MemoMap</DisplayName>
+    <PublisherDisplayName>Andrei Volynkin</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -32,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="MemoMap.UWP.App">
       <uap:VisualElements
-        DisplayName="MemoMap.UWP"
+        DisplayName="MemoMap"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="MemoMap.UWP"
