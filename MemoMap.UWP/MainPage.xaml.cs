@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MemoMap.UWP.Views.GroupViews;
 using MemoMap.UWP.Views.Map;
+using MemoMap.UWP.Views.AccountSettings;
 using MemoMap.UWP.ViewModels;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -41,7 +42,6 @@ namespace MemoMap.UWP
                 // access the tag
                 switch (nav_item.Tag)
                 {
-                
                     // my maps
                     case "my_maps":
                         MainFrame.Navigate(typeof(MyMapsPage));
@@ -54,6 +54,9 @@ namespace MemoMap.UWP
                         break;
                     case "map":
                         MainFrame.Navigate(typeof(MapPage));
+                        break;
+                    case "account_settings":
+                        MainFrame.Navigate(typeof(AccountSettings));
                         break;
                 }
             }

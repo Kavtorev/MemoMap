@@ -18,6 +18,7 @@
                 <NavigationViewItem Content="My Maps" Icon="Map" Tag="my_maps"/>
                 <NavigationViewItem Content="Create a group" Icon="Edit" Tag="create_group" />
                 <NavigationViewItem Content="Map" Icon="Map" Tag="map"/>
+                <NavigationViewItem Content="Account settings" Icon="Setting" Tag="account_settings"/>
             </NavigationView.MenuItems>
             <StackPanel>
                 <Button Background="Transparent" x:Name="ThemeChanger" Click="ThemeChanger_Click" HorizontalAlignment="Right">

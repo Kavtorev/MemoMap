@@ -126,6 +126,9 @@
     <Compile Include="ViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
+    <Compile Include="Views\AccountSettings\AccountSettings.xaml.cs">
+      <DependentUpon>AccountSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GroupViews\CreateGroupPage.xaml.cs">
       <DependentUpon>CreateGroupPage.xaml</DependentUpon>
     </Compile>
@@ -164,6 +167,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AccountSettings\AccountSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GroupViews\CreateGroupPage.xaml">
       <SubType>Designer</SubType>
