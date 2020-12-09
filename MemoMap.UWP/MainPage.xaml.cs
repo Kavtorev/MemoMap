@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MemoMap.UWP.Views.GroupViews;
 using MemoMap.UWP.Views.Map;
+using MemoMap.UWP.ViewModels;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -24,9 +25,11 @@ namespace MemoMap.UWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public MainViewModel MainViewModel { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
+            MainViewModel = new MainViewModel();
         }
 
         private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -60,6 +63,12 @@ namespace MemoMap.UWP
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(typeof(ViewGroupPage));
+        }
+
+     
+        private void ThemeChanger_Click(object sender, RoutedEventArgs e)
+        {
+            MainViewModel.toggleTheme();
         }
     }
 }
