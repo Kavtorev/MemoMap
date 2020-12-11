@@ -66,8 +66,7 @@ namespace MemoMap.UWP.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // triggered when a property set to a new value
-        // [CallerMemberName] - attribute which obtains the a property name of the caller
+        // [CallerMemberName] - attribute which obtains a property name of the caller
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

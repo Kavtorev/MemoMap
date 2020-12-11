@@ -32,17 +32,15 @@ namespace MemoMap.UWP
     {
         public MainViewModel MainViewModel { get; set; }
         public Dictionary<string, System.Type> Routes { get; set; }
-
-
         public MainPage()
         {
             this.InitializeComponent();
-            this.initializeRoutes();
+            this.InitializeRoutes();
             MainViewModel = new MainViewModel();
         }
 
-        // to add a new route use 
-        private void initializeRoutes()
+        // include new routes for pages here
+        private void InitializeRoutes()
         {
             // key - value pairs: <title of a page>  - <its data type>.
             Routes = new Dictionary<string, System.Type>
