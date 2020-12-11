@@ -31,40 +31,42 @@ namespace MemoMap.UWP
     public sealed partial class MainPage : Page
     {
         public MainViewModel MainViewModel { get; set; }
+        public Dictionary<string, System.Type> Routes { get; set; }
+
+
         public MainPage()
         {
             this.InitializeComponent();
+            this.initializeRoutes();
             MainViewModel = new MainViewModel();
+        }
+
+        // to add a new route use 
+        private void initializeRoutes()
+        {
+            // key - value pairs: <title of a page>  - <its data type>.
+            Routes = new Dictionary<string, System.Type>
+            {
+                {"my_maps",  typeof(MyMapsPage)},
+                {"create_group",  typeof(CreateGroupPage)},
+                {"view_groups",  typeof(ViewGroupPage)},
+                {"map",  typeof(MapPage)},
+                {"account_settings",  typeof(AccountSettings)}
+            };
         }
 
         private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-
             NavigationViewItem nav_item = args.InvokedItemContainer as NavigationViewItem;
             if (nav_item != null)
             {
-                // access the tag
-                switch (nav_item.Tag)
-                {
-                    // my maps
-                    case "my_maps":
-                        MainFrame.Navigate(typeof(MyMapsPage));
-                        break;
-                    case "create_group":
-                        MainFrame.Navigate(typeof(CreateGroupPage));
-                        break;
-                    case "view_groups":
-                        MainFrame.Navigate(typeof(ViewGroupPage));
-                        break;
-                    case "map":
-                        MainFrame.Navigate(typeof(MapPage));
-                        break;
-                    case "account_settings":
-                        MainFrame.Navigate(typeof(AccountSettings));
-                        break;
+                string pageTitle = nav_item.Tag.ToString();
+                if (Routes.ContainsKey(pageTitle) 
+                        && Routes.TryGetValue(pageTitle, out Type value)){
+                    MainFrame.Navigate(value);
+                    MainViewModel.setTitle(pageTitle);
                 }
             }
-
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

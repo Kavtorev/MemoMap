@@ -20,10 +20,13 @@
                 <NavigationViewItem Content="Map" Icon="Map" Tag="map"/>
                 <NavigationViewItem Content="Account settings" Icon="Setting" Tag="account_settings"/>
             </NavigationView.MenuItems>
-            <StackPanel>
-                <Button Background="Transparent" x:Name="ThemeChanger" Click="ThemeChanger_Click" HorizontalAlignment="Right">
-                    <Image x:Name="ThemeIcon" Source="{x:Bind MainViewModel.SourceIconImage, Mode=OneWay}" Height="30" />
-                </Button>
+            <StackPanel Padding="10, 0, 10, 10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{x:Bind MainViewModel.PageTitle, Mode=OneWay}" />
+                    <Button Background="Transparent" x:Name="ThemeChanger" Click="ThemeChanger_Click" HorizontalAlignment="Right">
+                        <Image x:Name="ThemeIcon" Source="{x:Bind MainViewModel.SourceIconImage, Mode=OneWay}" Height="30" />
+                    </Button>
+                </StackPanel>
                 <Frame x:Name="MainFrame"/>
             </StackPanel>
         </NavigationView>

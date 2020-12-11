@@ -16,10 +16,26 @@ namespace MemoMap.UWP.ViewModels
     {
         private ElementTheme _theme;
         private BitmapImage _sourceAttribute;
+        private string _pageTitle;
+        private static string absolutePathIcons;
+
         public MainViewModel()
         {
             Theme = ElementTheme.Light;
-            SourceIconImage = new BitmapImage(new Uri("ms-appx:///Assets/Icons/moon.png"));
+            absolutePathIcons = "ms-appx:///Assets/Icons/";
+            SourceIconImage = new BitmapImage(new Uri($"{absolutePathIcons}moon.png"));
+            PageTitle = "Home page";
+        }
+        public string PageTitle 
+        {   get 
+            {
+                return _pageTitle;
+            } 
+            set 
+            {
+                _pageTitle = value;
+                OnPropertyChanged();
+            } 
         }
         public BitmapImage SourceIconImage 
         {
@@ -30,6 +46,7 @@ namespace MemoMap.UWP.ViewModels
             set 
             {
                 _sourceAttribute = value;
+                // triggers PropertyChanged event in order to rerender the UI
                 OnPropertyChanged();
             } 
         }
@@ -49,6 +66,8 @@ namespace MemoMap.UWP.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        // triggered when a property set to a new value
+        // [CallerMemberName] - attribute which obtains the a property name of the caller
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -59,14 +78,19 @@ namespace MemoMap.UWP.ViewModels
             return theme == ElementTheme.Light;
         }
 
+        // toggleTheme - changes properties' values ( Theme, SourceIconImage )
         internal void toggleTheme()
         {
-            string absolutePathAssets = "ms-appx:///Assets/Icons/";
             Theme = isThemeLight(Theme) ? ElementTheme.Dark : ElementTheme.Light;
             SourceIconImage = isThemeLight(Theme) ?
-                new BitmapImage(new Uri($"{absolutePathAssets}moon.png"))
+                new BitmapImage(new Uri($"{absolutePathIcons}moon.png"))
                 :
-                new BitmapImage(new Uri($"{absolutePathAssets}sun.png"));
+                new BitmapImage(new Uri($"{absolutePathIcons}sun.png"));
+        }
+
+        internal void setTitle(string pageTitle)
+        {
+            PageTitle = pageTitle;
         }
     }
 }
