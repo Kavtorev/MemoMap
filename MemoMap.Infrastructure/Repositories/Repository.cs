@@ -33,13 +33,14 @@ namespace MemoMap.Infrastructure.Repositories
             //vReturns a DbSet<TEntity> instance for access to entities of the given type in the context and the underlying store.
             return await _dbContext.Set<T>().ToListAsync();
         }
-
-        public T FindByID(int id)
+        public async Task<T> UpdateAsync(T e)
         {
-            throw new NotImplementedException();
+            T record = _dbContext.Set<T>().Update(e).Entity;
+            await _dbContext.SaveChangesAsync();
+            return record;
         }
 
-        public T Update(T e)
+        public T FindByID(int id)
         {
             throw new NotImplementedException();
         }

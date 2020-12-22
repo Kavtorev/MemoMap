@@ -7,7 +7,7 @@ namespace MemoMap.Domain.SeedWork
 {
     public interface IRepository<T> where T:Entity
     {
-        T Update(T e);
+        Task<T> UpdateAsync(T e);
         Task<T> DeleteAsync(T e);
         // update and insert functionality in a one method, so we don't have to implement Create and Update separately
         T Upsert(T e);
