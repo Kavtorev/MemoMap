@@ -29,7 +29,8 @@
             <!-- geo position user picked -->
             <TextBlock FontSize="20" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Name="latitude"/>
             <TextBlock FontSize="20" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" TextAlignment="Center" Name="longtitute"/>
-            <Button IsEnabled="True" Click="Button_Click" Content="Add point" Grid.Column="3" FontSize="16" HorizontalAlignment="Right" CornerRadius="20"/>
+            <Button IsEnabled="False" Click="Button_Click" Content="Add point" Grid.Column="3" FontSize="16" HorizontalAlignment="Right" CornerRadius="20" Name="AddPoint"/>
+            
         </Grid>
         
         <!-- content row -->
