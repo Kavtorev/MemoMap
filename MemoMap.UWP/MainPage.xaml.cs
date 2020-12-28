@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MemoMap.UWP.Views.GroupViews;
-using MemoMap.UWP.Views.Map;
+using MemoMap.UWP.Views.Location;
 using MemoMap.UWP.Views.AccountSettings;
 using MemoMap.UWP.ViewModels;
 using Windows.UI.ApplicationSettings;
@@ -31,11 +31,12 @@ namespace MemoMap.UWP
     public sealed partial class MainPage : Page
     {
         public MainViewModel MainViewModel { get; set; }
+        public MapViewModel MapViewModel { get; set; }
         public Dictionary<string, System.Type> Routes { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
-            this.InitializeRoutes();
+            this.InitializeRoutes();            
             MainViewModel = new MainViewModel();
         }
 

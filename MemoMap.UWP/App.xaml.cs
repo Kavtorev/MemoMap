@@ -1,5 +1,6 @@
 ﻿using MemoMap.Domain;
 using MemoMap.Infrastructure;
+using MemoMap.UWP.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,7 @@ namespace MemoMap.UWP
         // connection string which allows UWP part to connect to the DB
         public string connectionString = "Server=localhost; Initial Catalog=memo-map; Integrated Security = True; User ID=memomapAdmin; Password=admin; Connect Timeout = 30;";
         public static IUnitOfWork UnitOfWork { get; set; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().

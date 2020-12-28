@@ -17,7 +17,7 @@ using Windows.Devices.Geolocation;
 
 
 
-namespace MemoMap.UWP.Views.Map
+namespace MemoMap.UWP.Views.Location
 {
     public sealed partial class MapPage : Page
     {
@@ -26,26 +26,17 @@ namespace MemoMap.UWP.Views.Map
             this.InitializeComponent();
         }
 
-        private void MemoMap_MapTapped(MapControl sender, MapInputEventArgs args)
+        private async void MemoMap_MapTapped(MapControl sender, MapInputEventArgs args)
         {
             var GeoPosition = args.Location.Position;
-
-            latitude.Text = GeoPosition.Latitude.ToString();
-            longtitute.Text = GeoPosition.Longitude.ToString();
-
-            // change button visibility
-            AddPoint.IsEnabled = true;
-        }
-
-        public void Button_Click(object sender, RoutedEventArgs e)
-        {
             var landmarks = new List<MapElement>();
-            
-            double lat = Convert.ToDouble(latitude.Text);
-            double longt = Convert.ToDouble(longtitute.Text);
+
+            // open pop up to ask user for additional information about point 
+            PointAdding pnt = new PointAdding();
+            await pnt.ShowAsync();
 
             // spec location
-            BasicGeoposition pos = new BasicGeoposition { Latitude = lat, Longitude = longt };
+            BasicGeoposition pos = new BasicGeoposition { Latitude = GeoPosition.Latitude, Longitude = GeoPosition.Longitude };
             Geopoint position = new Geopoint(pos);
 
             var spaceNeedleIcon = new MapIcon
@@ -53,7 +44,7 @@ namespace MemoMap.UWP.Views.Map
                 Location = position,
                 NormalizedAnchorPoint = new Point(0.5, 1.0),
                 ZIndex = 0,
-                Title = "New Point"
+                Title = "Title"
             };
 
             landmarks.Add(spaceNeedleIcon);
@@ -68,6 +59,10 @@ namespace MemoMap.UWP.Views.Map
 
             MemoMap.Center = position;
             MemoMap.ZoomLevel = 14;
+
+            // testing the list of currently picked position by the user
+            string result = landmarks.ToString();
+            positions.Text = result;
         }
     }
 }
