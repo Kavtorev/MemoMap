@@ -13,7 +13,7 @@ namespace MemoMap.Infrastructure
         public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Map> Maps { get; set; }
-        public DbSet<Location> Points { get; set; }
+        public DbSet<Location> Locations { get; set; }
         public DbSet<Route> Routes { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<GroupUser> GroupUsers { get; set; }
