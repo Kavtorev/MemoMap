@@ -43,7 +43,7 @@ namespace MemoMap.UWP
         private void InitializeRoutes()
         {
             // key - value pairs: <title of a page>  - <its data type>.
-            Routes = new Dictionary<string, System.Type>
+            Routes = new Dictionary<string, Type>
             {
                 {"my_maps",  typeof(MyMapsPage)},
                 {"create_group",  typeof(CreateGroupPage)},

@@ -8,7 +8,7 @@
 
   <Identity
     Name="36108AndreiVolynkin.MemoMap"
-    Publisher="CN=jolhu"
+    Publisher="CN=crash"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="0ac231c4-2e46-4fd5-802b-2efcd4bad04a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>

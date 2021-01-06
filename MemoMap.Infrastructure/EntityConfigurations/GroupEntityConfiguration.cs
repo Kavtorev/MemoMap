@@ -17,6 +17,7 @@ namespace MemoMap.Infrastructure.EntityConfigurations
         public void Configure(EntityTypeBuilder<Group> builder)
         {
             builder.Ignore(g => g.FormattedDate);
+            builder.Property(e => e.Name).IsRequired();
         }
     }
 }
