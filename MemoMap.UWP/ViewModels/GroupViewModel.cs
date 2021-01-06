@@ -41,5 +41,10 @@ namespace MemoMap.UWP.ViewModels
             await App.UnitOfWork.GroupRepository.DeleteAsync(group);
             Groups.Remove(group);
         }
+
+        internal async Task EditAsync()
+        {
+            await App.UnitOfWork.GroupRepository.UpdateAsync(Group);
+        }
     }
 }

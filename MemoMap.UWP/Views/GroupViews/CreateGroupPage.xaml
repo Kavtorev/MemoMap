@@ -26,7 +26,7 @@
             </CommandBar>
         </Grid>
         <StackPanel Grid.Row="1">
-            <TextBox  PlaceholderText="Group Name" Text="{x:Bind GroupViewModel.Group.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox x:Name="groupNameInput" PlaceholderText="Group Name" Text="{x:Bind GroupViewModel.Group.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
     </Grid>
 </Page>

@@ -37,18 +37,32 @@ namespace MemoMap.UWP.Views.GroupViews
             base.OnNavigatedTo(e);
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(CreateGroupPage));
-        }
-
         private async void DeleteGroup_Click(object sender, RoutedEventArgs e)
         {
+            // ???
             if (sender is FrameworkElement b && b.DataContext is Group group)
             {
                 await GroupViewModel.DeleteAsync(group);
             }
 
         }
+
+        private void editGroup_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is FrameworkElement b && b.DataContext is Group group)
+            {
+                Dictionary<string, object> paramDict = new Dictionary<string, object> {
+                    {"mode", "editing" },
+                    {"object", group }
+                };
+                this.Frame.Navigate(typeof(CreateGroupPage), paramDict);
+            }
+        }
+        private void createNewGroup_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CreateGroupPage));
+        }
+
+      
     }
 }
