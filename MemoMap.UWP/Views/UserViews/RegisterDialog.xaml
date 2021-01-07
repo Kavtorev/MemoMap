@@ -1,0 +1,33 @@
+﻿<ContentDialog
+    x:Class="MemoMap.UWP.Views.UserViews.RegisterDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:MemoMap.UWP.Views.UserViews"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Registration"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    PrimaryButtonText="Register"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
+    SecondaryButtonText="Cancel"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <TextBox
+            Header="Username"
+            PlaceholderText="Enter a new username"
+            Text="{x:Bind UserViewModel.User.Username, Mode=TwoWay}" />
+        <TextBox
+            Header="Email"
+            PlaceholderText="Enter a new Email"
+            Text="{x:Bind UserViewModel.User.Email, Mode=TwoWay}" />
+        <PasswordBox
+            Header="Password"
+            Password="{x:Bind UserViewModel.User.Password, Mode=TwoWay}"
+            PlaceholderText="Enter a new password" />
+        <PasswordBox
+            Header="Repeat password"
+            Password="{x:Bind UserViewModel.RepeatedPassword}"
+            PlaceholderText="Duplicate entered password" />
+    </StackPanel>
+</ContentDialog>
