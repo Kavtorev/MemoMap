@@ -31,6 +31,7 @@ namespace MemoMap.Infrastructure
             modelBuilder.ApplyConfiguration(new MapLocationEntityConfiguration());
             modelBuilder.ApplyConfiguration(new MapRouteEntityConfiguration());
             modelBuilder.ApplyConfiguration(new UserMapEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
         }
 
         /*
