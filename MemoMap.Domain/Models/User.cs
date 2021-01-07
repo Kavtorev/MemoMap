@@ -9,14 +9,15 @@ namespace MemoMap.Domain
     public class User : Entity
     {
         /*
-         user_id int 
-         email string 
+         username string 
+         email string
          password string
-         role string
+         isAdmin boolean 
         */
+        public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }
+        public bool isAdmin { get; set; }
 
         // user can be part of many groups
         public ICollection<GroupUser> GroupUsers { get; set; }
