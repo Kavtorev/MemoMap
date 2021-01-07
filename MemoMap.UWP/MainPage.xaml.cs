@@ -20,6 +20,7 @@ using Windows.UI.ApplicationSettings;
 using Windows.Security.Authentication.Web.Core;
 using Windows.Security.Credentials;
 using Windows.Storage;
+using MemoMap.UWP.Views.UserViews;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -31,6 +32,7 @@ namespace MemoMap.UWP
     public sealed partial class MainPage : Page
     {
         public MainViewModel MainViewModel { get; set; }
+        public UserViewModel UserViewModel { get; set; }
         public MapViewModel MapViewModel { get; set; }
         public Dictionary<string, System.Type> Routes { get; set; }
         public MainPage()
@@ -38,6 +40,7 @@ namespace MemoMap.UWP
             this.InitializeComponent();
             this.InitializeRoutes();            
             MainViewModel = new MainViewModel();
+            UserViewModel = App.UserViewModel;
         }
 
         // include new routes for pages here
@@ -113,6 +116,42 @@ namespace MemoMap.UWP
         {
             ApplicationData.Current.LocalSettings.Values["CurrentUserProviderId"] = account.WebAccountProvider.Id;
             ApplicationData.Current.LocalSettings.Values["CurrentUserId"] = account.Id;
+        }
+
+        private async void LoginItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            LoginDialog dlg = new LoginDialog();
+            var res = await dlg.ShowAsync();
+
+            // checking if the dialog's opened successfully.
+            if (res == ContentDialogResult.Primary)
+            {
+                if (App.UserViewModel.IsLoggedIn)
+                {
+                    MainFrame.Navigate(typeof(ViewGroupPage));
+                }
+
+            }
+        }
+
+        private async void RegistrationItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            RegisterDialog dlg = new RegisterDialog();
+            var res = await dlg.ShowAsync();
+
+            // checking if the dialog's opened successfully.
+            if (res == ContentDialogResult.Primary)
+            {
+                if (App.UserViewModel.IsLoggedIn)
+                {
+                    MainFrame.Navigate(typeof(ViewGroupPage));
+                }
+            }
+        }
+
+        private void Logout_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            UserViewModel.LoggedUser = null;
         }
     }
 }

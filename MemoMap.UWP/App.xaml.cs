@@ -35,6 +35,9 @@ namespace MemoMap.UWP
         public string connectionString = "Server=localhost; Initial Catalog=memo-map; Integrated Security = True; User ID=memomapAdmin; Password=admin; Connect Timeout = 30;";
         public static IUnitOfWork UnitOfWork { get; set; }
 
+        // user is globally accessible
+        public static UserViewModel UserViewModel { get; set; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -43,6 +46,7 @@ namespace MemoMap.UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            UserViewModel = new UserViewModel();
         }
 
         /// <summary>

@@ -32,31 +32,51 @@
                     Icon="Map"
                     Tag="map" />
             </NavigationView.MenuItems>
-            <Grid Padding="10, 0, 10, 10">
+            <Grid Padding="10,0,10,10">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{x:Bind MainViewModel.PageTitle, Mode=OneWay}" />
                 </StackPanel>
                 <Frame x:Name="MainFrame" />
             </Grid>
             <NavigationView.PaneFooter>
-
-                <Button
-                    x:Name="ThemeChanger"
-                    HorizontalAlignment="Stretch"
-                    Background="Transparent"
-                    Click="ThemeChanger_Click">
-                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                        <Image
-                            x:Name="ThemeIcon"
-                            Height="30"
-                            Source="{x:Bind MainViewModel.SourceIconImage, Mode=OneWay}" />
-                        <TextBlock
-                            Margin="10,0,0,0"
-                            VerticalAlignment="Center"
-                            Text="Theme" />
+                <StackPanel>
+                    <Button
+                        x:Name="ThemeChanger"
+                        HorizontalAlignment="Stretch"
+                        Background="Transparent"
+                        Click="ThemeChanger_Click">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                            <Image
+                                x:Name="ThemeIcon"
+                                Height="30"
+                                Source="{x:Bind MainViewModel.SourceIconImage, Mode=OneWay}" />
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="Theme" />
+                        </StackPanel>
+                    </Button>
+                    <StackPanel>
+                        <NavigationViewItem
+                            x:Name="LoginItem"
+                            Content="Login"
+                            Icon="Permissions"
+                            Tapped="LoginItem_Tapped"
+                            Visibility="{x:Bind UserViewModel.notAuthenticated, Mode=OneWay}" />
+                        <NavigationViewItem
+                            x:Name="RegistrationItem"
+                            Content="Register"
+                            Icon="Add"
+                            Tapped="RegistrationItem_Tapped"
+                            Visibility="{x:Bind UserViewModel.notAuthenticated, Mode=OneWay}" />
+                        <NavigationViewItem
+                            x:Name="Logout"
+                            Content="LogOut"
+                            Icon="ClosePane"
+                            Tapped="Logout_Tapped"
+                            Visibility="{x:Bind UserViewModel.IsLoggedIn, Mode=OneWay}" />
                     </StackPanel>
-                </Button>
-
+                </StackPanel>
             </NavigationView.PaneFooter>
         </NavigationView>
     </Grid>
