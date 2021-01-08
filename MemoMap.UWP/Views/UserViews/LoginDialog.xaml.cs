@@ -29,13 +29,51 @@ namespace MemoMap.UWP.Views.UserViews
 
         }
 
-        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
         {
-            await UserViewModel.DoLoginAsync();
+            // args.Cancel -> true - leave opened dialog
+            // args.Cancel -> false - close dialog 
+            if (args.Result == ContentDialogResult.Primary)
+            {
+                args.Cancel = true;
+
+                // if there are validation errors
+                if (!string.IsNullOrEmpty(UserViewModel.LoginFormValidator.ValidateLoginField()))
+                {
+                    UserViewModel.RerenderErrorText(nameof(UserViewModel.LoginFormValidator));
+                } else
+                {
+                    // if there are no validation errors then...
+                    // try to login
+                    await UserViewModel.DoLoginAsync();
+                    // if there post-validation errors
+                    if (!string.IsNullOrEmpty(UserViewModel.LoginFormValidator.Errors))
+                    {
+                        // show post-validation errors
+                        UserViewModel.RerenderErrorText(nameof(UserViewModel.LoginFormValidator));    
+                    } else
+                    {
+                        // if data passed all the validations close the dialog
+                        Hide();
+                    }
+                }
+            } 
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
         }
+
+        private void EmailField_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UserViewModel.LoginFormValidatorSetProperty("email", EmailField.Text);
+        }
+
+        private void PasswordField_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            UserViewModel.LoginFormValidatorSetProperty("password", PasswordField.Password);
+        }
+
+        
     }
 }

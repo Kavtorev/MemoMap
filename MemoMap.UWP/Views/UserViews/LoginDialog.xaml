@@ -6,21 +6,25 @@
     xmlns:local="using:MemoMap.UWP.Views.UserViews"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Autentication"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    Closing="ContentDialog_Closing"
     PrimaryButtonText="Login"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
     SecondaryButtonText="Cancel"
     mc:Ignorable="d">
 
     <StackPanel>
-        <TextBlock Text="I am a text a block" />
+        <TextBlock Text="{x:Bind UserViewModel.LoginFormValidator.Errors, Mode=TwoWay}" />
         <TextBox
+            x:Name="EmailField"
             Header="Email"
             PlaceholderText="Enter your email"
-            Text="{x:Bind UserViewModel.User.Email, Mode=TwoWay}" />
+            Text="{x:Bind UserViewModel.User.Email, Mode=TwoWay}"
+            TextChanged="EmailField_TextChanged" />
         <PasswordBox
+            x:Name="PasswordField"
             Header="Password"
             Password="{x:Bind UserViewModel.User.Password, Mode=TwoWay}"
+            PasswordChanged="PasswordField_PasswordChanged"
             PlaceholderText="Enter your password" />
     </StackPanel>
 
