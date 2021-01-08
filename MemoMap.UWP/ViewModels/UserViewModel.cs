@@ -7,20 +7,23 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using BCrypt.Net;
+using MemoMap.Infrastructure.Validation;
 
 namespace MemoMap.UWP.ViewModels
 {
     public class UserViewModel : INotifyPropertyChanged
 
     {
+        
         public UserViewModel()
         {
             User = new User();
+            LoginFormValidator = new LoginFormValidation();
+            RegistrationFormValidator = new RegistrationFormValidation();
         }
         private User _loggedUser;
-
-
-        public string RepeatedPassword { get; set; }
+        public LoginFormValidation LoginFormValidator { get; set; }
+        public RegistrationFormValidation RegistrationFormValidator { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -64,8 +67,28 @@ namespace MemoMap.UWP.ViewModels
 
         public User User { get; set; }
 
+        public void LoginFormValidatorSetProperty(string key, string value)
+        {
+            LoginFormValidator.Properties[key] = value;
+            LoginFormValidator.ValidateLoginField();
+            RerenderErrorText(nameof(LoginFormValidator));
+        }
 
-        internal async Task DoLoginAsync()
+        public void RegistrationFormValidatorSetProperty(string key, string value)
+        {
+            RegistrationFormValidator.Properties[key] = value;
+            RegistrationFormValidator.ValidateRegistrationForm();
+            RerenderErrorText(nameof(RegistrationFormValidator));
+        }
+
+        public void RerenderErrorText(string propertyName)
+        {
+            OnPropertyChanged(propertyName);
+        }      
+
+   
+
+        internal async Task<bool> DoLoginAsync()
         {
             // A user is able to login by an email.
 
@@ -78,18 +101,21 @@ namespace MemoMap.UWP.ViewModels
                 {
                     // authenticating the user 
                     LoggedUser = userToLogin;
-                   
-                    // show the notification that the user us logged in.
 
+                    // show the notification that the user us logged in.
+                    return true;
                 } else
                 {
                     //disallow to login and notify that there is something wrong with the provided credentials
+                    LoginFormValidator.SetPostValidationErrors("Wrong Credentials");
                 }
             }
             else
             {
                 // there is no such user
+                LoginFormValidator.SetPostValidationErrors("There is no registered user under the provided email.");
             }
+            return false;
         }
 
         internal async Task DoRegistrationAsync()
@@ -102,19 +128,19 @@ namespace MemoMap.UWP.ViewModels
                     string passwordHash = BCrypt.Net.BCrypt.HashPassword(User.Password);
                     User.Password = passwordHash;
                     // inserting a new entry into the db
-                    await App.UnitOfWork.UserRepository.CreateAsync(User);
-                    // fetching a newly added user
-                    User user = await App.UnitOfWork.UserRepository.FindByEmailAsync(User.Email);
+                    User user = await App.UnitOfWork.UserRepository.CreateAsync(User);           
                     // authenticating the user.
                     LoggedUser = user;
 
                 } else
                 {
                     // username should be unique
+                    RegistrationFormValidator.SetPostValidationErrors("Username is already taken.");
                 }
             } else
             {
                 // there is already a user, registered with the given email
+                RegistrationFormValidator.SetPostValidationErrors("The is already registered user under the provided email.");
             }
         }
 
