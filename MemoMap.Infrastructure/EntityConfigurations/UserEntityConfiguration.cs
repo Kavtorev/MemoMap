@@ -13,7 +13,7 @@ namespace MemoMap.Infrastructure.EntityConfigurations
         {
             builder.HasIndex(i => i.Username).IsUnique();
             builder.Property(i => i.Username).IsRequired().HasMaxLength(256);
-            builder.Property(i => i.Password).IsRequired().HasMaxLength(256);
+            builder.Property(i => i.Password).IsRequired().HasMaxLength(15);
             builder.Property(i => i.Email).IsRequired().HasMaxLength(256);
             builder.Property(i => i.isAdmin).IsRequired();
         }
