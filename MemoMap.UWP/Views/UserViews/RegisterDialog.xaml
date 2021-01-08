@@ -6,28 +6,36 @@
     xmlns:local="using:MemoMap.UWP.Views.UserViews"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Registration"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    Closing="ContentDialog_Closing"
     PrimaryButtonText="Register"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
     SecondaryButtonText="Cancel"
     mc:Ignorable="d">
 
     <StackPanel>
+        <TextBlock Text="{x:Bind UserViewModel.RegistrationFormValidator.Errors, Mode=TwoWay}" />
         <TextBox
+            x:Name="UsernameField"
             Header="Username"
             PlaceholderText="Enter a new username"
-            Text="{x:Bind UserViewModel.User.Username, Mode=TwoWay}" />
+            Text="{x:Bind UserViewModel.User.Username, Mode=TwoWay}"
+            TextChanged="UsernameField_TextChanged" />
         <TextBox
+            x:Name="EmailField"
             Header="Email"
             PlaceholderText="Enter a new Email"
-            Text="{x:Bind UserViewModel.User.Email, Mode=TwoWay}" />
+            Text="{x:Bind UserViewModel.User.Email, Mode=TwoWay}"
+            TextChanged="EmailField_TextChanged" />
         <PasswordBox
+            x:Name="PasswordField"
             Header="Password"
             Password="{x:Bind UserViewModel.User.Password, Mode=TwoWay}"
+            PasswordChanged="PasswordField_PasswordChanged"
             PlaceholderText="Enter a new password" />
         <PasswordBox
+            x:Name="RepeatedPasswordField"
             Header="Repeat password"
-            Password="{x:Bind UserViewModel.RepeatedPassword}"
+            PasswordChanged="RepeatedPasswordField_PasswordChanged"
             PlaceholderText="Duplicate entered password" />
     </StackPanel>
 </ContentDialog>
