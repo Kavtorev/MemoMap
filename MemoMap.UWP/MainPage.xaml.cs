@@ -152,6 +152,7 @@ namespace MemoMap.UWP
         private void Logout_Tapped(object sender, TappedRoutedEventArgs e)
         {
             UserViewModel.LoggedUser = null;
+            UserViewModel.User = null;
         }
     }
 }
