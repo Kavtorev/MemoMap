@@ -11,7 +11,8 @@ using MemoMap.Infrastructure.Validation;
 
 namespace MemoMap.UWP.ViewModels
 {
-    public class UserViewModel : INotifyPropertyChanged
+    //public class UserViewModel : INotifyPropertyChanged
+    public class UserViewModel : BindableBase
 
     {
         
@@ -25,25 +26,13 @@ namespace MemoMap.UWP.ViewModels
         public LoginFormValidation LoginFormValidator { get; set; }
         public RegistrationFormValidation RegistrationFormValidator { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
+        
         public User LoggedUser
         {
-            get
-            {
-                return _loggedUser;
-            }
-
+            get => _loggedUser;
             set
             {
-                _loggedUser = value;
-                OnPropertyChanged();
+                SetField(ref _loggedUser, value);
                 OnPropertyChanged(nameof(IsLoggedIn));
                 OnPropertyChanged(nameof(notAuthenticated));
             }
@@ -51,18 +40,12 @@ namespace MemoMap.UWP.ViewModels
 
         public bool IsLoggedIn
         {
-            get
-            {
-                return LoggedUser != null;
-            }
+            get => LoggedUser != null;
         }
 
         public bool notAuthenticated
         {
-            get
-            {
-                return !IsLoggedIn;
-            }
+            get => !IsLoggedIn;
         }
 
         public User User { get; set; }

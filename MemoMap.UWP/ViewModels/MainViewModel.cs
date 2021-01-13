@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace MemoMap.UWP.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : BindableBase
     {
         private ElementTheme _theme;
         private BitmapImage _sourceAttribute;
@@ -26,52 +26,24 @@ namespace MemoMap.UWP.ViewModels
             SourceIconImage = new BitmapImage(new Uri($"{absolutePathIcons}moon.png"));
             PageTitle = "Home page";
         }
+
         public string PageTitle 
-        {   get 
-            {
-                return _pageTitle;
-            } 
-            set 
-            {
-                _pageTitle = value;
-                OnPropertyChanged();
-            } 
+        {   get => _pageTitle;
+            set => SetField(ref _pageTitle, value);
         }
         public BitmapImage SourceIconImage 
         {
-            get 
-            {
-                return _sourceAttribute;
-            }
-            set 
-            {
-                _sourceAttribute = value;
-                // triggers PropertyChanged event in order to rerender the UI
-                OnPropertyChanged();
-            } 
+            get => _sourceAttribute;              
+            set => SetField(ref _sourceAttribute, value);
         }
 
         public ElementTheme Theme 
         {
-            get 
-            {
-                return _theme;
-            } 
-            set 
-            {
-                _theme = value;
-                OnPropertyChanged();
-            }
+            get => _theme;
+            set => SetField(ref _theme, value);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        // [CallerMemberName] - attribute which obtains a property name of the caller
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+       
         private bool isThemeLight(ElementTheme theme)
         {
             return theme == ElementTheme.Light;
