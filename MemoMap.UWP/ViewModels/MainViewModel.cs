@@ -27,23 +27,24 @@ namespace MemoMap.UWP.ViewModels
             PageTitle = "Home page";
         }
 
-        public string PageTitle 
-        {   get => _pageTitle;
+        public string PageTitle
+        {
+            get => _pageTitle;
             set => SetField(ref _pageTitle, value);
         }
-        public BitmapImage SourceIconImage 
+        public BitmapImage SourceIconImage
         {
-            get => _sourceAttribute;              
+            get => _sourceAttribute;
             set => SetField(ref _sourceAttribute, value);
         }
 
-        public ElementTheme Theme 
+        public ElementTheme Theme
         {
             get => _theme;
             set => SetField(ref _theme, value);
         }
 
-       
+
         private bool isThemeLight(ElementTheme theme)
         {
             return theme == ElementTheme.Light;

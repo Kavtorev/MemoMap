@@ -15,7 +15,7 @@ namespace MemoMap.UWP.ViewModels
     public class UserViewModel : BindableBase
 
     {
-        
+
         public UserViewModel()
         {
             User = new User();
@@ -26,7 +26,7 @@ namespace MemoMap.UWP.ViewModels
         public LoginFormValidation LoginFormValidator { get; set; }
         public RegistrationFormValidation RegistrationFormValidator { get; set; }
 
-        
+
         public User LoggedUser
         {
             get => _loggedUser;
@@ -67,9 +67,9 @@ namespace MemoMap.UWP.ViewModels
         public void RerenderErrorText(string propertyName)
         {
             OnPropertyChanged(propertyName);
-        }      
+        }
 
-   
+
 
         internal async Task<bool> DoLoginAsync()
         {
@@ -87,7 +87,8 @@ namespace MemoMap.UWP.ViewModels
 
                     // show the notification that the user us logged in.
                     return true;
-                } else
+                }
+                else
                 {
                     //disallow to login and notify that there is something wrong with the provided credentials
                     LoginFormValidator.SetPostValidationErrors("Wrong Credentials");
@@ -111,16 +112,18 @@ namespace MemoMap.UWP.ViewModels
                     string passwordHash = BCrypt.Net.BCrypt.HashPassword(User.Password);
                     User.Password = passwordHash;
                     // inserting a new entry into the db
-                    User user = await App.UnitOfWork.UserRepository.CreateAsync(User);           
+                    User user = await App.UnitOfWork.UserRepository.CreateAsync(User);
                     // authenticating the user.
                     LoggedUser = user;
 
-                } else
+                }
+                else
                 {
                     // username should be unique
                     RegistrationFormValidator.SetPostValidationErrors("Username is already taken.");
                 }
-            } else
+            }
+            else
             {
                 // there is already a user, registered with the given email
                 RegistrationFormValidator.SetPostValidationErrors("The is already registered user under the provided email.");

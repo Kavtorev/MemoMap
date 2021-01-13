@@ -63,7 +63,8 @@ namespace MemoMap.UWP.Views.GroupViews
             if (_mode == "creation")
             {
                 await GroupViewModel.InsertAsync();
-            } else
+            }
+            else
             {
                 await GroupViewModel.EditAsync();
             }
@@ -80,6 +81,6 @@ namespace MemoMap.UWP.Views.GroupViews
                 this.Frame.GoBack();
         }
 
-      
+
     }
 }

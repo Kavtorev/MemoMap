@@ -38,7 +38,7 @@ namespace MemoMap.UWP
         public MainPage()
         {
             this.InitializeComponent();
-            this.InitializeRoutes();            
+            this.InitializeRoutes();
             MainViewModel = new MainViewModel();
             UserViewModel = App.UserViewModel;
         }
@@ -63,8 +63,9 @@ namespace MemoMap.UWP
             if (nav_item != null)
             {
                 string pageTitle = nav_item.Tag.ToString();
-                if (Routes.ContainsKey(pageTitle) 
-                        && Routes.TryGetValue(pageTitle, out Type value)){
+                if (Routes.ContainsKey(pageTitle)
+                        && Routes.TryGetValue(pageTitle, out Type value))
+                {
                     MainFrame.Navigate(value);
                     MainViewModel.setTitle(pageTitle);
                 }
@@ -76,7 +77,7 @@ namespace MemoMap.UWP
             MainFrame.Navigate(typeof(ViewGroupPage));
         }
 
-     
+
         private void ThemeChanger_Click(object sender, RoutedEventArgs e)
         {
             MainViewModel.toggleTheme();

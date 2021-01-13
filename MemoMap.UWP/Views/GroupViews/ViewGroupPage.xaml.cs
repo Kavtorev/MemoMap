@@ -63,6 +63,6 @@ namespace MemoMap.UWP.Views.GroupViews
             this.Frame.Navigate(typeof(CreateGroupPage));
         }
 
-      
+
     }
 }
