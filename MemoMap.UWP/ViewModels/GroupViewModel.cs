@@ -1,4 +1,5 @@
-﻿using MemoMap.Domain.Models;
+﻿using MemoMap.Domain;
+using MemoMap.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,9 +23,13 @@ namespace MemoMap.UWP.ViewModels
 
         public async Task LoadAllAsync()
         {
-            List<Group> groups = await App.UnitOfWork.GroupRepository.FindAllAsync();
+            List<Group> groups = await App.
+                UnitOfWork.
+                GroupRepository.
+                FindAllJoinedGroupsAsync(App.UserViewModel.LoggedUser.Id);
+
             Groups.Clear();
-            foreach(Group g in groups)
+            foreach (Group g in groups)
             {
                 Groups.Add(g);
             }
@@ -33,7 +38,13 @@ namespace MemoMap.UWP.ViewModels
         internal async Task InsertAsync()
         {
             Group.Date = DateTime.Now;
-            await App.UnitOfWork.GroupRepository.CreateAsync(Group);
+            Group newGroup = await App.UnitOfWork.GroupRepository.CreateAsync(Group);
+            GroupUser g2u = new GroupUser
+            {
+                GroupId = newGroup.Id,
+                UserId = App.UserViewModel.LoggedUser.Id,
+            };
+            await App.UnitOfWork.GroupUserRepository.CreateAsync(g2u);
         }
 
         internal async Task DeleteAsync(Group group)

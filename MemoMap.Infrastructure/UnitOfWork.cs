@@ -1,4 +1,5 @@
 ﻿using MemoMap.Domain;
+using MemoMap.Domain.Models;
 using MemoMap.Domain.Repositories;
 using MemoMap.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -33,5 +34,7 @@ namespace MemoMap.Infrastructure
         public IUserRepository UserRepository => new UserRepository(new MemoMapDbContext(Options));
 
         public INoteRepository NoteRepository => new NoteRepository(new MemoMapDbContext(Options));
+
+        public IGroupUserRepository<GroupUser> GroupUserRepository => new GroupUserRepository(new MemoMapDbContext(Options));
     }
 }

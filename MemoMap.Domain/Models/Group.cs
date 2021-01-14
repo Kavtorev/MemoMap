@@ -8,6 +8,11 @@ namespace MemoMap.Domain.Models
 {
     public class Group : Entity
     {
+
+        public Group()
+        {
+            GroupUsers = new List<GroupUser>();
+        }
         /*
          group_id INT
          name string
@@ -22,7 +27,7 @@ namespace MemoMap.Domain.Models
             }
         }
     
-        // many users can be in one group
+        // many users can be in a one group
         public ICollection<GroupUser> GroupUsers { get; set; }
 
         // one group can include many maps

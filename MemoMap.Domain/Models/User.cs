@@ -8,6 +8,10 @@ namespace MemoMap.Domain
 {
     public class User : Entity
     {
+        public User()
+        {
+            GroupUsers = new List<GroupUser>();
+        }
         /*
          username string 
          email string
