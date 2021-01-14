@@ -40,9 +40,9 @@ namespace MemoMap.Infrastructure.Repositories
             return record;
         }
 
-        public T FindByID(int id)
+        public async Task<T> FindByIDAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<T>().FindAsync(id);
         }
 
         public T Upsert(T e)

@@ -75,7 +75,7 @@ namespace MemoMap.UWP.Views.UserViews
         {
             UserViewModel.RegistrationFormValidatorSetProperty("email", EmailField.Text);
         }
-
+            
         private void PasswordField_PasswordChanged(object sender, RoutedEventArgs e)
         {
             UserViewModel.RegistrationFormValidatorSetProperty("password", PasswordField.Password);

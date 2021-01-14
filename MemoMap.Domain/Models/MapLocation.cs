@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MemoMap.Domain.Models
+﻿namespace MemoMap.Domain.Models
 {
     public class MapLocation
     {
