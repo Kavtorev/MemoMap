@@ -21,12 +21,14 @@ namespace MemoMap.Infrastructure.EntityConfigurations
             builder
                 .HasOne(bc => bc.Group)
                 .WithMany(b => b.GroupUsers)
-                .HasForeignKey(bc => bc.GroupId);
+                .HasForeignKey(bc => bc.GroupId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasOne(bc => bc.User)
                 .WithMany(c => c.GroupUsers)
-                .HasForeignKey(bc => bc.UserId);
+                .HasForeignKey(bc => bc.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
