@@ -12,6 +12,7 @@ namespace MemoMap.Domain.Models
         public Group()
         {
             GroupUsers = new List<GroupUser>();
+            Date = DateTime.Now;
         }
         /*
          group_id INT

@@ -44,10 +44,5 @@ namespace MemoMap.Infrastructure.Repositories
         {
             return await _dbContext.Set<T>().FindAsync(id);
         }
-
-        public T Upsert(T e)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

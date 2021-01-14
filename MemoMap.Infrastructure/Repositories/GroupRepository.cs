@@ -28,5 +28,15 @@ namespace MemoMap.Infrastructure.Repositories
             return res;
         }
 
+        public async Task<Group> UpsertAsync(Group group)
+        {
+            if (group.Id == 0)
+            {
+                return await this.CreateAsync(group);
+            }
+            await this.UpdateAsync(group);
+
+            return null;
+        }
     }
 }

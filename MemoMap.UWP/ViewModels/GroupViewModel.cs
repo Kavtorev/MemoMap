@@ -35,16 +35,35 @@ namespace MemoMap.UWP.ViewModels
             }
         }
 
+
         internal async Task InsertAsync()
         {
             Group.Date = DateTime.Now;
             Group newGroup = await App.UnitOfWork.GroupRepository.CreateAsync(Group);
-            GroupUser g2u = new GroupUser
+            await App.UnitOfWork.GroupUserRepository.CreateAsync(
+                new GroupUser
+                {
+                    GroupId = newGroup.Id,
+                    UserId = App.UserViewModel.LoggedUser.Id,
+                }
+            );
+        }
+
+        internal async Task InsertOrUpdate()
+        {
+            var newGroup = await App.UnitOfWork.GroupRepository.UpsertAsync(Group);
+
+            if (newGroup != null)
             {
-                GroupId = newGroup.Id,
-                UserId = App.UserViewModel.LoggedUser.Id,
-            };
-            await App.UnitOfWork.GroupUserRepository.CreateAsync(g2u);
+              
+               await App.UnitOfWork.GroupUserRepository.CreateAsync(
+                   new GroupUser
+                       {
+                           GroupId = newGroup.Id,
+                           UserId = App.UserViewModel.LoggedUser.Id,
+                       }
+                   );
+            }
         }
 
         internal async Task DeleteAsync(Group group)

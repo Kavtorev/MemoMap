@@ -26,48 +26,25 @@ namespace MemoMap.UWP.Views.GroupViews
     public sealed partial class CreateGroupPage : Page
     {
         public GroupViewModel GroupViewModel { get; set; }
-        private string _mode;
-        private Group _entityToEdit;
         public CreateGroupPage()
         {
             this.InitializeComponent();
             GroupViewModel = new GroupViewModel();
-            _mode = "creation";
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter != null)
             {
-                var dictParam = (Dictionary<string, object>)e.Parameter;
-
-                if (
-                    dictParam.ContainsKey("mode") &&
-                    dictParam.ContainsKey("object") &&
-                    dictParam.TryGetValue("object", out object entity) &&
-                    dictParam.TryGetValue("mode", out object mode)
-                    )
-                {
-                    _mode = (string)mode;
-                    _entityToEdit = (Group)entity;
-
-                    GroupViewModel.Group = _entityToEdit;
-
-                }
+                var model = e.Parameter as Group;
+                GroupViewModel.Group = model;
+                base.OnNavigatedTo(e);
             }
-            base.OnNavigatedTo(e);
         }
 
         private async void Save_Click(object sender, RoutedEventArgs e)
         {
-            if (_mode == "creation")
-            {
-                await GroupViewModel.InsertAsync();
-            }
-            else
-            {
-                await GroupViewModel.EditAsync();
-            }
+            await GroupViewModel.InsertOrUpdate();
 
             if (this.Frame.CanGoBack)
             {
