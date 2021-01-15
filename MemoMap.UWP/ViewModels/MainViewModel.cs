@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -64,5 +68,41 @@ namespace MemoMap.UWP.ViewModels
         {
             PageTitle = pageTitle;
         }
+
+
+        internal async Task<StorageFile> PickImageFileAsync()
+        {
+            FileOpenPicker openPicker = new FileOpenPicker();
+            openPicker.FileTypeFilter.Clear();
+            openPicker.FileTypeFilter.Add(".png");
+            openPicker.FileTypeFilter.Add(".jpg");
+            StorageFile file = await openPicker.PickSingleFileAsync();
+            return file;
+        }
+
+        internal async Task<BitmapImage> LoadImageFile(StorageFile file)
+        {
+            var stream = await file.OpenAsync(FileAccessMode.Read);
+            BitmapImage image = new BitmapImage();
+            image.SetSource(stream);
+
+            return image;
+        }
+
+        internal async Task<byte[]> LoadFileByteArray(StorageFile file)
+        {
+            if (file != null)
+            {
+                using (Stream stream = await file.OpenStreamForReadAsync())
+                {
+                    byte[] content = new byte[stream.Length];
+                    await stream.ReadAsync(content, 0, content.Length);
+                    return content;
+                }
+            }
+            return null;
+        }
+
+        
     }
 }

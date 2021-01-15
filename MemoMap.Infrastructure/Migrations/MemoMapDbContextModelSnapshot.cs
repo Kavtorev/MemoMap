@@ -33,6 +33,9 @@ namespace MemoMap.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Thumbnail")
+                        .HasColumnType("image");
+
                     b.HasKey("Id");
 
                     b.ToTable("Groups");
@@ -103,28 +106,42 @@ namespace MemoMap.Infrastructure.Migrations
 
             modelBuilder.Entity("MemoMap.Domain.Models.MapLocation", b =>
                 {
-                    b.Property<int>("MapId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("LocationId")
                         .HasColumnType("int");
 
-                    b.HasKey("MapId", "LocationId");
+                    b.Property<int>("MapId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("LocationId");
+
+                    b.HasIndex("MapId");
 
                     b.ToTable("MapLocation");
                 });
 
             modelBuilder.Entity("MemoMap.Domain.Models.MapRoute", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("MapId")
                         .HasColumnType("int");
 
                     b.Property<int>("RouteId")
                         .HasColumnType("int");
 
-                    b.HasKey("MapId", "RouteId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("MapId");
 
                     b.HasIndex("RouteId");
 
@@ -174,15 +191,22 @@ namespace MemoMap.Infrastructure.Migrations
 
             modelBuilder.Entity("MemoMap.Domain.Models.UserMap", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("MapId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId", "MapId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("MapId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserMaps");
                 });

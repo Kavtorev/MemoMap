@@ -14,7 +14,8 @@ namespace MemoMap.Infrastructure.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: false),
-                    Date = table.Column<DateTime>(nullable: false)
+                    Date = table.Column<DateTime>(nullable: false),
+                    Thumbnail = table.Column<byte[]>(type: "image", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -137,12 +138,14 @@ namespace MemoMap.Infrastructure.Migrations
                 name: "MapLocation",
                 columns: table => new
                 {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     MapId = table.Column<int>(nullable: false),
                     LocationId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MapLocation", x => new { x.MapId, x.LocationId });
+                    table.PrimaryKey("PK_MapLocation", x => x.Id);
                     table.ForeignKey(
                         name: "FK_MapLocation_Locations_LocationId",
                         column: x => x.LocationId,
@@ -161,12 +164,14 @@ namespace MemoMap.Infrastructure.Migrations
                 name: "MapRoute",
                 columns: table => new
                 {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     MapId = table.Column<int>(nullable: false),
                     RouteId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MapRoute", x => new { x.MapId, x.RouteId });
+                    table.PrimaryKey("PK_MapRoute", x => x.Id);
                     table.ForeignKey(
                         name: "FK_MapRoute_Maps_MapId",
                         column: x => x.MapId,
@@ -185,12 +190,14 @@ namespace MemoMap.Infrastructure.Migrations
                 name: "UserMaps",
                 columns: table => new
                 {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: false),
                     MapId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserMaps", x => new { x.UserId, x.MapId });
+                    table.PrimaryKey("PK_UserMaps", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserMaps_Maps_MapId",
                         column: x => x.MapId,
@@ -221,6 +228,16 @@ namespace MemoMap.Infrastructure.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MapLocation_MapId",
+                table: "MapLocation",
+                column: "MapId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MapRoute_MapId",
+                table: "MapRoute",
+                column: "MapId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MapRoute_RouteId",
                 table: "MapRoute",
                 column: "RouteId");
@@ -239,6 +256,11 @@ namespace MemoMap.Infrastructure.Migrations
                 name: "IX_UserMaps_MapId",
                 table: "UserMaps",
                 column: "MapId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserMaps_UserId",
+                table: "UserMaps",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Username",

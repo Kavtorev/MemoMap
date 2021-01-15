@@ -26,10 +26,13 @@ namespace MemoMap.UWP.Views.GroupViews
     public sealed partial class CreateGroupPage : Page
     {
         public GroupViewModel GroupViewModel { get; set; }
+        public MainViewModel MainViewModel { get; set; }
+
         public CreateGroupPage()
         {
             this.InitializeComponent();
             GroupViewModel = new GroupViewModel();
+            MainViewModel = new MainViewModel();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -58,6 +61,11 @@ namespace MemoMap.UWP.Views.GroupViews
                 this.Frame.GoBack();
         }
 
-
+        private async void Thumbnail_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var file = await MainViewModel.PickImageFileAsync();
+            GroupViewModel.Group.Thumbnail = await MainViewModel.LoadFileByteArray(file);
+            GroupViewModel.UploadedImage = await MainViewModel.LoadImageFile(file);
+        }
     }
 }
