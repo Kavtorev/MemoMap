@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MemoMap.Domain.SeedWork;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MemoMap.Domain.Models
 {
-    public class MapRoute
+    public class MapRoute: Entity
     {
         public int MapId { get; set; }
         public Map Map { get; set; }

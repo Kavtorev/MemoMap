@@ -1,6 +1,8 @@
-﻿namespace MemoMap.Domain.Models
+﻿using MemoMap.Domain.SeedWork;
+
+namespace MemoMap.Domain.Models
 {
-    public class MapLocation
+    public class MapLocation: Entity
     {
 
         public int MapId { get; set; }
