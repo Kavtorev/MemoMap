@@ -55,14 +55,13 @@ namespace MemoMap.UWP.ViewModels
 
             if (newGroup != null)
             {
-              
-               await App.UnitOfWork.GroupUserRepository.CreateAsync(
-                   new GroupUser
-                       {
-                           GroupId = newGroup.Id,
-                           UserId = App.UserViewModel.LoggedUser.Id,
-                       }
-                   );
+              await App.UnitOfWork.GroupUserRepository.CreateAsync(
+                    new GroupUser
+                    {
+                        GroupId = newGroup.Id,
+                        UserId = App.UserViewModel.LoggedUser.Id,
+                    }
+                    );
             }
         }
 

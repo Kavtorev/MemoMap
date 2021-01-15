@@ -35,6 +35,6 @@ namespace MemoMap.Infrastructure
 
         public INoteRepository NoteRepository => new NoteRepository(new MemoMapDbContext(Options));
 
-        public IGroupUserRepository<GroupUser> GroupUserRepository => new GroupUserRepository(new MemoMapDbContext(Options));
+        public IGroupUserRepository GroupUserRepository => new GroupUserRepository(new MemoMapDbContext(Options));
     }
 }

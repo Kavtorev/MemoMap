@@ -7,19 +7,10 @@ using System.Threading.Tasks;
 
 namespace MemoMap.Infrastructure.Repositories
 {
-    public class GroupUserRepository : IGroupUserRepository<GroupUser>
+    public class GroupUserRepository : Repository<GroupUser>, IGroupUserRepository
     {
-        protected MemoMapDbContext _dbContext;
-        public GroupUserRepository(MemoMapDbContext db)
+        public GroupUserRepository(MemoMapDbContext db) : base(db)
         {
-            _dbContext = db;
-        }
-
-        public async Task<GroupUser> CreateAsync(GroupUser e)
-        {
-            GroupUser res = _dbContext.Set<GroupUser>().Add(e).Entity;
-            await _dbContext.SaveChangesAsync();
-            return res;
         }
     }
 }

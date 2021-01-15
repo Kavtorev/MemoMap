@@ -16,7 +16,6 @@ namespace MemoMap.Infrastructure.EntityConfigurations
 
         public void Configure(EntityTypeBuilder<MapLocation> builder)
         {
-            builder.HasKey(bc => new { bc.MapId, bc.LocationId });
 
             builder
                .HasOne(bc => bc.Map)

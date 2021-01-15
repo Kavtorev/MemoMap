@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoMap.Infrastructure.Migrations
 {
     [DbContext(typeof(MemoMapDbContext))]
-    [Migration("20210114113821_Initial")]
+    [Migration("20210115094227_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,13 +42,20 @@ namespace MemoMap.Infrastructure.Migrations
 
             modelBuilder.Entity("MemoMap.Domain.Models.GroupUser", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("GroupId", "UserId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
 
                     b.HasIndex("UserId");
 
