@@ -10,9 +10,7 @@ namespace MemoMap.Domain.SeedWork
         Task<T> UpdateAsync(T e);
         Task<T> DeleteAsync(T e);
         // update and insert functionality in a one method, so we don't have to implement Create and Update separately
-        T Upsert(T e);
-
-        T FindByID(int id);
+        Task<T> FindByIDAsync(int id);
         // Asychronous methods return Task object.
         Task<T> CreateAsync(T e);   
         Task<List<T>> FindAllAsync();

@@ -39,7 +39,7 @@ namespace MemoMap.UWP
         public MainPage()
         {
             this.InitializeComponent();
-            this.InitializeRoutes();            
+            this.InitializeRoutes();
             MainViewModel = new MainViewModel();
             UserViewModel = App.UserViewModel;
         }
@@ -64,8 +64,9 @@ namespace MemoMap.UWP
             if (nav_item != null)
             {
                 string pageTitle = nav_item.Tag.ToString();
-                if (Routes.ContainsKey(pageTitle) 
-                        && Routes.TryGetValue(pageTitle, out Type value)){
+                if (Routes.ContainsKey(pageTitle)
+                        && Routes.TryGetValue(pageTitle, out Type value))
+                {
                     MainFrame.Navigate(value);
                     MainViewModel.setTitle(pageTitle);
                 }
@@ -74,50 +75,50 @@ namespace MemoMap.UWP
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(typeof(ViewGroupPage));
+            MainFrame.Navigate(typeof(MapPage));
         }
 
-     
+
         private void ThemeChanger_Click(object sender, RoutedEventArgs e)
         {
             MainViewModel.toggleTheme();
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            //Start building "AccountSettingsPane"
-            AccountsSettingsPane.GetForCurrentView().AccountCommandsRequested += BuildPaneAsync;
-        }
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            //Delete building "AccountSettingsPane"
-            AccountsSettingsPane.GetForCurrentView().AccountCommandsRequested -= BuildPaneAsync;
-        }
-        //Authentication form building function
-        private async void BuildPaneAsync(AccountsSettingsPane s, AccountsSettingsPaneCommandsRequestedEventArgs e)
-        {
-            var deferral = e.GetDeferral();
-            var msaProvider = await WebAuthenticationCoreManager.FindAccountProviderAsync("https://login.microsoft.com", "consumers");
-            var command = new WebAccountProviderCommand(msaProvider, GetMsaTokenAsync);
-            e.WebAccountProviderCommands.Add(command);
-            deferral.Complete();
-        }
-        //Retrieving account data
-        public async void GetMsaTokenAsync(WebAccountProviderCommand command)
-        {
-            WebTokenRequest request = new WebTokenRequest(command.WebAccountProvider, "wl.basic");
-            WebTokenRequestResult result = await WebAuthenticationCoreManager.RequestTokenAsync(request);
-            if (result.ResponseStatus == WebTokenRequestStatus.Success)
-            {
-                WebAccount account = result.ResponseData[0].WebAccount;
-                StoreWebAccount(account);
-            }
-        }
-        //Saving data in storage
-        private void StoreWebAccount(WebAccount account)
-        {
-            ApplicationData.Current.LocalSettings.Values["CurrentUserProviderId"] = account.WebAccountProvider.Id;
-            ApplicationData.Current.LocalSettings.Values["CurrentUserId"] = account.Id;
-        }
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    //Start building "AccountSettingsPane"
+        //    AccountsSettingsPane.GetForCurrentView().AccountCommandsRequested += BuildPaneAsync;
+        //}
+        //protected override void OnNavigatedFrom(NavigationEventArgs e)
+        //{
+        //    //Delete building "AccountSettingsPane"
+        //    AccountsSettingsPane.GetForCurrentView().AccountCommandsRequested -= BuildPaneAsync;
+        //}
+        ////Authentication form building function
+        //private async void BuildPaneAsync(AccountsSettingsPane s, AccountsSettingsPaneCommandsRequestedEventArgs e)
+        //{
+        //    var deferral = e.GetDeferral();
+        //    var msaProvider = await WebAuthenticationCoreManager.FindAccountProviderAsync("https://login.microsoft.com", "consumers");
+        //    var command = new WebAccountProviderCommand(msaProvider, GetMsaTokenAsync);
+        //    e.WebAccountProviderCommands.Add(command);
+        //    deferral.Complete();
+        //}
+        ////Retrieving account data
+        //public async void GetMsaTokenAsync(WebAccountProviderCommand command)
+        //{
+        //    WebTokenRequest request = new WebTokenRequest(command.WebAccountProvider, "wl.basic");
+        //    WebTokenRequestResult result = await WebAuthenticationCoreManager.RequestTokenAsync(request);
+        //    if (result.ResponseStatus == WebTokenRequestStatus.Success)
+        //    {
+        //        WebAccount account = result.ResponseData[0].WebAccount;
+        //        StoreWebAccount(account);
+        //    }
+        //}
+        ////Saving data in storage
+        //private void StoreWebAccount(WebAccount account)
+        //{
+        //    ApplicationData.Current.LocalSettings.Values["CurrentUserProviderId"] = account.WebAccountProvider.Id;
+        //    ApplicationData.Current.LocalSettings.Values["CurrentUserId"] = account.Id;
+        //}
 
         private async void LoginItem_Tapped(object sender, TappedRoutedEventArgs e)
         {

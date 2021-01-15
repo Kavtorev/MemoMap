@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MemoMap.Domain.SeedWork;
 
 namespace MemoMap.Domain.Models
 {
-    public class GroupUser
+    public class GroupUser : Entity
     {
         public int GroupId { get; set; }
         public Group Group { get; set; }

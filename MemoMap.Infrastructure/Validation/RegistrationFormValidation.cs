@@ -5,14 +5,14 @@ using System.Text.RegularExpressions;
 
 namespace MemoMap.Infrastructure.Validation
 {
-    public class RegistrationFormValidation: Validator
+    public class RegistrationFormValidation : Validator
     {
-        public RegistrationFormValidation(): base("")
+        public RegistrationFormValidation() : base("")
         {
             initializeRegistrationProperties();
         }
 
-       private void initializeRegistrationProperties()
+        private void initializeRegistrationProperties()
         {
             Properties.Add("username", "");
             Properties.Add("duplicated_password", "");
@@ -25,13 +25,17 @@ namespace MemoMap.Infrastructure.Validation
             {
                 Errors += "Username field is required. \n";
 
-            } else if (!new Regex(strRegex).IsMatch(Properties["username"])){
+            }
+            else if (!new Regex(strRegex).IsMatch(Properties["username"]))
+            {
                 Errors += "Username should contain letters and digits only. \n";
 
-            } else if (Properties["username"].Length < 5)
+            }
+            else if (Properties["username"].Length < 5)
             {
                 Errors += "Username should include at least 5 characters. \n";
-            } else if (Properties["username"].Length > 256)
+            }
+            else if (Properties["username"].Length > 256)
             {
                 Errors += "Username must contain up to 256 characters.\n";
             }
@@ -44,7 +48,7 @@ namespace MemoMap.Infrastructure.Validation
                 Errors += "Duplicate password. \n";
             }
 
-            
+
             else if (!string.Equals(Properties["password"], Properties["duplicated_password"]))
             {
                 Errors += "Passwords must match. \n";

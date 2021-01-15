@@ -41,7 +41,8 @@ namespace MemoMap.UWP.Views.UserViews
                 if (!string.IsNullOrEmpty(UserViewModel.LoginFormValidator.ValidateLoginField()))
                 {
                     UserViewModel.RerenderErrorText(nameof(UserViewModel.LoginFormValidator));
-                } else
+                }
+                else
                 {
                     // if there are no validation errors then...
                     // try to login
@@ -50,14 +51,15 @@ namespace MemoMap.UWP.Views.UserViews
                     if (!string.IsNullOrEmpty(UserViewModel.LoginFormValidator.Errors))
                     {
                         // show post-validation errors
-                        UserViewModel.RerenderErrorText(nameof(UserViewModel.LoginFormValidator));    
-                    } else
+                        UserViewModel.RerenderErrorText(nameof(UserViewModel.LoginFormValidator));
+                    }
+                    else
                     {
                         // if data passed all the validations close the dialog
                         Hide();
                     }
                 }
-            } 
+            }
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -74,6 +76,6 @@ namespace MemoMap.UWP.Views.UserViews
             UserViewModel.LoginFormValidatorSetProperty("password", PasswordField.Password);
         }
 
-        
+
     }
 }

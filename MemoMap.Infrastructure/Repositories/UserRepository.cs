@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MemoMap.Infrastructure.Repositories
 {
-    public class UserRepository: Repository<User>, IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         public UserRepository(MemoMapDbContext db) : base(db)
         {

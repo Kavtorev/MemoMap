@@ -4,14 +4,14 @@ using System.Text;
 
 namespace MemoMap.Infrastructure.Validation
 {
-    public class LoginFormValidation: Validator
+    public class LoginFormValidation : Validator
     {
-        public LoginFormValidation():base("")
+        public LoginFormValidation() : base("")
         {
 
         }
 
-   
+
 
         public string ValidateLoginField()
         {

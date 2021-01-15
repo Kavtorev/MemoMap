@@ -10,7 +10,7 @@ namespace MemoMap.Infrastructure.Validation
     {
         public string Errors { get; set; }
         public Dictionary<string, string> Properties;
- 
+
         public Validator(string errVal)
         {
             Errors = errVal;
@@ -22,7 +22,7 @@ namespace MemoMap.Infrastructure.Validation
         {
             return string.IsNullOrEmpty(str);
         }
-        
+
         private void InitializeProperties()
         {
             Properties.Add("email", "");
@@ -40,7 +40,8 @@ namespace MemoMap.Infrastructure.Validation
             if (isStringEmpty(Properties["email"]))
             {
                 Errors += "Email Field is required.\n";
-            } else if (Properties["email"].Length > 256)
+            }
+            else if (Properties["email"].Length > 256)
             {
                 Errors += "Email must contain up to 256 characters.\n";
             }
@@ -56,11 +57,12 @@ namespace MemoMap.Infrastructure.Validation
             if (isStringEmpty(Properties["password"]))
             {
                 Errors += "Password Field is required. \n";
-            } else if (!new Regex(passRegex).IsMatch(Properties["password"]))
+            }
+            else if (!new Regex(passRegex).IsMatch(Properties["password"]))
             {
                 Errors = "Password must contain at least 8 characters (up to 15),\nlower and upper case letters, \ndigits. \n";
             }
-        }   
+        }
 
 
     }

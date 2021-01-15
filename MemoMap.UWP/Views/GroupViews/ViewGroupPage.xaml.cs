@@ -39,7 +39,6 @@ namespace MemoMap.UWP.Views.GroupViews
 
         private async void DeleteGroup_Click(object sender, RoutedEventArgs e)
         {
-            // ???
             if (sender is FrameworkElement b && b.DataContext is Group group)
             {
                 await GroupViewModel.DeleteAsync(group);
@@ -51,11 +50,7 @@ namespace MemoMap.UWP.Views.GroupViews
         {
             if (sender is FrameworkElement b && b.DataContext is Group group)
             {
-                Dictionary<string, object> paramDict = new Dictionary<string, object> {
-                    {"mode", "editing" },
-                    {"object", group }
-                };
-                this.Frame.Navigate(typeof(CreateGroupPage), paramDict);
+                this.Frame.Navigate(typeof(CreateGroupPage), group);
             }
         }
         private void createNewGroup_Click(object sender, RoutedEventArgs e)
@@ -63,6 +58,6 @@ namespace MemoMap.UWP.Views.GroupViews
             this.Frame.Navigate(typeof(CreateGroupPage));
         }
 
-      
+
     }
 }
