@@ -21,6 +21,7 @@ using Windows.Security.Authentication.Web.Core;
 using Windows.Security.Credentials;
 using Windows.Storage;
 using MemoMap.UWP.Views.UserViews;
+using MemoMap.UWP.Views.Map;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -49,7 +50,7 @@ namespace MemoMap.UWP
             // key - value pairs: <title of a page>  - <its data type>.
             Routes = new Dictionary<string, Type>
             {
-                {"my_maps",  typeof(MyMapsPage)},
+                {"my_maps",  typeof(ViewMapsPage)},
                 {"create_group",  typeof(CreateGroupPage)},
                 {"view_groups",  typeof(ViewGroupPage)},
                 {"map",  typeof(MapPage)},

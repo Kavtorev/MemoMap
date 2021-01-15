@@ -9,8 +9,6 @@ namespace MemoMap.Domain.Repositories
 {
     public interface INoteRepository : IRepository<Note>
     {
-    
         Task<Note> AddNewNoteAsync(string Title, string Description);
-    
     }
 }

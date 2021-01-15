@@ -18,9 +18,8 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-    <PackageCertificateThumbprint>B16E7D18E0EFFF9CB78B1AA49DCDC06FCC3CFEA5</PackageCertificateThumbprint>
-    <PackageCertificateKeyFile>
-    </PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>6F25FFFE06B633738A5B3D10A89EBBCA0FD6D3A4</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>MemoMap.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -141,11 +140,14 @@
     <Compile Include="Views\GroupViews\ViewGroupPage.xaml.cs">
       <DependentUpon>ViewGroupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Map\CreateMapPage.xaml.cs">
+      <DependentUpon>CreateMapPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Map\MapPage.xaml.cs">
       <DependentUpon>MapPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Map\MyMapsPage.xaml.cs">
-      <DependentUpon>MyMapsPage.xaml</DependentUpon>
+    <Compile Include="Views\Map\ViewMapsPage.xaml.cs">
+      <DependentUpon>ViewMapsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Location\PointAdding.xaml.cs">
       <DependentUpon>PointAdding.xaml</DependentUpon>
@@ -197,11 +199,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Map\CreateMapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Map\MapPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Map\MyMapsPage.xaml">
+    <Page Include="Views\Map\ViewMapsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

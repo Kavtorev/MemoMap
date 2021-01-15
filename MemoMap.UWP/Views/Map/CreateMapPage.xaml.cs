@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MemoMap.UWP.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,14 +16,17 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace MemoMap.UWP.Views.Location
+namespace MemoMap.UWP.Views.Map
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MyMapsPage : Page
+    public sealed partial class CreateMapPage : Page
     {
-        public MyMapsPage()
+        public MapViewModel MapViewModel { get; set; }
+        private string _mode;
+
+        public CreateMapPage()
         {
             this.InitializeComponent();
         }
