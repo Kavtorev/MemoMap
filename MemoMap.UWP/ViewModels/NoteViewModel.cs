@@ -9,18 +9,18 @@ namespace MemoMap.UWP.ViewModels
 {
     public class NoteViewModel
     {
-        private Note _Note;
+        //private Note _Note;
 
-        public Note Note { get; set; }
+        //public Note Note { get; set; }
 
-        public NoteViewModel()
-        {
-            Note = new Note();
-        }
+        //public NoteViewModel()
+        //{
+        //    Note = new Note();
+        //}
 
-        internal async Task CreateNote()
-        {
+        //internal async Task CreateNote()
+        //{
 
-        }
+        //}
     }
 }

@@ -24,7 +24,7 @@ namespace MemoMap.UWP.Views.Map
     public sealed partial class CreateMapPage : Page
     {
         public MapViewModel MapViewModel { get; set; }
-        private string _mode;
+        //private string _mode;
 
         public CreateMapPage()
         {

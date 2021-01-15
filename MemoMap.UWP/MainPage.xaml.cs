@@ -51,6 +51,7 @@ namespace MemoMap.UWP
             Routes = new Dictionary<string, Type>
             {
                 {"my_maps",  typeof(ViewMapsPage)},
+                //{"create_map", typeof(Views.GroupViews.CreateMapPage)},
                 {"create_group",  typeof(CreateGroupPage)},
                 {"view_groups",  typeof(ViewGroupPage)},
                 {"map",  typeof(MapPage)},
@@ -83,41 +84,41 @@ namespace MemoMap.UWP
         {
             MainViewModel.toggleTheme();
         }
-        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //protected override void onnavigatedto(navigationeventargs e)
         //{
-        //    //Start building "AccountSettingsPane"
-        //    AccountsSettingsPane.GetForCurrentView().AccountCommandsRequested += BuildPaneAsync;
+        //    //start building "accountsettingspane"
+        //    accountssettingspane.getforcurrentview().accountcommandsrequested += buildpaneasync;
         //}
-        //protected override void OnNavigatedFrom(NavigationEventArgs e)
+        //protected override void onnavigatedfrom(navigationeventargs e)
         //{
-        //    //Delete building "AccountSettingsPane"
-        //    AccountsSettingsPane.GetForCurrentView().AccountCommandsRequested -= BuildPaneAsync;
+        //    //delete building "accountsettingspane"
+        //    accountssettingspane.getforcurrentview().accountcommandsrequested -= buildpaneasync;
         //}
-        ////Authentication form building function
-        //private async void BuildPaneAsync(AccountsSettingsPane s, AccountsSettingsPaneCommandsRequestedEventArgs e)
+        ////authentication form building function
+        //private async void buildpaneasync(accountssettingspane s, accountssettingspanecommandsrequestedeventargs e)
         //{
-        //    var deferral = e.GetDeferral();
-        //    var msaProvider = await WebAuthenticationCoreManager.FindAccountProviderAsync("https://login.microsoft.com", "consumers");
-        //    var command = new WebAccountProviderCommand(msaProvider, GetMsaTokenAsync);
-        //    e.WebAccountProviderCommands.Add(command);
-        //    deferral.Complete();
+        //    var deferral = e.getdeferral();
+        //    var msaprovider = await webauthenticationcoremanager.findaccountproviderasync("https://login.microsoft.com", "consumers");
+        //    var command = new webaccountprovidercommand(msaprovider, getmsatokenasync);
+        //    e.webaccountprovidercommands.add(command);
+        //    deferral.complete();
         //}
-        ////Retrieving account data
-        //public async void GetMsaTokenAsync(WebAccountProviderCommand command)
+        ////retrieving account data
+        //public async void getmsatokenasync(webaccountprovidercommand command)
         //{
-        //    WebTokenRequest request = new WebTokenRequest(command.WebAccountProvider, "wl.basic");
-        //    WebTokenRequestResult result = await WebAuthenticationCoreManager.RequestTokenAsync(request);
-        //    if (result.ResponseStatus == WebTokenRequestStatus.Success)
+        //    webtokenrequest request = new webtokenrequest(command.webaccountprovider, "wl.basic");
+        //    webtokenrequestresult result = await webauthenticationcoremanager.requesttokenasync(request);
+        //    if (result.responsestatus == webtokenrequeststatus.success)
         //    {
-        //        WebAccount account = result.ResponseData[0].WebAccount;
-        //        StoreWebAccount(account);
+        //        webaccount account = result.responsedata[0].webaccount;
+        //        storewebaccount(account);
         //    }
         //}
-        ////Saving data in storage
-        //private void StoreWebAccount(WebAccount account)
+        ////saving data in storage
+        //private void storewebaccount(webaccount account)
         //{
-        //    ApplicationData.Current.LocalSettings.Values["CurrentUserProviderId"] = account.WebAccountProvider.Id;
-        //    ApplicationData.Current.LocalSettings.Values["CurrentUserId"] = account.Id;
+        //    applicationdata.current.localsettings.values["currentuserproviderid"] = account.webaccountprovider.id;
+        //    applicationdata.current.localsettings.values["currentuserid"] = account.id;
         //}
 
         private async void LoginItem_Tapped(object sender, TappedRoutedEventArgs e)
