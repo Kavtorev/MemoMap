@@ -21,7 +21,8 @@ using Windows.Security.Authentication.Web.Core;
 using Windows.Security.Credentials;
 using Windows.Storage;
 using MemoMap.UWP.Views.UserViews;
-using MemoMap.UWP.Views.Map;
+using MemoMap.UWP.Views.MapViews;
+using MapPage = MemoMap.UWP.Views.Location.MapPage;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -35,7 +36,7 @@ namespace MemoMap.UWP
         public MainViewModel MainViewModel { get; set; }
         public UserViewModel UserViewModel { get; set; }
         public MapViewModel MapViewModel { get; set; }
-        public Dictionary<string, System.Type> Routes { get; set; }
+        public Dictionary<string, Type> Routes { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
@@ -54,7 +55,7 @@ namespace MemoMap.UWP
                 //{"create_map", typeof(Views.GroupViews.CreateMapPage)},
                 {"create_group",  typeof(CreateGroupPage)},
                 {"view_groups",  typeof(ViewGroupPage)},
-                {"map",  typeof(MapPage)},
+                {"map_page",  typeof(MapPage)},
                 {"account_settings",  typeof(AccountSettings)}
             };
         }

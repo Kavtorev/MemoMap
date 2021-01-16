@@ -1,4 +1,5 @@
-﻿using MemoMap.UWP.ViewModels;
+﻿using MemoMap.Domain.Models;
+using MemoMap.UWP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +17,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace MemoMap.UWP.Views.Map
+namespace MemoMap.UWP.Views.MapViews
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -24,11 +25,31 @@ namespace MemoMap.UWP.Views.Map
     public sealed partial class CreateMapPage : Page
     {
         public MapViewModel MapViewModel { get; set; }
-        //private string _mode;
 
         public CreateMapPage()
         {
             this.InitializeComponent();
+            MapViewModel = new MapViewModel();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if(e.Parameter != null)
+            {
+                var model = e.Parameter as Map;
+                MapViewModel.Map = model;
+                base.OnNavigatedTo(e);
+            }
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            // add in the future commit
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Frame.CanGoBack) this.Frame.GoBack();
         }
     }
 }

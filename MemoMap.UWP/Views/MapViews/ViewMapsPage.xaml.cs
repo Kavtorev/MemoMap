@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace MemoMap.UWP.Views.Map
+namespace MemoMap.UWP.Views.MapViews
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -33,12 +33,12 @@ namespace MemoMap.UWP.Views.Map
 
         private void deleteMap_Click(object sender, RoutedEventArgs e)
         {
-
+            // add in the future commit
         }
 
         private void editMap_Click(object sender, RoutedEventArgs e)
         {
-            
+            // add in the future commit
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
