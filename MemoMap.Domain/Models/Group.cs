@@ -22,12 +22,14 @@ namespace MemoMap.Domain.Models
 
         public DateTime Date { get; set; }
 
-        public string FormattedDate{
-            get { 
-                return $"joined on: {Date.ToString("dddd, dd MMMM yyyy")}";
-            }
+        public byte[] Thumbnail { get; set; }
+
+        public string FormattedDate
+        {
+            get => $"joined on: {Date.ToString("dddd, dd MMMM yyyy")}";
+
         }
-    
+
         // many users can be in a one group
         public ICollection<GroupUser> GroupUsers { get; set; }
 

@@ -6,19 +6,27 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace MemoMap.UWP.ViewModels
 {
-    public class GroupViewModel
+    public class GroupViewModel: BindableBase
     {
         public Group Group { get; set; }
 
+        private BitmapImage _uploadedImage;
         public ObservableCollection<Group> Groups { get; set; }
 
         public GroupViewModel()
         {
             Group = new Group();
             Groups = new ObservableCollection<Group>();
+        }
+
+        public BitmapImage UploadedImage 
+        {
+            get => _uploadedImage;
+            set => SetField(ref _uploadedImage, value);
         }
 
         public async Task LoadAllAsync()
@@ -61,7 +69,7 @@ namespace MemoMap.UWP.ViewModels
                         GroupId = newGroup.Id,
                         UserId = App.UserViewModel.LoggedUser.Id,
                     }
-                    );
+               );
             }
         }
 
