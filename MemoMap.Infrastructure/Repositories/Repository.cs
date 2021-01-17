@@ -14,6 +14,7 @@ namespace MemoMap.Infrastructure.Repositories
         {
             _dbContext = db;
         }
+
         public async Task<T> CreateAsync(T e)
         {
             T record = _dbContext.Set<T>().Add(e).Entity;

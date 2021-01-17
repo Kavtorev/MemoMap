@@ -28,6 +28,25 @@ namespace MemoMap.Infrastructure.Repositories
             return res;
         }
 
+        public async Task<List<User>> FindAllGroupUsers(int groupId)
+        {
+            var res = await _dbContext.Users
+                .Where(user => user.GroupUsers
+                .Any(u2g => u2g.GroupId == groupId))
+                .ToListAsync();
+            return res;
+        }
+
+        public User FindGroupAdmin(int groupId)
+        {
+            var res =  _dbContext.Users
+                .Where(user => user.GroupUsers
+                .Any(u2g => u2g.GroupId == groupId && u2g.IsAdmin == true))
+                .SingleOrDefault();
+
+            return res;
+        }
+
         public async Task<Group> UpsertAsync(Group group)
         {
             if (group.Id == 0)

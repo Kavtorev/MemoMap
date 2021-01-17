@@ -16,7 +16,8 @@ namespace MemoMap.Infrastructure.EntityConfigurations
 
         public void Configure(EntityTypeBuilder<GroupUser> builder)
         {
-            //builder.HasKey(bc => new { bc.GroupId, bc.UserId });
+
+            builder.Property(p => p.IsAdmin).IsRequired();
 
             builder
                 .HasOne(bc => bc.Group)
