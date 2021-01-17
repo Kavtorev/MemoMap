@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BCrypt.Net;
 using MemoMap.Infrastructure.Validation;
+using MemoMap.Domain.Models;
 
 namespace MemoMap.UWP.ViewModels
 {
@@ -15,7 +16,6 @@ namespace MemoMap.UWP.ViewModels
     public class UserViewModel : BindableBase
 
     {
-
         public UserViewModel()
         {
             User = new User();
@@ -25,7 +25,6 @@ namespace MemoMap.UWP.ViewModels
         private User _loggedUser;
         public LoginFormValidation LoginFormValidator { get; set; }
         public RegistrationFormValidation RegistrationFormValidator { get; set; }
-
 
         public User LoggedUser
         {
@@ -68,8 +67,6 @@ namespace MemoMap.UWP.ViewModels
         {
             OnPropertyChanged(propertyName);
         }
-
-
 
         internal async Task<bool> DoLoginAsync()
         {

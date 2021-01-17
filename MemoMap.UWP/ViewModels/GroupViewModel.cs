@@ -15,18 +15,32 @@ namespace MemoMap.UWP.ViewModels
         public Group Group { get; set; }
 
         private BitmapImage _uploadedImage;
+        private User _groupAdmin;
         public ObservableCollection<Group> Groups { get; set; }
+        public ObservableCollection<User> Users { get; set; }
+
+        public User GroupAdmin 
+        {
+            get => _groupAdmin;
+            set => SetField(ref _groupAdmin, value);
+        }
 
         public GroupViewModel()
         {
             Group = new Group();
             Groups = new ObservableCollection<Group>();
+            Users = new ObservableCollection<User>();
         }
 
         public BitmapImage UploadedImage 
         {
             get => _uploadedImage;
             set => SetField(ref _uploadedImage, value);
+        }
+
+        public void GetGroupAdmin()
+        {
+            GroupAdmin =  App.UnitOfWork.GroupRepository.FindGroupAdmin(Group.Id);
         }
 
         public async Task LoadAllAsync()
@@ -57,6 +71,21 @@ namespace MemoMap.UWP.ViewModels
             );
         }
 
+        internal async Task<ObservableCollection<User>> LoadUsersAsync()
+        {
+            List<User> groups = await App.
+                UnitOfWork.
+                GroupRepository.
+                FindAllGroupUsers(Group.Id);
+
+            Users.Clear();
+            foreach (User u in groups)
+            {
+                Users.Add(u);
+            }
+            return Users;
+        }
+
         internal async Task InsertOrUpdate()
         {
             var newGroup = await App.UnitOfWork.GroupRepository.UpsertAsync(Group);
@@ -68,6 +97,7 @@ namespace MemoMap.UWP.ViewModels
                     {
                         GroupId = newGroup.Id,
                         UserId = App.UserViewModel.LoggedUser.Id,
+                        IsAdmin = true,
                     }
                );
             }
