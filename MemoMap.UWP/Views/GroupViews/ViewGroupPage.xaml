@@ -39,7 +39,11 @@
             </CommandBar>
         </Grid>
 
-        <ListView Grid.Row="1" ItemsSource="{x:Bind GroupViewModel.Groups}">
+        <ListView
+            Grid.Row="1"
+            IsItemClickEnabled="True"
+            ItemClick="ListView_ItemClick"
+            ItemsSource="{x:Bind GroupViewModel.Groups}">
 
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Group">

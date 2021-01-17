@@ -58,6 +58,10 @@ namespace MemoMap.UWP.Views.GroupViews
             this.Frame.Navigate(typeof(CreateGroupPage));
         }
 
-
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Group g = (Group)e.ClickedItem;
+            this.Frame.Navigate(typeof(GroupPage), g);
+        }
     }
 }
