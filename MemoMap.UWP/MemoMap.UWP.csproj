@@ -137,6 +137,9 @@
     <Compile Include="Views\GroupViews\CreateGroupPage.xaml.cs">
       <DependentUpon>CreateGroupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GroupViews\GroupPage.xaml.cs">
+      <DependentUpon>GroupPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GroupViews\ViewGroupPage.xaml.cs">
       <DependentUpon>ViewGroupPage.xaml</DependentUpon>
     </Compile>
@@ -192,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GroupViews\CreateGroupPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GroupViews\GroupPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
