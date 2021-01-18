@@ -42,9 +42,10 @@ namespace MemoMap.UWP.Views.MapViews
             }
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
-            // add in the future commit
+            await MapViewModel.InsertAsync();
+            this.Frame.GoBack();
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
