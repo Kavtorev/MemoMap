@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace MemoMap.Domain.Repositories
 {
-    public interface IGroupUserRepository: IRepository<GroupUser>
+    public interface IGroupUserRepository : IRepository<GroupUser>
     {
+        Task<GroupUser> FindByUserGroupId(int userId, int groupId);
     }
 }
