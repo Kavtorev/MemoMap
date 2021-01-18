@@ -98,7 +98,7 @@ namespace MemoMap.UWP.ViewModels
             }
             return false;
         }
-
+   
         internal async Task DoRegistrationAsync()
         {
             if (await App.UnitOfWork.UserRepository.FindByEmailAsync(User.Email) == null)

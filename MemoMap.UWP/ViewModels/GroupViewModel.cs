@@ -1,5 +1,6 @@
 ﻿using MemoMap.Domain;
 using MemoMap.Domain.Models;
+using MemoMap.Infrastructure.Validation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,16 +11,37 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace MemoMap.UWP.ViewModels
 {
-    public class GroupViewModel: BindableBase
+    public class GroupViewModel : BindableBase
     {
         public Group Group { get; set; }
 
         private BitmapImage _uploadedImage;
+
+        private string _invitedUsername;
+
         private User _groupAdmin;
         public ObservableCollection<Group> Groups { get; set; }
         public ObservableCollection<User> Users { get; set; }
 
-        public User GroupAdmin 
+        public User InvitedUser { get; set; }
+
+        public RegistrationFormValidation UsernameFieldValidator { get; set; }
+
+        private string _validationErrors;
+
+        public string ValidationErrors
+        {
+            get => _validationErrors;
+            set => SetField(ref _validationErrors, value);
+        }
+
+        public string InvitedUsername
+        {
+            get => _invitedUsername;
+            set => SetField(ref _invitedUsername, value);
+        }
+
+        public User GroupAdmin
         {
             get => _groupAdmin;
             set => SetField(ref _groupAdmin, value);
@@ -30,9 +52,10 @@ namespace MemoMap.UWP.ViewModels
             Group = new Group();
             Groups = new ObservableCollection<Group>();
             Users = new ObservableCollection<User>();
+            UsernameFieldValidator = new RegistrationFormValidation();
         }
 
-        public BitmapImage UploadedImage 
+        public BitmapImage UploadedImage
         {
             get => _uploadedImage;
             set => SetField(ref _uploadedImage, value);
@@ -40,7 +63,60 @@ namespace MemoMap.UWP.ViewModels
 
         public void GetGroupAdmin()
         {
-            GroupAdmin =  App.UnitOfWork.GroupRepository.FindGroupAdmin(Group.Id);
+            GroupAdmin = App.UnitOfWork.GroupRepository.FindGroupAdmin(Group.Id);
+        }
+
+        internal string ValidateUsername()
+        {
+            ValidationErrors = "";
+            UsernameFieldValidator.Properties["username"] = InvitedUsername;
+            ValidationErrors = UsernameFieldValidator.ValidateUsernameField();
+            return ValidationErrors;
+        }
+
+        internal async Task<bool> WasAlreadyInvited()
+        {
+            var res =
+                await App.UnitOfWork.InvitationRepository.FindByInvitedGroupId(InvitedUser.Id, Group.Id);
+            if (res == null) return false;
+            ValidationErrors = $"User '{InvitedUsername}' was already invited to join this group.";
+            return true;
+        }
+
+        internal async Task<Invitation> InviteUser()
+        {
+            return await App.UnitOfWork.InvitationRepository.CreateAsync(
+                new Invitation
+                {
+                    GroupId = Group.Id,
+                    InvitingId = App.UserViewModel.LoggedUser.Id,
+                    InvitedId = InvitedUser.Id,
+                });
+        }
+
+        public async Task<bool> DoesUserExist()
+        {
+            InvitedUser = await App.UnitOfWork.UserRepository.FindByUsernameAsync(InvitedUsername);
+            if (InvitedUser != null) return true;
+            ValidationErrors = "User doesn't exist";
+            return false;
+        }
+
+
+        public async Task<bool> AlreadyPariticipates()
+        {
+            var res = await App.UnitOfWork.GroupUserRepository
+                .FindByUserGroupId(InvitedUser.Id, this.Group.Id);
+
+            if (res == null) return false;
+            ValidationErrors = $"User '{InvitedUsername}' already participates in this group.";
+            return true;
+        }
+
+        internal async Task<ObservableCollection<User>> LoadUsersByUsernameStartWith()
+        {
+            var res = await App.UnitOfWork.UserRepository.FindUserByUsernameStartWith(InvitedUsername);
+            return new ObservableCollection<User>(res);
         }
 
         public async Task LoadAllAsync()
@@ -55,20 +131,6 @@ namespace MemoMap.UWP.ViewModels
             {
                 Groups.Add(g);
             }
-        }
-
-
-        internal async Task InsertAsync()
-        {
-            Group.Date = DateTime.Now;
-            Group newGroup = await App.UnitOfWork.GroupRepository.CreateAsync(Group);
-            await App.UnitOfWork.GroupUserRepository.CreateAsync(
-                new GroupUser
-                {
-                    GroupId = newGroup.Id,
-                    UserId = App.UserViewModel.LoggedUser.Id,
-                }
-            );
         }
 
         internal async Task<ObservableCollection<User>> LoadUsersAsync()
@@ -92,14 +154,14 @@ namespace MemoMap.UWP.ViewModels
 
             if (newGroup != null)
             {
-              await App.UnitOfWork.GroupUserRepository.CreateAsync(
-                    new GroupUser
-                    {
-                        GroupId = newGroup.Id,
-                        UserId = App.UserViewModel.LoggedUser.Id,
-                        IsAdmin = true,
-                    }
-               );
+                await App.UnitOfWork.GroupUserRepository.CreateAsync(
+                      new GroupUser
+                      {
+                          GroupId = newGroup.Id,
+                          UserId = App.UserViewModel.LoggedUser.Id,
+                          IsAdmin = true,
+                      }
+                 );
             }
         }
 
