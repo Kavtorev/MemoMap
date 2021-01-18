@@ -23,7 +23,6 @@ using Windows.Storage;
 using MemoMap.UWP.Views.UserViews;
 using MemoMap.UWP.Views.MapViews;
 using MapPage = MemoMap.UWP.Views.Location.MapPage;
-
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace MemoMap.UWP
