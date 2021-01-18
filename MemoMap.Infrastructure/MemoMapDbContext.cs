@@ -18,6 +18,7 @@ namespace MemoMap.Infrastructure
         public DbSet<Note> Notes { get; set; }
         public DbSet<GroupUser> GroupUsers { get; set; }
         public DbSet<UserMap> UserMaps { get; set; }
+        public DbSet<Invitation> Invitations { get; set; }
 
         // raw DbContext
         public MemoMapDbContext() { }
@@ -32,6 +33,7 @@ namespace MemoMap.Infrastructure
             modelBuilder.ApplyConfiguration(new MapRouteEntityConfiguration());
             modelBuilder.ApplyConfiguration(new UserMapEntityConfiguration());
             modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new InvitationEntityConfiguration());
         }
 
         /*

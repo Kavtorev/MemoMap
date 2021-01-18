@@ -15,5 +15,6 @@ namespace MemoMap.Domain
         IUserRepository UserRepository { get; }
         INoteRepository NoteRepository { get; }
         IGroupUserRepository GroupUserRepository { get; }
+        IInvitationRepository InvitationRepository { get; }
     }
 }
