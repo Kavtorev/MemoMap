@@ -16,6 +16,11 @@ namespace MemoMap.Domain.Models
         public User Invited { get; set; }
         public Group Group { get; set; }
 
+        public string InvitationTitle 
+        {
+            get => $"User '{Inviting.Username}' proposes to join the '{Group.Name}'."; 
+        }
+
         public Invitation()
         {
             Date = DateTime.Now;
