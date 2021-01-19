@@ -49,9 +49,7 @@ namespace MemoMap.UWP.ViewModels
 
         internal async Task InsertOrUpdate()
         {
-            var newMap = App.UnitOfWork.MapRepository.UpdateAsync(Map);
-            if (newMap != null)
-                await App.UnitOfWork.MapRepository.CreateAsync(Map);
+            await App.UnitOfWork.MapRepository.UpdateAsync(Map);
         }
     }
 }

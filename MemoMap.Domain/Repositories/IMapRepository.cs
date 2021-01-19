@@ -11,5 +11,6 @@ namespace MemoMap.Domain.Repositories
     {
         // add methods which are specific for this entity, otherwise include them to ../SeedWork/IRepository.cs
         // initializing new list of points for new map
+      
     }
 }
