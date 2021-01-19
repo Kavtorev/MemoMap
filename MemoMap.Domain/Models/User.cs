@@ -25,6 +25,15 @@ namespace MemoMap.Domain
 
         // user can be part of many groups
         public ICollection<GroupUser> GroupUsers { get; set; }
+        // Invitations which were sent by the inviting person.
+        public ICollection<Invitation> InvitingInvitations { get; set; }
+        // Invitations which were received by the invited person.
+        public ICollection<Invitation> InvitedInvitations { get; set; }
         public ICollection<UserMap> UserMaps { get; set; }
+
+        public override string ToString()
+        {
+            return Username;
+        }
     }
 }

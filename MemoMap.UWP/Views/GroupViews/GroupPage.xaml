@@ -15,11 +15,56 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
         <TextBlock
             Grid.Row="0"
+            Grid.Column="0"
             FontSize="40"
             Text="{x:Bind GroupViewModel.Group.Name}" />
+        <CommandBar
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            Background="Transparent"
+            DefaultLabelPosition="Right">
+            <AppBarButton
+                x:Name="Invite"
+                AllowFocusOnInteraction="True"
+                Icon="AddFriend"
+                Label="Invite"
+                ToolTipService.ToolTip="Invite a new user to the group.">
+                <AppBarButton.Flyout>
+                    <Flyout>
+                        <StackPanel>
+                            <AutoSuggestBox
+                                x:Name="UsernameInput"
+                                Width="300"
+                                Margin="4"
+                                DisplayMemberPath="Username"
+                                Header="Username"
+                                PlaceholderText="Username"
+                                QuerySubmitted="UsernameInput_QuerySubmitted"
+                                SuggestionChosen="UsernameInput_SuggestionChosen"
+                                Text="{x:Bind GroupViewModel.InvitedUsername, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextChanged="UsernameInput_TextChanged" />
+                            <StackPanel Orientation="Horizontal">
+                                <Button
+                                    x:Name="InviteButton"
+                                    Margin="4"
+                                    Content="Invite"
+                                    CornerRadius="3"
+                                    Tapped="InviteButton_Tapped" />
+                                <TextBlock VerticalAlignment="Center" Text="{x:Bind GroupViewModel.ValidationErrors, Mode=TwoWay}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+        </CommandBar>
+
         <Border BorderBrush="Gray" BorderThickness="0,0,0,1" />
         <StackPanel
             Grid.Row="1"

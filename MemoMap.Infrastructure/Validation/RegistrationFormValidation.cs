@@ -18,8 +18,9 @@ namespace MemoMap.Infrastructure.Validation
             Properties.Add("duplicated_password", "");
         }
 
-        private void ValidateUsernameField()
+        public string ValidateUsernameField()
         {
+            Errors = "";
             string strRegex = "^[A-Za-z0-9_-]*$";
             if (isStringEmpty(Properties["username"]))
             {
@@ -39,6 +40,7 @@ namespace MemoMap.Infrastructure.Validation
             {
                 Errors += "Username must contain up to 256 characters.\n";
             }
+            return Errors;
         }
 
         private void ValidateDuplicatedPassword()

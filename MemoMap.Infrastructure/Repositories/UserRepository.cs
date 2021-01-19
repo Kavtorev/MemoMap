@@ -3,6 +3,7 @@ using MemoMap.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,6 +34,12 @@ namespace MemoMap.Infrastructure.Repositories
             return await _dbContext.Users.SingleOrDefaultAsync(m => m.Username == username);
         }
 
-
+        public async Task<List<User>> FindUserByUsernameStartWith(string input)
+        {
+            return await _dbContext.Users
+                .Where(n => n.Username.StartsWith(input))
+                .OrderBy(c => c.Username)
+                .ToListAsync();
+        }
     }
 }

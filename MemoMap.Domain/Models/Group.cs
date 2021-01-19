@@ -33,6 +33,8 @@ namespace MemoMap.Domain.Models
         // many users can be in a one group
         public ICollection<GroupUser> GroupUsers { get; set; }
 
+        public ICollection<Invitation> Invitations { get; set; }
+
         // one group can include many maps
         public ICollection<Map> Maps { get; set; }
     }

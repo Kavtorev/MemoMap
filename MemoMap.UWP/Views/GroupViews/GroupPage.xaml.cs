@@ -52,10 +52,54 @@ namespace MemoMap.UWP.Views.GroupViews
                 base.OnNavigatedTo(e);
             }
 
-            
+        }
+
+        private async void InviteButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var errs = GroupViewModel.ValidateUsername();
+            if (string.IsNullOrEmpty(errs))
+            {
+                if (await GroupViewModel.DoesUserExist()
+                    && !(await GroupViewModel.WasAlreadyInvited())
+                    && !(await GroupViewModel.AlreadyPariticipates()))
+                {
+                    await GroupViewModel.InviteUser();
+                    this.Frame.Navigate(typeof(GroupPage), GroupViewModel.Group);
+                }
+            }
+
+
 
         }
 
+        private void UsernameInput_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if (args.ChosenSuggestion != null)
+            {
+                sender.Text = args.ChosenSuggestion.ToString();
+            }
+        }
 
+        private void UsernameInput_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            if (args.SelectedItem != null)
+            {
+                sender.Text = args.SelectedItem.ToString();
+            }
+
+        }
+
+        private async void UsernameInput_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (sender.Text != null)
+            {
+
+                var suggestions = await GroupViewModel.LoadUsersByUsernameStartWith();
+                sender.ItemsSource = suggestions;
+            }
+            
+                
+        }
     }
 }
+    

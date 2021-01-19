@@ -12,5 +12,6 @@ namespace MemoMap.Domain.Repositories
         Task<User> FindByUsernameAndPasswordAsync(string username, string password);
         Task<User> FindByUsernameAsync(string username);
         Task<User> FindByEmailAsync(string email);
+        Task<List<User>> FindUserByUsernameStartWith(string input);
     }
 }
