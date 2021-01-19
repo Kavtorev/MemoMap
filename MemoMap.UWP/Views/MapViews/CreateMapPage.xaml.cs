@@ -45,7 +45,8 @@ namespace MemoMap.UWP.Views.MapViews
         private async void Save_Click(object sender, RoutedEventArgs e)
         {
             await MapViewModel.InsertAsync();
-            this.Frame.GoBack();
+
+            if (this.Frame.CanGoBack) { this.Frame.GoBack(); }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)

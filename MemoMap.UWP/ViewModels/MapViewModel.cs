@@ -39,7 +39,7 @@ namespace MemoMap.UWP.ViewModels
         internal async Task DeleteAsync(Map map)
         {
             await App.UnitOfWork.MapRepository.DeleteAsync(map);
-            Maps.Remove(Map);
+            Maps.Remove(map);
         }
 
         internal async Task EditAsync()

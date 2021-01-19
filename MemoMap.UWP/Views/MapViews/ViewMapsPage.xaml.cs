@@ -1,4 +1,5 @@
-﻿using MemoMap.UWP.ViewModels;
+﻿using MemoMap.Domain.Models;
+using MemoMap.UWP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,9 +32,13 @@ namespace MemoMap.UWP.Views.MapViews
             MapViewModel = new MapViewModel();
         }
 
-        private void deleteMap_Click(object sender, RoutedEventArgs e)
+        private async void deleteMap_Click(object sender, RoutedEventArgs e)
         {
-            // add in the future commit
+            // check if data exists in the database, if true delete
+            if(sender is FrameworkElement b && b.DataContext is Map map)
+            {
+                await MapViewModel.DeleteAsync(map);
+            }
         }
 
         private void editMap_Click(object sender, RoutedEventArgs e)
