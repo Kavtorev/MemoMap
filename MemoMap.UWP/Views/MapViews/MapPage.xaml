@@ -23,14 +23,14 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <!-- geo position user picked -->
-            <TextBlock FontSize="20" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" TextAlignment="Left" Name="latitude" Visibility="Visible"/>
-            <TextBlock FontSize="20" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" TextAlignment="Right" Name="longtitute" Visibility="Visible"/>
+            <TextBlock FontSize="20" VerticalAlignment="Center" TextAlignment="Left" Name="latitude" Visibility="Visible"/>
+            <TextBlock FontSize="20" VerticalAlignment="Center" TextAlignment="Right" Name="longtitute" Visibility="Visible"/>
             <!--<Button IsEnabled="False" Click="Button_Click" Content="Add point" Grid.Column="1" FontSize="16" HorizontalAlignment="Right" CornerRadius="20" x:Name="AddPoint"/>-->
 
             <!--<Button IsEnabled="True" Click="Button_Click_2" Content="Add point test" Grid.Column="1" FontSize="16" HorizontalAlignment="Left" CornerRadius="20" x:Name="AddPoint_test"/>-->
 
             <!-- testing the list of currently picked position by the user -->
-            <TextBlock FontSize="12" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" TextAlignment="Center" Name="positions"/>
+            <TextBlock FontSize="12" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Name="positions"/>
             <Frame x:Name="MapFrame"/>
         </Grid>
         

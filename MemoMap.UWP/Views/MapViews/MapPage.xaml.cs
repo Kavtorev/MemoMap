@@ -35,6 +35,11 @@ namespace MemoMap.UWP.Views.Location
             PointAdding pnt = new PointAdding();
             await pnt.ShowAsync();
 
+            // get provided name of the point
+            var title = pnt.pointname;
+            if (title == null)
+                return; // close the method execution without closing the program
+
             // spec location
             BasicGeoposition pos = new BasicGeoposition { Latitude = GeoPosition.Latitude, Longitude = GeoPosition.Longitude };
             Geopoint position = new Geopoint(pos);
@@ -44,7 +49,8 @@ namespace MemoMap.UWP.Views.Location
                 Location = position,
                 NormalizedAnchorPoint = new Point(0.5, 1.0),
                 ZIndex = 0,
-                Title = "Title"
+                // point will be added with defined name
+                Title = title
             };
 
             landmarks.Add(spaceNeedleIcon);

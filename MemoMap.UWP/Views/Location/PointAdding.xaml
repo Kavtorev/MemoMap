@@ -9,13 +9,13 @@
     Title="Provide required information for this point"
     PrimaryButtonText="Add"
     SecondaryButtonText="Cancel"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    PrimaryButtonClick="SavePointClick"
+    SecondaryButtonClick="CancelPointAddingClick">
 
     <StackPanel>
-        <TextBox Header="Point name" Name="PointName"/>
-            <!--Text="{x:Bind NoteViewModel.Notes.Title, Mode=TwoWay}"/>-->
-            <TextBox Header="Note" Name="PointNote"/>
-            <!--Text="{x:Bind NoteViewModel.Notes.Description, Mode=TwoWay}"/>-->
+        <TextBox Header="Point name" x:Name="PointName" PlaceholderText="Enter point name"
+                 Text="{x:Bind NoteViewModel.Note.Title, Mode=TwoWay}"/>
+        <!--<TextBox Header="Note" x:Name="PointNote" PlaceholderText="Additional information"
+                 Text="{x:Bind NoteViewModel.Note.Description, Mode=TwoWay}"/>-->
     </StackPanel>
 </ContentDialog>
