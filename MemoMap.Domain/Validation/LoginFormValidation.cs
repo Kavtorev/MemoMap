@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MemoMap.Infrastructure.Validation
+namespace MemoMap.Domain.Validation
 {
     public class LoginFormValidation : Validator
     {
@@ -16,8 +16,8 @@ namespace MemoMap.Infrastructure.Validation
         public string ValidateLoginField()
         {
             Errors = "";
-            ValidateEmailField();
-            ValidatePasswordField();
+            //ValidateEmailField();
+            //ValidatePasswordField();
             return Errors;
         }
     }

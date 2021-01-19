@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace MemoMap.Infrastructure.Validation
+namespace MemoMap.Domain.Validation
 {
     public class Validator
     {

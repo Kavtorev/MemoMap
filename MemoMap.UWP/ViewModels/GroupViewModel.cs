@@ -1,6 +1,9 @@
 ﻿using MemoMap.Domain;
 using MemoMap.Domain.Models;
-using MemoMap.Infrastructure.Validation;
+using MemoMap.Domain.Services;
+using MemoMap.Infrastructure;
+using MemoMap.Domain.Validation;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,13 +22,14 @@ namespace MemoMap.UWP.ViewModels
 
         private string _invitedUsername;
 
+        public GroupPageService GroupPageService { get; set; }
+
         private User _groupAdmin;
         public ObservableCollection<Group> Groups { get; set; }
         public ObservableCollection<User> Users { get; set; }
 
         public User InvitedUser { get; set; }
 
-        public RegistrationFormValidation UsernameFieldValidator { get; set; }
 
         private string _validationErrors;
 
@@ -52,7 +56,12 @@ namespace MemoMap.UWP.ViewModels
             Group = new Group();
             Groups = new ObservableCollection<Group>();
             Users = new ObservableCollection<User>();
-            UsernameFieldValidator = new RegistrationFormValidation();
+
+            DbContextOptionsBuilder<MemoMapDbContext> options =
+               new DbContextOptionsBuilder<MemoMapDbContext>();
+
+            options.UseSqlServer(App.connectionString);
+            GroupPageService = new GroupPageService(new UnitOfWork(options.Options));
         }
 
         public BitmapImage UploadedImage
@@ -61,18 +70,18 @@ namespace MemoMap.UWP.ViewModels
             set => SetField(ref _uploadedImage, value);
         }
 
-        public void GetGroupAdmin()
+        public void LoadGroupAdmin()
         {
-            GroupAdmin = App.UnitOfWork.GroupRepository.FindGroupAdmin(Group.Id);
+            GroupAdmin = GroupPageService.GetGroupAdmin(Group.Id);
         }
 
         internal string ValidateUsername()
         {
             ValidationErrors = "";
-            UsernameFieldValidator.Properties["username"] = InvitedUsername;
-            ValidationErrors = UsernameFieldValidator.ValidateUsernameField();
+            ValidationErrors = GroupPageService.CheckUsernameValidity(InvitedUsername);
             return ValidationErrors;
         }
+
 
         internal async Task<bool> WasAlreadyInvited()
         {
@@ -82,6 +91,7 @@ namespace MemoMap.UWP.ViewModels
             ValidationErrors = $"User '{InvitedUsername}' was already invited to join this group.";
             return true;
         }
+
 
         internal async Task<Invitation> InviteUser()
         {
@@ -94,6 +104,7 @@ namespace MemoMap.UWP.ViewModels
                 });
         }
 
+
         public async Task<bool> DoesUserExist()
         {
             InvitedUser = await App.UnitOfWork.UserRepository.FindByUsernameAsync(InvitedUsername);
@@ -101,7 +112,6 @@ namespace MemoMap.UWP.ViewModels
             ValidationErrors = "User doesn't exist";
             return false;
         }
-
 
         public async Task<bool> AlreadyPariticipates()
         {
@@ -115,7 +125,8 @@ namespace MemoMap.UWP.ViewModels
 
         internal async Task<ObservableCollection<User>> LoadUsersByUsernameStartWith()
         {
-            var res = await App.UnitOfWork.UserRepository.FindUserByUsernameStartWith(InvitedUsername);
+            var res = await 
+                App.UnitOfWork.UserRepository.FindUserByUsernameStartWith(InvitedUsername);
             return new ObservableCollection<User>(res);
         }
 

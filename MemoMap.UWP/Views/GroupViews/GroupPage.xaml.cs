@@ -43,7 +43,7 @@ namespace MemoMap.UWP.Views.GroupViews
                 var users = await GroupViewModel.LoadUsersAsync();
                 if (users.Count() > 1)
                 {
-                    GroupViewModel.GetGroupAdmin();
+                    GroupViewModel.LoadGroupAdmin();
                 }
                 else if (users.Count() == 1)
                 {
