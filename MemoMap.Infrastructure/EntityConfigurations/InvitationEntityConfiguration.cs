@@ -12,6 +12,7 @@ namespace MemoMap.Infrastructure.EntityConfigurations
         public void Configure(EntityTypeBuilder<Invitation> builder)
         {
             builder.Property(p => p.Date).IsRequired();
+            builder.Ignore(p => p.InvitationTitle);
 
             //Cannot create a relationship between 'User.Invitations' and 'Invitation.Invited', 
             //    because there already is a relationship between 

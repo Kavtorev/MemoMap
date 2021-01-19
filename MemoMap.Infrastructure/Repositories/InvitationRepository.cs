@@ -16,6 +16,20 @@ namespace MemoMap.Infrastructure.Repositories
 
         }
 
+        public async Task<List<Invitation>> FindAllReceivedInvites(int userId)
+        {
+            return await _dbContext.Invitations
+                .Where(p => p.InvitedId == userId)
+                .Select(p => new Invitation {
+                    Id = p.Id,
+                    InvitedId = p.InvitedId,
+                    Inviting = p.Inviting, 
+                    GroupId = p.GroupId, 
+                    Group = p.Group 
+                })
+                .ToListAsync();
+        }
+
         public async Task<Invitation> FindByInvitedGroupId(int invitedId, int groupId)
         {
             return await _dbContext.Invitations

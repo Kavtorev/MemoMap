@@ -10,5 +10,6 @@ namespace MemoMap.Domain.Repositories
     public interface IInvitationRepository : IRepository<Invitation>
     {
         Task<Invitation> FindByInvitedGroupId(int invitedId, int groupId);
+        Task<List<Invitation>> FindAllReceivedInvites(int userId);
     }
 }
