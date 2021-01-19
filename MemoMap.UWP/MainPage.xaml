@@ -30,6 +30,10 @@
                     Content="Map"
                     Icon="Map"
                     Tag="map" />
+                <NavigationViewItem
+                    Content="Invitations"
+                    Icon="Accept"
+                    Tag="invitations" />
             </NavigationView.MenuItems>
             <Grid Padding="10,0,10,10">
                 <StackPanel Orientation="Horizontal">

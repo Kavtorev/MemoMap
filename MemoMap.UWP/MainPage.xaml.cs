@@ -23,6 +23,7 @@ using Windows.Storage;
 using MemoMap.UWP.Views.UserViews;
 using MemoMap.UWP.Views.MapViews;
 using MapPage = MemoMap.UWP.Views.Location.MapPage;
+using MemoMap.UWP.Views.InvitationViews;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace MemoMap.UWP
@@ -55,7 +56,8 @@ namespace MemoMap.UWP
                 {"create_group",  typeof(CreateGroupPage)},
                 {"view_groups",  typeof(ViewGroupPage)},
                 {"map_page",  typeof(MapPage)},
-                {"account_settings",  typeof(AccountSettings)}
+                {"account_settings",  typeof(AccountSettings)},
+                {"invitations", typeof(InvitationsPage)}
             };
         }
 

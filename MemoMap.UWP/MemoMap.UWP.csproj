@@ -127,6 +127,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
     <Compile Include="ViewModels\GroupViewModel.cs" />
+    <Compile Include="ViewModels\InvitationViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\NoteViewModel.cs" />
@@ -142,6 +143,9 @@
     </Compile>
     <Compile Include="Views\GroupViews\ViewGroupPage.xaml.cs">
       <DependentUpon>ViewGroupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InvitationViews\InvitationsPage.xaml.cs">
+      <DependentUpon>InvitationsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MapViews\CreateMapPage.xaml.cs">
       <DependentUpon>CreateMapPage.xaml</DependentUpon>
@@ -203,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GroupViews\ViewGroupPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InvitationViews\InvitationsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
