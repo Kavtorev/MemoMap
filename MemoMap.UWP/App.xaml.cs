@@ -33,7 +33,7 @@ namespace MemoMap.UWP
     sealed partial class App : Application
     {
         // connection string which allows UWP part to connect to the DB
-        public string connectionString = "Server=localhost; Initial Catalog=memo-map; Integrated Security = True; User ID=memomapAdmin; Password=admin; Connect Timeout = 30;";
+        public static string connectionString = "Server=localhost; Initial Catalog=memo-map; Integrated Security = True; User ID=memomapAdmin; Password=admin; Connect Timeout = 30;";
         public static IUnitOfWork UnitOfWork { get; set; }
 
         // user is globally accessible
