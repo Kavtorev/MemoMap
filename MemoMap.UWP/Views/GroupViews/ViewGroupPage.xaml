@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <Grid Padding="10">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -22,9 +22,8 @@
 
             <TextBlock
                 Grid.Column="0"
-                Padding="10"
                 FontSize="20"
-                Text="Here is a list of groups you are participating in." />
+                Text="Here is a list of groups you are participating in or the admin to." />
             <CommandBar
                 Grid.Column="1"
                 Background="Transparent"

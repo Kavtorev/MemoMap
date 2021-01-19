@@ -45,11 +45,13 @@
         <StackPanel Grid.Row="1">
             <TextBox
                 x:Name="groupNameInput"
+                Margin="0,10,0,10"
                 PlaceholderText="Group Name"
                 Text="{x:Bind GroupViewModel.Group.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Button
                 x:Name="Thumbnail"
                 Content="Choose a thumbnail"
+                CornerRadius="4"
                 Tapped="Thumbnail_Tapped" />
             <Image
                 Width="400"

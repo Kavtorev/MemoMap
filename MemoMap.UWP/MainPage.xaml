@@ -17,7 +17,7 @@
                 <NavigationViewItem
                     Content="View groups"
                     Icon="List"
-                    Tag="view_groups" />
+                    Tag="Your group list" />
                 <NavigationViewItem
                     Content="My Maps"
                     Icon="Map"
@@ -25,7 +25,7 @@
                 <NavigationViewItem
                     Content="Create a group"
                     Icon="Edit"
-                    Tag="create_group" />
+                    Tag="Originate a new group" />
                 <NavigationViewItem
                     Content="Map"
                     Icon="Map"
@@ -33,13 +33,24 @@
                 <NavigationViewItem
                     Content="Invitations"
                     Icon="Accept"
-                    Tag="invitations" />
+                    Tag="Invitations" />
             </NavigationView.MenuItems>
             <Grid Padding="10,0,10,10">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{x:Bind MainViewModel.PageTitle, Mode=OneWay}" />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <TextBlock
+                        FontSize="40"
+                        Style="{StaticResource HeaderTextBlockStyle}"
+                        Text="{x:Bind MainViewModel.PageTitle, Mode=OneWay}" />
+                    <Border BorderBrush="Gray" BorderThickness="0,0,0,1" />
                 </StackPanel>
-                <Frame x:Name="MainFrame" />
+                <Frame
+                    x:Name="MainFrame"
+                    Grid.Row="1"
+                    Margin="0,10,0,0" />
             </Grid>
             <NavigationView.PaneFooter>
                 <StackPanel>

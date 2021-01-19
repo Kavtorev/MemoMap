@@ -53,11 +53,11 @@ namespace MemoMap.UWP
             {
                 {"my_maps",  typeof(ViewMapsPage)},
                 //{"create_map", typeof(Views.GroupViews.CreateMapPage)},
-                {"create_group",  typeof(CreateGroupPage)},
-                {"view_groups",  typeof(ViewGroupPage)},
+                {"Originate a new group",  typeof(CreateGroupPage)},
+                {"Your group list",  typeof(ViewGroupPage)},
                 {"map_page",  typeof(MapPage)},
                 {"account_settings",  typeof(AccountSettings)},
-                {"invitations", typeof(InvitationsPage)}
+                {"Invitations", typeof(InvitationsPage)}
             };
         }
 
