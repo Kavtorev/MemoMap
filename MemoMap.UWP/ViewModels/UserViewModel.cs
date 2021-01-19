@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using BCrypt.Net;
-using MemoMap.Infrastructure.Validation;
+using MemoMap.Domain.Validation;
 using MemoMap.Domain.Models;
 
 namespace MemoMap.UWP.ViewModels
