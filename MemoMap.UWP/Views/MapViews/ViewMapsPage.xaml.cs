@@ -43,7 +43,12 @@ namespace MemoMap.UWP.Views.MapViews
 
         private void editMap_Click(object sender, RoutedEventArgs e)
         {
-            // add in the future commit
+            // check if data exists in the database, if true navigate
+            if (sender is FrameworkElement b && b.DataContext is Map map)
+            {
+                MapViewModel.Map = map;
+                this.Frame.Navigate(typeof(CreateMapPage), map);
+            }
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)

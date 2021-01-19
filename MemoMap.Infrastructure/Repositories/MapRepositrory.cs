@@ -13,5 +13,15 @@ namespace MemoMap.Infrastructure.Repositories
         {
 
         }
+
+        public async Task<Map> UpsertAsync(Map map)
+        {
+            // if doesn't exists - create
+            if (map.Id == 0) { return await CreateAsync(map); }
+            // otherwise the record will be updated
+            await this.UpdateAsync(map);
+
+            return null;
+        }
     }
 }
