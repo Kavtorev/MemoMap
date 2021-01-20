@@ -17,17 +17,6 @@ namespace MemoMap.Infrastructure.Repositories
         {
             
         }
-
-        public async Task<List<Group>> FindAllJoinedGroupsAsync(int userId)
-        {
-            var res = await _dbContext.Groups
-                .Where(group => group.GroupUsers
-                .Any(g2u => g2u.UserId == userId))
-                .ToListAsync();
-
-            return res;
-        }
-
         public async Task<List<User>> FindAllGroupUsers(int groupId)
         {
             var res = await _dbContext.Users

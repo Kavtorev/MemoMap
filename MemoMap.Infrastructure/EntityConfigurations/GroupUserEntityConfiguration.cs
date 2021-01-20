@@ -17,6 +17,7 @@ namespace MemoMap.Infrastructure.EntityConfigurations
         public void Configure(EntityTypeBuilder<GroupUser> builder)
         {
 
+            builder.Ignore(p => p.IsNotAdmin);
             builder.Property(p => p.IsAdmin).IsRequired();
 
             builder
