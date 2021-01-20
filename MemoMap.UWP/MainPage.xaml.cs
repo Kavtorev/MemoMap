@@ -24,6 +24,7 @@ using MemoMap.UWP.Views.UserViews;
 using MemoMap.UWP.Views.MapViews;
 using MapPage = MemoMap.UWP.Views.Location.MapPage;
 using MemoMap.UWP.Views.InvitationViews;
+using MemoMap.Domain;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace MemoMap.UWP
@@ -125,6 +126,7 @@ namespace MemoMap.UWP
 
         private async void LoginItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            UserViewModel.User = new User();
             LoginDialog dlg = new LoginDialog();
             var res = await dlg.ShowAsync();
 
@@ -141,6 +143,7 @@ namespace MemoMap.UWP
 
         private async void RegistrationItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            UserViewModel.User = new User();
             RegisterDialog dlg = new RegisterDialog();
             var res = await dlg.ShowAsync();
 
@@ -157,7 +160,6 @@ namespace MemoMap.UWP
         private void Logout_Tapped(object sender, TappedRoutedEventArgs e)
         {
             UserViewModel.LoggedUser = null;
-            UserViewModel.User = null;
         }
     }
 }

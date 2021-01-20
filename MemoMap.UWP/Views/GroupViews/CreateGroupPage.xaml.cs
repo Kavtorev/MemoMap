@@ -39,7 +39,7 @@ namespace MemoMap.UWP.Views.GroupViews
         {
             if (e.Parameter != null)
             {
-                var model = e.Parameter as Group;
+                var model = (e.Parameter as GroupUser).Group;
                 GroupViewModel.Group = model;
                 base.OnNavigatedTo(e);
             }
@@ -64,8 +64,11 @@ namespace MemoMap.UWP.Views.GroupViews
         private async void Thumbnail_Tapped(object sender, TappedRoutedEventArgs e)
         {
             var file = await MainViewModel.PickImageFileAsync();
-            GroupViewModel.Group.Thumbnail = await MainViewModel.LoadFileByteArray(file);
-            GroupViewModel.UploadedImage = await MainViewModel.LoadImageFile(file);
+            if (file != null)
+            {
+                GroupViewModel.Group.Thumbnail = await MainViewModel.LoadFileByteArray(file);
+                GroupViewModel.UploadedImage = await MainViewModel.LoadImageFile(file);
+            }    
         }
     }
 }

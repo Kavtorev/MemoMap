@@ -35,7 +35,8 @@
                 AllowFocusOnInteraction="True"
                 Icon="AddFriend"
                 Label="Invite"
-                ToolTipService.ToolTip="Invite a new user to the group.">
+                ToolTipService.ToolTip="Invite a new user to the group."
+                Visibility="{x:Bind GroupViewModel.AdminFunctionsVisibility}">
                 <AppBarButton.Flyout>
                     <Flyout>
                         <StackPanel>

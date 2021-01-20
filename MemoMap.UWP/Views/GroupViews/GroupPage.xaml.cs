@@ -38,7 +38,8 @@ namespace MemoMap.UWP.Views.GroupViews
         {
             if (e.Parameter != null)
             {
-                GroupViewModel.Group = e.Parameter as Group;
+                GroupViewModel.Group = (e.Parameter as GroupUser).Group;
+                GroupViewModel.AdminFunctionsVisibility = (e.Parameter as GroupUser).IsAdmin;
 
                 var users = await GroupViewModel.LoadUsersAsync();
                 if (users.Count() > 1)
@@ -67,9 +68,6 @@ namespace MemoMap.UWP.Views.GroupViews
                     this.Frame.Navigate(typeof(GroupPage), GroupViewModel.Group);
                 }
             }
-
-
-
         }
 
         private void UsernameInput_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)

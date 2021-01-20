@@ -39,18 +39,18 @@ namespace MemoMap.UWP.Views.GroupViews
 
         private async void DeleteGroup_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is FrameworkElement b && b.DataContext is Group group)
+            if (sender is FrameworkElement b && b.DataContext is GroupUser g2u)
             {
-                await GroupViewModel.DeleteAsync(group);
+                await GroupViewModel.DeleteAsync(g2u);
             }
 
         }
 
         private void editGroup_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is FrameworkElement b && b.DataContext is Group group)
+            if (sender is FrameworkElement b && b.DataContext is GroupUser g2u)
             {
-                this.Frame.Navigate(typeof(CreateGroupPage), group);
+                this.Frame.Navigate(typeof(CreateGroupPage), g2u);
             }
         }
         private void createNewGroup_Click(object sender, RoutedEventArgs e)
@@ -60,8 +60,27 @@ namespace MemoMap.UWP.Views.GroupViews
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Group g = (Group)e.ClickedItem;
-            this.Frame.Navigate(typeof(GroupPage), g);
+            GroupUser g2u = (GroupUser)e.ClickedItem;
+            this.Frame.Navigate(typeof(GroupPage), g2u);
+        }
+
+        private async void LeaveGroup_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is FrameworkElement b && b.DataContext is GroupUser g2u)
+            {
+                await GroupViewModel.LeaveTheGroup(g2u);
+                await GroupViewModel.LoadAllAsync("normalUser");
+            }
+        }
+
+        private async void NormalUserButton_Click(object sender, RoutedEventArgs e)
+        {
+            await GroupViewModel.LoadAllAsync("normalUser");
+        }
+
+        private async void AdminButton_Click(object sender, RoutedEventArgs e)
+        {
+            await GroupViewModel.LoadAllAsync();
         }
     }
 }
