@@ -13,11 +13,12 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <TextBlock
@@ -37,15 +38,35 @@
                     ToolTipService.ToolTip="Allow to add a new category" />
             </CommandBar>
         </Grid>
-
-        <ListView
+        <StackPanel
             Grid.Row="1"
+            Margin="0,10"
+            Orientation="Vertical">
+            <TextBlock FontSize="18" Text="Display groups where I am: " />
+            <StackPanel Orientation="Horizontal">
+                <AppBarButton
+                    x:Name="AdminButton"
+                    Width="200"
+                    Click="AdminButton_Click"
+                    Icon="Admin"
+                    Label="Admin" />
+                <AppBarSeparator />
+                <AppBarButton
+                    x:Name="NormalUserButton"
+                    Width="200"
+                    Click="NormalUserButton_Click"
+                    Icon="OtherUser"
+                    Label="Normal user." />
+            </StackPanel>
+        </StackPanel>
+        <ListView
+            Grid.Row="2"
             IsItemClickEnabled="True"
             ItemClick="ListView_ItemClick"
             ItemsSource="{x:Bind GroupViewModel.Groups}">
 
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="model:Group">
+                <DataTemplate x:DataType="model:GroupUser">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -63,8 +84,8 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 FontSize="16"
-                                Text="{x:Bind Name}"
-                                ToolTipService.ToolTip="{x:Bind Name}" />
+                                Text="{x:Bind Group.Name}"
+                                ToolTipService.ToolTip="{x:Bind Group.Name}" />
                         </StackPanel>
                         <CommandBar
                             Grid.Row="0"
@@ -77,16 +98,26 @@
                                 Icon="Edit"
                                 Label="Edit"
                                 Tag="edit_group"
-                                ToolTipService.ToolTip="Edit group information" />
+                                ToolTipService.ToolTip="Edit group information"
+                                Visibility="{x:Bind IsAdmin}" />
                             <AppBarButton
                                 Click="DeleteGroup_Click"
                                 Icon="Delete"
                                 Label="Delete"
                                 Tag="delete_group"
-                                ToolTipService.ToolTip="Delete a group" />
+                                ToolTipService.ToolTip="Delete a group"
+                                Visibility="{x:Bind IsAdmin}" />
+                            <AppBarButton
+                                x:Name="LeaveGroup"
+                                Click="LeaveGroup_Click"
+                                Icon="LeaveChat"
+                                Label="Leave"
+                                Tag="leave_group"
+                                ToolTipService.ToolTip="Leave a group"
+                                Visibility="{x:Bind IsNotAdmin}" />
                         </CommandBar>
                         <StackPanel Grid.Row="1" Margin="5">
-                            <TextBlock Text="{x:Bind FormattedDate}" />
+                            <TextBlock Text="{x:Bind Group.FormattedDate}" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

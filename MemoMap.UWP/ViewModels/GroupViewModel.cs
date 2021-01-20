@@ -17,15 +17,11 @@ namespace MemoMap.UWP.ViewModels
     public class GroupViewModel : BindableBase
     {
         public Group Group { get; set; }
-
         private BitmapImage _uploadedImage;
-
         private string _invitedUsername;
-
         public GroupPageService GroupPageService { get; set; }
-
         private User _groupAdmin;
-        public ObservableCollection<Group> Groups { get; set; }
+        public ObservableCollection<GroupUser> Groups { get; set; }
         public ObservableCollection<User> Users { get; set; }
 
         public User InvitedUser { get; set; }
@@ -51,10 +47,12 @@ namespace MemoMap.UWP.ViewModels
             set => SetField(ref _groupAdmin, value);
         }
 
+        public bool AdminFunctionsVisibility { get; set; }
+
         public GroupViewModel()
         {
             Group = new Group();
-            Groups = new ObservableCollection<Group>();
+            Groups = new ObservableCollection<GroupUser>();
             Users = new ObservableCollection<User>();
 
             DbContextOptionsBuilder<MemoMapDbContext> options =
@@ -82,6 +80,10 @@ namespace MemoMap.UWP.ViewModels
             return ValidationErrors;
         }
 
+        internal async Task LeaveTheGroup(GroupUser g2u)
+        {
+            await App.UnitOfWork.GroupUserRepository.DeleteAsync(g2u);
+        }
 
         internal async Task<bool> WasAlreadyInvited()
         {
@@ -125,20 +127,30 @@ namespace MemoMap.UWP.ViewModels
 
         internal async Task<ObservableCollection<User>> LoadUsersByUsernameStartWith()
         {
-            var res = await 
+            var res = await
                 App.UnitOfWork.UserRepository.FindUserByUsernameStartWith(InvitedUsername);
             return new ObservableCollection<User>(res);
         }
 
-        public async Task LoadAllAsync()
+        public async Task LoadAllAsync(string mode = "")
         {
-            List<Group> groups = await App.
+            List<GroupUser> groups = await App.
                 UnitOfWork.
-                GroupRepository.
+                GroupUserRepository.
                 FindAllJoinedGroupsAsync(App.UserViewModel.LoggedUser.Id);
 
+            if (string.IsNullOrEmpty(mode))
+            {
+                // filtering by admin is true
+                groups = groups.FindAll(p => p.IsAdmin);
+            }
+            else
+            {
+                groups = groups.FindAll(p => !p.IsAdmin);
+            }
+
             Groups.Clear();
-            foreach (Group g in groups)
+            foreach (GroupUser g in groups)
             {
                 Groups.Add(g);
             }
@@ -176,9 +188,9 @@ namespace MemoMap.UWP.ViewModels
             }
         }
 
-        internal async Task DeleteAsync(Group group)
+        internal async Task DeleteAsync(GroupUser group)
         {
-            await App.UnitOfWork.GroupRepository.DeleteAsync(group);
+            await App.UnitOfWork.GroupRepository.DeleteAsync(group.Group);
             Groups.Remove(group);
         }
 
