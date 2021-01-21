@@ -125,6 +125,14 @@ namespace MemoMap.UWP.ViewModels
             return true;
         }
 
+        internal async Task KickUser(User user)
+        {
+            await App.UnitOfWork.GroupUserRepository.DeleteAsync(
+                await App.UnitOfWork.GroupUserRepository.FindByUserGroupId(user.Id, Group.Id)
+                );
+            Users.Remove(user);
+        }
+
         internal async Task<ObservableCollection<User>> LoadUsersByUsernameStartWith()
         {
             var res = await
@@ -158,13 +166,13 @@ namespace MemoMap.UWP.ViewModels
 
         internal async Task<ObservableCollection<User>> LoadUsersAsync()
         {
-            List<User> groups = await App.
+            List<User> users = await App.
                 UnitOfWork.
                 GroupRepository.
                 FindAllGroupUsers(Group.Id);
 
             Users.Clear();
-            foreach (User u in groups)
+            foreach (User u in users)
             {
                 Users.Add(u);
             }

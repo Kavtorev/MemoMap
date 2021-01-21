@@ -1,4 +1,5 @@
-﻿using MemoMap.Domain.Models;
+﻿using MemoMap.Domain;
+using MemoMap.Domain.Models;
 using MemoMap.UWP.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -65,7 +66,7 @@ namespace MemoMap.UWP.Views.GroupViews
                     && !(await GroupViewModel.AlreadyPariticipates()))
                 {
                     await GroupViewModel.InviteUser();
-                    this.Frame.Navigate(typeof(GroupPage), GroupViewModel.Group);
+                    InvitationalFlyout.Hide();
                 }
             }
         }
@@ -97,6 +98,27 @@ namespace MemoMap.UWP.Views.GroupViews
             }
             
                 
+        }
+
+        private void UserProfile_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (sender is FrameworkElement b && GroupViewModel.AdminFunctionsVisibility)
+            {
+                b.ContextFlyout.ShowAt(b);
+            }
+        }
+
+        private void Promote_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void Kick_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is FrameworkElement u && u.DataContext is User user)
+            {
+                await GroupViewModel.KickUser(user);
+            }
         }
     }
 }

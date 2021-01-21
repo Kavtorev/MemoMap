@@ -71,7 +71,6 @@ namespace MemoMap.UWP.ViewModels
         internal async Task<bool> DoLoginAsync()
         {
             // A user is able to login by an email.
-
             User userToLogin = await App.UnitOfWork.UserRepository.FindByEmailAsync(User.Email);
             if (userToLogin != null)
             {

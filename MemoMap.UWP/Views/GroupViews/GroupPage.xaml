@@ -38,7 +38,7 @@
                 ToolTipService.ToolTip="Invite a new user to the group."
                 Visibility="{x:Bind GroupViewModel.AdminFunctionsVisibility}">
                 <AppBarButton.Flyout>
-                    <Flyout>
+                    <Flyout x:Name="InvitationalFlyout">
                         <StackPanel>
                             <AutoSuggestBox
                                 x:Name="UsernameInput"
@@ -88,14 +88,30 @@
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="model:User">
                     <StackPanel
+                        x:Name="UserProfile"
                         MinWidth="100"
                         MinHeight="100"
-                        Margin="10">
+                        Margin="10"
+                        Tapped="UserProfile_Tapped">
                         <PersonPicture DisplayName="{x:Bind Username}" />
                         <TextBlock
                             HorizontalAlignment="Center"
                             FontSize="16"
                             Text="{x:Bind Username}" />
+                        <StackPanel.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem
+                                    x:Name="Promote"
+                                    Click="Promote_Click"
+                                    Icon="Admin"
+                                    Text="Promote to Admin" />
+                                <MenuFlyoutItem
+                                    x:Name="Kick"
+                                    Click="Kick_Click"
+                                    Icon="Delete"
+                                    Text="Kick user" />
+                            </MenuFlyout>
+                        </StackPanel.ContextFlyout>
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>
