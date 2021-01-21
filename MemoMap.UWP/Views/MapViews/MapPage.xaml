@@ -23,14 +23,15 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <!-- geo position user picked -->
-            <TextBlock FontSize="20" VerticalAlignment="Center" TextAlignment="Left" Name="latitude" Visibility="Visible"/>
-            <TextBlock FontSize="20" VerticalAlignment="Center" TextAlignment="Right" Name="longtitute" Visibility="Visible"/>
+            <!--<TextBlock FontSize="20" VerticalAlignment="Center" TextAlignment="Left" Name="latitude" Visibility="Visible"/>-->
+            <!--<TextBlock FontSize="20" VerticalAlignment="Center" TextAlignment="Right" Name="longtitute" Visibility="Visible"/>-->
             <!--<Button IsEnabled="False" Click="Button_Click" Content="Add point" Grid.Column="1" FontSize="16" HorizontalAlignment="Right" CornerRadius="20" x:Name="AddPoint"/>-->
-
-            <!--<Button IsEnabled="True" Click="Button_Click_2" Content="Add point test" Grid.Column="1" FontSize="16" HorizontalAlignment="Left" CornerRadius="20" x:Name="AddPoint_test"/>-->
 
             <!-- testing the list of currently picked position by the user -->
             <TextBlock FontSize="12" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Name="positions"/>
+            <!-- update map button -->
+            <Button x:Name="UpdateMap" Click="UpdateMap_Click" FontSize="14" HorizontalAlignment="Center" CornerRadius="2" Content="UpdateMap"/>
+
             <Frame x:Name="MapFrame"/>
         </Grid>
         
@@ -39,7 +40,7 @@
                          Grid.Row="1"
                          ZoomInteractionMode="GestureAndControl"
                          TiltInteractionMode="GestureAndControl"
-                         MapServiceToken="y5u3jsMhdvyHKgngvqEi~HaMfdHCJ_mjaxrQcErYZhA~AndzA0R4aQZ8y5Oyrpzxme12X5U6j_ZlF7SeczHMd6T1LNmoIpvvRpUZWxdghm9M"
+                         MapServiceToken="{x:Bind MapToken}"
                          MapTapped="MemoMap_MapTapped"/>
     </Grid>
 </Page>

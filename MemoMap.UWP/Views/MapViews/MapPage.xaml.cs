@@ -14,22 +14,33 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.Devices.Geolocation;
-
-
+using System.Collections.ObjectModel;
 
 namespace MemoMap.UWP.Views.Location
 {
     public sealed partial class MapPage : Page
     {
+        internal string MapToken = "y5u3jsMhdvyHKgngvqEi~HaMfdHCJ_mjaxrQcErYZhA~AndzA0R4aQZ8y5Oyrpzxme12X5U6j_ZlF7SeczHMd6T1LNmoIpvvRpUZWxdghm9M";
+        private ObservableCollection<MapElement> _points;
+
         public MapPage()
         {
             this.InitializeComponent();
+            _points = new ObservableCollection<MapElement>();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {   
+            // check all LocationId related with the map that is currently used to work with
+            // and append to the _points list that will be used to fill the POIs on the map
+
+            base.OnNavigatedTo(e);
         }
 
         private async void MemoMap_MapTapped(MapControl sender, MapInputEventArgs args)
         {
             var GeoPosition = args.Location.Position;
-            var landmarks = new List<MapElement>();
+            var landmarks = _points;
 
             // open pop up to ask user for additional information about point 
             PointAdding pnt = new PointAdding();
@@ -65,10 +76,11 @@ namespace MemoMap.UWP.Views.Location
 
             MemoMap.Center = position;
             MemoMap.ZoomLevel = 14;
+        }
 
-            // testing the list of currently picked position by the user
-            string result = landmarks.ToString();
-            positions.Text = result;
+        private void UpdateMap_Click(object sender, RoutedEventArgs e)
+        {
+            // invoke a method from the LocationViewModel to insert new POI to the db (Locations table)
         }
     }
 }
