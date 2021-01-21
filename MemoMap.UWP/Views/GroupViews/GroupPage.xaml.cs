@@ -102,9 +102,11 @@ namespace MemoMap.UWP.Views.GroupViews
 
         private void UserProfile_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (sender is FrameworkElement b && GroupViewModel.AdminFunctionsVisibility)
+            if (sender is FrameworkElement b && GroupViewModel.AdminFunctionsVisibility 
+                && b.DataContext is User user)
             {
-                b.ContextFlyout.ShowAt(b);
+                if (user.Id != App.UserViewModel.LoggedUser.Id)
+                    b.ContextFlyout.ShowAt(b);
             }
         }
 
