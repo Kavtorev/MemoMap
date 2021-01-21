@@ -12,7 +12,7 @@
 
     <!--  Navigation menu  -->
     <Grid>
-        <NavigationView IsSettingsVisible="True" ItemInvoked="NavigationView_ItemInvoked">
+        <NavigationView ItemInvoked="NavigationView_ItemInvoked">
             <NavigationView.MenuItems>
                 <NavigationViewItem
                     Content="View groups"

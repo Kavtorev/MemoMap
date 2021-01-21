@@ -126,7 +126,6 @@ namespace MemoMap.UWP
 
         private async void LoginItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            UserViewModel.User = new User();
             LoginDialog dlg = new LoginDialog();
             var res = await dlg.ShowAsync();
 
@@ -143,7 +142,6 @@ namespace MemoMap.UWP
 
         private async void RegistrationItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            UserViewModel.User = new User();
             RegisterDialog dlg = new RegisterDialog();
             var res = await dlg.ShowAsync();
 

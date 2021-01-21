@@ -1,4 +1,5 @@
-﻿using MemoMap.UWP.ViewModels;
+﻿using MemoMap.Domain;
+using MemoMap.UWP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +26,8 @@ namespace MemoMap.UWP.Views.UserViews
         {
             this.InitializeComponent();
             UserViewModel = App.UserViewModel;
-
+            UserViewModel.User = new User();
+            UserViewModel.RegistrationFormValidator.Errors = "";
         }
 
         private async void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
@@ -86,6 +88,10 @@ namespace MemoMap.UWP.Views.UserViews
             UserViewModel.RegistrationFormValidatorSetProperty("duplicated_password", RepeatedPasswordField.Password);
         }
 
-
+        private async void SignInButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            await (new LoginDialog()).ShowAsync();
+        }
     }
 }
