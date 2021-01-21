@@ -19,20 +19,30 @@ namespace MemoMap.UWP.Views.Location
 {
     public sealed partial class PointAdding : ContentDialog
     {
-        internal string pointname;
+        internal string pointname, _lat, _long;
 
         public NoteViewModel NoteViewModel { get; set; }
 
+        public LocationViewModel LocationViewModel { get; set; }
 
-        public PointAdding()
+        public MapViewModel MapViewModel { get; set; }
+
+        public PointAdding(string longtitute="", string latitude="")
         {
             this.InitializeComponent();
             NoteViewModel = new NoteViewModel();
+            LocationViewModel = new LocationViewModel();
+            MapViewModel = new MapViewModel();
+
+            _lat = latitude; _long = longtitute;
         }
 
-        private void SavePointClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void SavePointClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             pointname = PointName.Text;
+                    
+            // insert the point to the Locations table
+            await LocationViewModel.InsertAsync(_lat, _long);
         }
 
         private void CancelPointAddingClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

@@ -19,9 +19,9 @@
                     Icon="List"
                     Tag="Your group list" />
                 <NavigationViewItem
-                    Content="My Maps"
+                    Content="Maps"
                     Icon="Map"
-                    Tag="my_maps" />
+                    Tag="Your Maps List" />
                 <NavigationViewItem
                     Content="Create a group"
                     Icon="Edit"
@@ -29,7 +29,7 @@
                 <NavigationViewItem
                     Content="Map"
                     Icon="Map"
-                    Tag="map" />
+                    Tag="map page" />
                 <NavigationViewItem
                     Content="Invitations"
                     Icon="Accept"

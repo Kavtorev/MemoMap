@@ -52,11 +52,10 @@ namespace MemoMap.UWP
             // key - value pairs: <title of a page>  - <its data type>.
             Routes = new Dictionary<string, Type>
             {
-                {"my_maps",  typeof(ViewMapsPage)},
-                //{"create_map", typeof(Views.GroupViews.CreateMapPage)},
+                {"Your Maps List",  typeof(ViewMapsPage)},
                 {"Originate a new group",  typeof(CreateGroupPage)},
                 {"Your group list",  typeof(ViewGroupPage)},
-                {"map_page",  typeof(MapPage)},
+                {"map page",  typeof(MapPage)},
                 {"account_settings",  typeof(AccountSettings)},
                 {"Invitations", typeof(InvitationsPage)}
             };
