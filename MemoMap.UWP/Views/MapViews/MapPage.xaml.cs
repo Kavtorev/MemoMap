@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.Devices.Geolocation;
 using System.Collections.ObjectModel;
+using MemoMap.UWP.ViewModels;
 
 namespace MemoMap.UWP.Views.Location
 {
@@ -22,11 +23,13 @@ namespace MemoMap.UWP.Views.Location
     {
         internal string MapToken = "y5u3jsMhdvyHKgngvqEi~HaMfdHCJ_mjaxrQcErYZhA~AndzA0R4aQZ8y5Oyrpzxme12X5U6j_ZlF7SeczHMd6T1LNmoIpvvRpUZWxdghm9M";
         private ObservableCollection<MapElement> _points;
+        public MapViewModel MapViewModel { get; set; }
 
         public MapPage()
         {
             this.InitializeComponent();
             _points = new ObservableCollection<MapElement>();
+            this.MapViewModel = new MapViewModel();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -42,8 +45,12 @@ namespace MemoMap.UWP.Views.Location
             var GeoPosition = args.Location.Position;
             var landmarks = _points;
 
+            // store picked points in the MapViewModel
+            var _latitude = GeoPosition.Latitude.ToString();
+            var _longtitute = GeoPosition.Longitude.ToString();
+
             // open pop up to ask user for additional information about point 
-            PointAdding pnt = new PointAdding();
+            PointAdding pnt = new PointAdding(_longtitute, _latitude);
             await pnt.ShowAsync();
 
             // get provided name of the point
@@ -76,11 +83,6 @@ namespace MemoMap.UWP.Views.Location
 
             MemoMap.Center = position;
             MemoMap.ZoomLevel = 14;
-        }
-
-        private void UpdateMap_Click(object sender, RoutedEventArgs e)
-        {
-            // invoke a method from the LocationViewModel to insert new POI to the db (Locations table)
         }
     }
 }

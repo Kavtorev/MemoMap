@@ -15,6 +15,7 @@ namespace MemoMap.Domain.Models
 
         public Location()
         {
+            Date = DateTime.Now;
         }
 
         public string Longitude { get; set; }
