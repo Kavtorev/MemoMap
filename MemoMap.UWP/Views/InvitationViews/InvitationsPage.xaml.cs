@@ -28,6 +28,7 @@ namespace MemoMap.UWP.Views.InvitationViews
         {
             this.InitializeComponent();
             InvitationViewModel = new InvitationViewModel();
+            App.MainViewModel.setTitle("The list of groups you could join.");
         }
 
         public InvitationViewModel InvitationViewModel { get; private set; }

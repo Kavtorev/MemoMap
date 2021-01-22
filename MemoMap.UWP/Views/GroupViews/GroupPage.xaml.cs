@@ -33,6 +33,7 @@ namespace MemoMap.UWP.Views.GroupViews
         {
             this.InitializeComponent();
             GroupViewModel = new GroupViewModel();
+            App.MainViewModel.setTitle("Group details");
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)

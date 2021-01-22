@@ -42,7 +42,7 @@ namespace MemoMap.UWP
         {
             this.InitializeComponent();
             this.InitializeRoutes();
-            MainViewModel = new MainViewModel();
+            MainViewModel = App.MainViewModel;
             UserViewModel = App.UserViewModel;
             GoBackButton.Frame = MainFrame;
         }
@@ -72,7 +72,6 @@ namespace MemoMap.UWP
                         && Routes.TryGetValue(pageTitle, out Type value))
                 {
                     MainFrame.Navigate(value);
-                    MainViewModel.setTitle(pageTitle);
                 }
             }
         }

@@ -33,6 +33,7 @@ namespace MemoMap.UWP.Views.GroupViews
             this.InitializeComponent();
             GroupViewModel = new GroupViewModel();
             MainViewModel = new MainViewModel();
+            App.MainViewModel.setTitle("Originate a new group");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

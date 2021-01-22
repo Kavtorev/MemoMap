@@ -38,6 +38,7 @@ namespace MemoMap.UWP
 
         // user is globally accessible
         public static UserViewModel UserViewModel { get; set; }
+        public static MainViewModel MainViewModel { get; set; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -48,6 +49,7 @@ namespace MemoMap.UWP
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             UserViewModel = new UserViewModel();
+            MainViewModel = new MainViewModel();
         }
 
         /// <summary>
@@ -58,17 +60,17 @@ namespace MemoMap.UWP
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             //Getting token for cheking auth
-            string silentToken = await GetTokenSilentlyAsync();
+            //string silentToken = await GetTokenSilentlyAsync();
 
-            if (silentToken != null)
-            {
-                // the token was obtained. store a reference to it or do something with it here.
-            }
-            else
-            {
-                //open auth form
-                AccountsSettingsPane.Show();
-            }
+            //if (silentToken != null)
+            //{
+            //    the token was obtained. store a reference to it or do something with it here.
+            //}
+            //else
+            //{
+            //    open auth form
+            //    AccountsSettingsPane.Show();
+            //}
             // global UnitOfWork
             DbContextOptionsBuilder<MemoMapDbContext> optionsBuilder = new DbContextOptionsBuilder<MemoMapDbContext>();
             optionsBuilder.UseSqlServer(connectionString);

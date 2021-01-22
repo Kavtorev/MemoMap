@@ -26,10 +26,12 @@ namespace MemoMap.UWP.Views.MapViews
     {
         public MapViewModel MapViewModel { get; set; }
 
+
         public ViewMapsPage()
         {
             this.InitializeComponent();
             MapViewModel = new MapViewModel();
+            App.MainViewModel.setTitle("The list of maps related to you.");
         }
 
         private async void deleteMap_Click(object sender, RoutedEventArgs e)

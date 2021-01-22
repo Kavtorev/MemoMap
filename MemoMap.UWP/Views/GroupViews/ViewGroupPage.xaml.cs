@@ -29,6 +29,7 @@ namespace MemoMap.UWP.Views.GroupViews
         {
             this.InitializeComponent();
             GroupViewModel = new GroupViewModel();
+            App.MainViewModel.setTitle("The lists of groups related to you.");
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)

@@ -30,6 +30,7 @@ namespace MemoMap.UWP.Views.MapViews
         {
             this.InitializeComponent();
             MapViewModel = new MapViewModel();
+            App.MainViewModel.setTitle("Originate a new Map");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
