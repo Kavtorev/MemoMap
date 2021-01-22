@@ -22,13 +22,19 @@ namespace MemoMap.UWP.ViewModels
         private BitmapImage _sourceAttribute;
         private string _pageTitle;
         private static string absolutePathIcons;
-
+        private int _numberOfReceivedInvites;
         public MainViewModel()
         {
             Theme = ElementTheme.Light;
             absolutePathIcons = "ms-appx:///Assets/Icons/";
             SourceIconImage = new BitmapImage(new Uri($"{absolutePathIcons}moon.png"));
             PageTitle = "Home page";
+        }
+
+        public int NumberOfReceivedInvites
+        {
+            get => _numberOfReceivedInvites;
+            set => SetField(ref _numberOfReceivedInvites, value);
         }
 
         public string PageTitle
@@ -69,7 +75,6 @@ namespace MemoMap.UWP.ViewModels
             PageTitle = pageTitle;
         }
 
-
         internal async Task<StorageFile> PickImageFileAsync()
         {
             FileOpenPicker openPicker = new FileOpenPicker();
@@ -103,6 +108,11 @@ namespace MemoMap.UWP.ViewModels
             return null;
         }
 
-        
+        internal void LoadTheNumberOfInvites()
+        {
+            int userId = App.UserViewModel.LoggedUser.Id;
+            NumberOfReceivedInvites = 
+                App.UnitOfWork.InvitationRepository.FindTheNumberOfReceivedInvites(userId);
+        }
     }
 }

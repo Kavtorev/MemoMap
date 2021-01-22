@@ -31,10 +31,19 @@
                     Content="Map"
                     Icon="Map"
                     Tag="map page" />
-                <NavigationViewItem
-                    Content="Invitations"
-                    Icon="Accept"
-                    Tag="Invitations" />
+                <NavigationViewItem Icon="Accept" Tag="Invitations">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Invitations" />
+                        <StackPanel
+                            Margin="10,0,0,0"
+                            Padding="3,0,3,0"
+                            HorizontalAlignment="Right"
+                            Background="DarkCyan"
+                            CornerRadius="5">
+                            <TextBlock Foreground="White" Text="{x:Bind MainViewModel.NumberOfReceivedInvites, Mode=TwoWay}" />
+                        </StackPanel>
+                    </StackPanel>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
             <Grid Padding="10,0,10,10">
                 <Grid.RowDefinitions>

@@ -32,11 +32,15 @@ namespace MemoMap.UWP.Views.InvitationViews
         }
 
         public InvitationViewModel InvitationViewModel { get; private set; }
-
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             await InvitationViewModel.LoadAllAsync();
             base.OnNavigatedTo(e);
+        }
+
+        private void _updateTheNumberOfInvites()
+        {
+            App.MainViewModel.LoadTheNumberOfInvites();
         }
 
         private async void Accept_Click(object sender, RoutedEventArgs e)
@@ -44,6 +48,7 @@ namespace MemoMap.UWP.Views.InvitationViews
             if (sender is FrameworkElement b && b.DataContext is Invitation invitation)
             {
                 await InvitationViewModel.AcceptGroupInvite(invitation);
+                _updateTheNumberOfInvites();
             }
         }
 
@@ -52,6 +57,7 @@ namespace MemoMap.UWP.Views.InvitationViews
             if (sender is FrameworkElement b && b.DataContext is Invitation invitation )
             {
                 await InvitationViewModel.DeleteAsync(invitation);
+                _updateTheNumberOfInvites();
             }
         }
     }

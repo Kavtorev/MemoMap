@@ -30,6 +30,11 @@ namespace MemoMap.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public int FindTheNumberOfReceivedInvites(int userId)
+        {
+            return _dbContext.Invitations.Count(p => p.InvitedId == userId);
+        }
+
         public async Task<Invitation> FindByInvitedGroupId(int invitedId, int groupId)
         {
             return await _dbContext.Invitations

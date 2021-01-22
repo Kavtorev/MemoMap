@@ -11,5 +11,6 @@ namespace MemoMap.Domain.Repositories
     {
         Task<Invitation> FindByInvitedGroupId(int invitedId, int groupId);
         Task<List<Invitation>> FindAllReceivedInvites(int userId);
+        int FindTheNumberOfReceivedInvites(int userId);
     }
 }

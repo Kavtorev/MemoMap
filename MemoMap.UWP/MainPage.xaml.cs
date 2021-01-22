@@ -80,6 +80,7 @@ namespace MemoMap.UWP
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(typeof(HomePage));
+            MainViewModel.LoadTheNumberOfInvites();
         }
 
 
