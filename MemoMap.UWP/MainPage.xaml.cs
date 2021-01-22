@@ -25,6 +25,7 @@ using MemoMap.UWP.Views.MapViews;
 using MapPage = MemoMap.UWP.Views.Location.MapPage;
 using MemoMap.UWP.Views.InvitationViews;
 using MemoMap.Domain;
+using MemoMap.UWP.Views.TemporaryViews;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace MemoMap.UWP
@@ -78,7 +79,7 @@ namespace MemoMap.UWP
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(typeof(MapPage));
+            MainFrame.Navigate(typeof(HomePage));
         }
 
 
@@ -123,40 +124,10 @@ namespace MemoMap.UWP
         //    applicationdata.current.localsettings.values["currentuserid"] = account.id;
         //}
 
-        private async void LoginItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            LoginDialog dlg = new LoginDialog();
-            var res = await dlg.ShowAsync();
-
-            // checking if the dialog's opened successfully.
-            if (res == ContentDialogResult.Primary)
-            {
-                if (App.UserViewModel.IsLoggedIn)
-                {
-                    MainFrame.Navigate(typeof(ViewGroupPage));
-                }
-
-            }
-        }
-
-        private async void RegistrationItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            RegisterDialog dlg = new RegisterDialog();
-            var res = await dlg.ShowAsync();
-
-            // checking if the dialog's opened successfully.
-            if (res == ContentDialogResult.Primary)
-            {
-                if (App.UserViewModel.IsLoggedIn)
-                {
-                    MainFrame.Navigate(typeof(ViewGroupPage));
-                }
-            }
-        }
-
         private void Logout_Tapped(object sender, TappedRoutedEventArgs e)
         {
             UserViewModel.LoggedUser = null;
+            App.GlobalRootFrame.Navigate(typeof(BlankPage));
         }
     }
 }

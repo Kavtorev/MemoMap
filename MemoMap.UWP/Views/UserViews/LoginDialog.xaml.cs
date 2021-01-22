@@ -1,5 +1,6 @@
 ﻿using MemoMap.Domain;
 using MemoMap.UWP.ViewModels;
+using MemoMap.UWP.Views.GroupViews;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,41 +32,32 @@ namespace MemoMap.UWP.Views.UserViews
             UserViewModel.LoginFormValidator.Errors = "";
         }
 
-        private async void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            // args.Cancel -> true - leave opened dialog
-            // args.Cancel -> false - close dialog 
-            if (args.Result == ContentDialogResult.Primary)
+            // if there are validation errors
+            if (!string.IsNullOrEmpty(UserViewModel.LoginFormValidator.ValidateLoginField()))
             {
-                args.Cancel = true;
-
-                // if there are validation errors
-                if (!string.IsNullOrEmpty(UserViewModel.LoginFormValidator.ValidateLoginField()))
+                UserViewModel.RerenderErrorText(nameof(UserViewModel.LoginFormValidator));
+            }
+            else
+            {
+                // if there are no validation errors then...
+                // try to login
+                await UserViewModel.DoLoginAsync();
+                // if there post-validation errors
+                if (!string.IsNullOrEmpty(UserViewModel.LoginFormValidator.Errors))
                 {
+                    // show post-validation errors
                     UserViewModel.RerenderErrorText(nameof(UserViewModel.LoginFormValidator));
                 }
                 else
                 {
-                    // if there are no validation errors then...
-                    // try to login
-                    await UserViewModel.DoLoginAsync();
-                    // if there post-validation errors
-                    if (!string.IsNullOrEmpty(UserViewModel.LoginFormValidator.Errors))
-                    {
-                        // show post-validation errors
-                        UserViewModel.RerenderErrorText(nameof(UserViewModel.LoginFormValidator));
-                    }
-                    else
-                    {
-                        // if data passed all the validations close the dialog
-                        Hide();
-                    }
+                    // if data passed all the validations close the dialog
+                    Hide();
+                    App.GlobalRootFrame.Navigate(typeof(MainPage));
                 }
             }
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
+            
         }
 
         private void EmailField_TextChanged(object sender, TextChangedEventArgs e)
@@ -83,5 +75,6 @@ namespace MemoMap.UWP.Views.UserViews
             this.Hide();
             await (new RegisterDialog()).ShowAsync();
         }
+
     }
 }

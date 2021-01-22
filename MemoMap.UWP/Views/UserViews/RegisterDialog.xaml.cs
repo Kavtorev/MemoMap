@@ -30,42 +30,31 @@ namespace MemoMap.UWP.Views.UserViews
             UserViewModel.RegistrationFormValidator.Errors = "";
         }
 
-        private async void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
+        private async void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            // args.Cancel -> true - leave opened dialog
-            // args.Cancel -> false - close dialog 
-            if (args.Result == ContentDialogResult.Primary)
+            // if there are validation errors
+            if (!string.IsNullOrEmpty(UserViewModel.RegistrationFormValidator.ValidateRegistrationForm()))
             {
-                args.Cancel = true;
-
-                // if there are validation errors
-                if (!string.IsNullOrEmpty(UserViewModel.RegistrationFormValidator.ValidateRegistrationForm()))
+                UserViewModel.RerenderErrorText(nameof(UserViewModel.RegistrationFormValidator));
+            }
+            else
+            {
+                // if there are no validation errors then...
+                // try to login
+                await UserViewModel.DoRegistrationAsync();
+                // if there post-validation errors
+                if (!string.IsNullOrEmpty(UserViewModel.RegistrationFormValidator.Errors))
                 {
+                    // show post-validation errors
                     UserViewModel.RerenderErrorText(nameof(UserViewModel.RegistrationFormValidator));
                 }
                 else
                 {
-                    // if there are no validation errors then...
-                    // try to login
-                    await UserViewModel.DoRegistrationAsync();
-                    // if there post-validation errors
-                    if (!string.IsNullOrEmpty(UserViewModel.RegistrationFormValidator.Errors))
-                    {
-                        // show post-validation errors
-                        UserViewModel.RerenderErrorText(nameof(UserViewModel.RegistrationFormValidator));
-                    }
-                    else
-                    {
-                        // if data passed all the validations close the dialog
-                        Hide();
-                    }
+                    // if data passed all the validations close the dialog
+                    Hide();
+                    App.GlobalRootFrame.Navigate(typeof(MainPage));
                 }
-            }
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-
+            }        
         }
 
         private void UsernameField_TextChanged(object sender, TextChangedEventArgs e)

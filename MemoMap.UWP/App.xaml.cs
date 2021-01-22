@@ -2,6 +2,8 @@
 using MemoMap.Infrastructure;
 using MemoMap.UWP.ViewModels;
 using MemoMap.UWP.Views.Location;
+using MemoMap.UWP.Views.TemporaryViews;
+using MemoMap.UWP.Views.UserViews;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -35,6 +37,7 @@ namespace MemoMap.UWP
         // connection string which allows UWP part to connect to the DB
         public static string connectionString = "Server=localhost; Initial Catalog=memo-map; Integrated Security = True; User ID=memomapAdmin; Password=admin; Connect Timeout = 30;";
         public static IUnitOfWork UnitOfWork { get; set; }
+        public static Frame GlobalRootFrame;
 
         // user is globally accessible
         public static UserViewModel UserViewModel { get; set; }
@@ -104,10 +107,12 @@ namespace MemoMap.UWP
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    GlobalRootFrame = rootFrame;
+                    rootFrame.Navigate(typeof(BlankPage), e.Arguments);
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
+
             }
         }
 

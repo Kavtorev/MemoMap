@@ -6,11 +6,7 @@
     xmlns:local="using:MemoMap.UWP.Views.UserViews"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Registration"
-    Closing="ContentDialog_Closing"
     CornerRadius="5"
-    PrimaryButtonText="Register"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
-    SecondaryButtonText="Cancel"
     mc:Ignorable="d">
 
     <StackPanel>
@@ -44,12 +40,21 @@
             PlaceholderText="Duplicate entered password" />
         <Button
             x:Name="SignInButton"
-            Margin="0,15,0,0"
+            Margin="0,15,0,10"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Background="Transparent"
             Click="SignInButton_Click"
             Content="Already have an account?"
             CornerRadius="5" />
+        <Button
+            x:Name="RegisterButton"
+            Width="100"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Click="RegisterButton_Click"
+            Content="Register"
+            CornerRadius="3"
+            Style="{StaticResource AccentButtonStyle}" />
     </StackPanel>
 </ContentDialog>

@@ -77,18 +77,6 @@
                     </Button>
                     <StackPanel>
                         <NavigationViewItem
-                            x:Name="LoginItem"
-                            Content="Login"
-                            Icon="Permissions"
-                            Tapped="LoginItem_Tapped"
-                            Visibility="{x:Bind UserViewModel.notAuthenticated, Mode=OneWay}" />
-                        <NavigationViewItem
-                            x:Name="RegistrationItem"
-                            Content="Register"
-                            Icon="Add"
-                            Tapped="RegistrationItem_Tapped"
-                            Visibility="{x:Bind UserViewModel.notAuthenticated, Mode=OneWay}" />
-                        <NavigationViewItem
                             x:Name="Logout"
                             Content="LogOut"
                             Icon="ClosePane"
