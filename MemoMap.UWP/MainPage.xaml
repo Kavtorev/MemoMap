@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:MemoMap.UWP"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:MemoMap.UWP.UserControls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="Page_Loaded"
     RequestedTheme="{x:Bind MainViewModel.Theme, Mode=OneWay}"
@@ -40,7 +41,11 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Orientation="Vertical">
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <uc:GoBackButton
+                        x:Name="GoBackButton"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
                     <TextBlock
                         FontSize="40"
                         Style="{StaticResource HeaderTextBlockStyle}"

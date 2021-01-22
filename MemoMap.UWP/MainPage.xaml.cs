@@ -44,6 +44,7 @@ namespace MemoMap.UWP
             this.InitializeRoutes();
             MainViewModel = new MainViewModel();
             UserViewModel = App.UserViewModel;
+            GoBackButton.Frame = MainFrame;
         }
 
         // include new routes for pages here
