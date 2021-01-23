@@ -29,6 +29,8 @@ namespace MemoMap.Infrastructure
 
         public IMapRepository MapRepository => new MapRepository(new MemoMapDbContext(Options));
 
+        public IMapLocationRepository MapLocationRepository => new MapLocationRepository(new MemoMapDbContext(Options));
+
         public IRouteRepository RouteRepository => new RouteRepository(new MemoMapDbContext(Options));
 
         public IUserRepository UserRepository => new UserRepository(new MemoMapDbContext(Options));
