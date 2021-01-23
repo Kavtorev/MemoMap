@@ -9,9 +9,8 @@ namespace MemoMap.UWP.ViewModels
 {
     public class LocationViewModel
     {
+        public int _pointId;
         public Location Location { get; set; }
-        public string _longtitute;
-        public string _latitude;
 
         public MapViewModel MapViewModel { get; set; }
 
@@ -25,6 +24,7 @@ namespace MemoMap.UWP.ViewModels
         {
             await App.UnitOfWork.LocationRepository.CreateAsync(new Location
             { Latitude = lat, Longitude = longt });
+            _pointId = Location.Id;
         }
     }
 }

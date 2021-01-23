@@ -19,7 +19,7 @@ namespace MemoMap.UWP.Views.Location
 {
     public sealed partial class PointAdding : ContentDialog
     {
-        internal string pointname, _lat, _long;
+        internal string pointname, _lat, _long, _id;
 
         public NoteViewModel NoteViewModel { get; set; }
 
@@ -34,7 +34,9 @@ namespace MemoMap.UWP.Views.Location
             LocationViewModel = new LocationViewModel();
             MapViewModel = new MapViewModel();
 
-            _lat = latitude; _long = longtitute;
+            _lat = latitude; _long = longtitute; 
+            // here I somehow will need to pass the id of currently created point
+            //_id = 
         }
 
         private async void SavePointClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -43,6 +45,8 @@ namespace MemoMap.UWP.Views.Location
                     
             // insert the point to the Locations table
             await LocationViewModel.InsertAsync(_lat, _long);
+            // insert the point and the map to the adjacent table MapLocation
+            //await MapLocation
         }
 
         private void CancelPointAddingClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

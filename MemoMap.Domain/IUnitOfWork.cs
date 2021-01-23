@@ -11,6 +11,7 @@ namespace MemoMap.Domain
         IGroupRepository GroupRepository { get; }
         ILocationRepository LocationRepository { get; }
         IMapRepository MapRepository { get; }
+        IMapLocationRepository MapLocationRepository { get; }
         IRouteRepository RouteRepository { get; }
         IUserRepository UserRepository { get; }
         INoteRepository NoteRepository { get; }
