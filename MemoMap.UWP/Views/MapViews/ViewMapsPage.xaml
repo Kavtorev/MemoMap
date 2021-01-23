@@ -31,12 +31,14 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Row="0" Grid.Column="0" Margin="5" Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center" FontSize="16" Text="{x:Bind MapName}"/>
                         </StackPanel>
                         <CommandBar Grid.Row="0" Grid.Column="1" Background="Transparent" DefaultLabelPosition="Right">
+                            <!-- Open Map button -->
+                            <AppBarButton x:Name="openMap" Icon="Map" Label="Open" Tag="open_map" ToolTipService.ToolTip="Open map" Click="openMap_Click"/>
                             <!-- Edit Map button -->
                             <AppBarButton x:Name="editMap" Icon="Edit" Label="Edit" Tag="edit_map" ToolTipService.ToolTip="Edit map" Click="editMap_Click"/>
                             <!-- Delete Map button -->

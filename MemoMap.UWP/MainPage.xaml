@@ -27,10 +27,6 @@
                     Content="Create a group"
                     Icon="Edit"
                     Tag="Originate a new group" />
-                <NavigationViewItem
-                    Content="Map"
-                    Icon="Map"
-                    Tag="map page" />
                 <NavigationViewItem Icon="Accept" Tag="Invitations">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Invitations" />

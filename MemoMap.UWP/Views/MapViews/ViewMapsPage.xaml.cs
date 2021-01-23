@@ -1,5 +1,6 @@
 ﻿using MemoMap.Domain.Models;
 using MemoMap.UWP.ViewModels;
+using MemoMap.UWP.Views.Location;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -62,6 +63,11 @@ namespace MemoMap.UWP.Views.MapViews
         private void createNewMap_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(CreateMapPage));
+        }
+
+        private void openMap_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MapPage));
         }
     }
 }

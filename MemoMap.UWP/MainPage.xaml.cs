@@ -57,7 +57,6 @@ namespace MemoMap.UWP
                 {"Your Maps List",  typeof(ViewMapsPage)},
                 {"Originate a new group",  typeof(CreateGroupPage)},
                 {"Your group list",  typeof(ViewGroupPage)},
-                {"map page",  typeof(MapPage)},
                 {"account_settings",  typeof(AccountSettings)},
                 {"Invitations", typeof(InvitationsPage)}
             };
