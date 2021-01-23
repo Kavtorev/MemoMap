@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Controls.Maps;
 using Windows.Devices.Geolocation;
 using System.Collections.ObjectModel;
 using MemoMap.UWP.ViewModels;
+using MemoMap.Domain.Models;
 
 namespace MemoMap.UWP.Views.Location
 {
@@ -33,11 +34,15 @@ namespace MemoMap.UWP.Views.Location
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {   
+        {
             // check all LocationId related with the map that is currently used to work with
             // and append to the _points list that will be used to fill the POIs on the map
-
-            base.OnNavigatedTo(e);
+            if (e.Parameter != null)
+            {
+                var model = e.Parameter as Map;
+                MapViewModel.Map = model; // the current map will be loaded in MapViewModel.Map
+                base.OnNavigatedTo(e);
+            }
         }
 
         private async void MemoMap_MapTapped(MapControl sender, MapInputEventArgs args)

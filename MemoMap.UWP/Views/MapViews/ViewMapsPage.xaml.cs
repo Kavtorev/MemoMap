@@ -67,7 +67,11 @@ namespace MemoMap.UWP.Views.MapViews
 
         private void openMap_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MapPage));
+            if (sender is FrameworkElement b && b.DataContext is Map map)
+            {
+                MapViewModel.Map = map;
+                this.Frame.Navigate(typeof(MapPage), map);
+            }
         }
     }
 }
