@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Data;
 
 namespace MemoMap.UWP.ViewModels
 {
@@ -140,29 +141,29 @@ namespace MemoMap.UWP.ViewModels
             return new ObservableCollection<User>(res);
         }
 
-        public async Task LoadAllAsync(string mode = "")
+        public async Task LoadAllAdmin()
         {
-            List<GroupUser> groups = await App.
-                UnitOfWork.
-                GroupUserRepository.
-                FindAllJoinedGroupsAsync(App.UserViewModel.LoggedUser.Id);
-
-            if (string.IsNullOrEmpty(mode))
-            {
-                // filtering by admin is true
-                groups = groups.FindAll(p => p.IsAdmin);
-            }
-            else
-            {
-                groups = groups.FindAll(p => !p.IsAdmin);
-            }
-
-            Groups.Clear();
-            foreach (GroupUser g in groups)
-            {
-                Groups.Add(g);
-            }
+            List<GroupUser> groups =
+                await App.UnitOfWork.GroupUserRepository
+                .FindAllAdminGroupsAsync(App.UserViewModel.LoggedUser.Id);
+            _updatedObservableCollection(Groups, groups);
         }
+
+        public async Task LoadAllNormalUser()
+        {
+            List<GroupUser> groups =
+                await App.UnitOfWork.GroupUserRepository
+                .FindAllNormalUserGroupsAsync(App.UserViewModel.LoggedUser.Id);
+            _updatedObservableCollection(Groups, groups);
+        }
+
+        private void _updatedObservableCollection<T>
+            (ObservableCollection<T> observableCollection, List<T> newCollection)
+        {
+            observableCollection.Clear();
+            foreach (T entity in newCollection) observableCollection.Add(entity);
+        }
+
 
         internal async Task<ObservableCollection<User>> LoadUsersAsync()
         {
@@ -171,11 +172,7 @@ namespace MemoMap.UWP.ViewModels
                 GroupRepository.
                 FindAllGroupUsers(Group.Id);
 
-            Users.Clear();
-            foreach (User u in users)
-            {
-                Users.Add(u);
-            }
+            _updatedObservableCollection(Users, users);
             return Users;
         }
 

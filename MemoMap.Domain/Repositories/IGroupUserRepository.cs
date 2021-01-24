@@ -10,6 +10,8 @@ namespace MemoMap.Domain.Repositories
     public interface IGroupUserRepository : IRepository<GroupUser>
     {
         Task<GroupUser> FindByUserGroupId(int userId, int groupId);
-        Task<List<GroupUser>> FindAllJoinedGroupsAsync(int userId);
+        Task<List<GroupUser>> FindAllAdminGroupsAsync(int userId);
+        Task<List<GroupUser>> FindAllNormalUserGroupsAsync(int userId);
+
     }
 }

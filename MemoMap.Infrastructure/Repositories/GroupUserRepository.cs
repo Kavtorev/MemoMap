@@ -15,11 +15,19 @@ namespace MemoMap.Infrastructure.Repositories
         {
         }
 
-        public async Task<List<GroupUser>> FindAllJoinedGroupsAsync(int userId)
+        public async Task<List<GroupUser>> FindAllAdminGroupsAsync(int userId)
         {
             return await _dbContext.GroupUsers
                 .Include(g2u => g2u.Group)
-                .Where(g2u => g2u.UserId == userId)
+                .Where(g2u => g2u.UserId == userId && g2u.IsAdmin)
+                .ToListAsync();
+        }
+
+        public async Task<List<GroupUser>> FindAllNormalUserGroupsAsync(int userId)
+        {
+            return await _dbContext.GroupUsers
+                .Include(g2u => g2u.Group)
+                .Where(g2u => g2u.UserId == userId && !g2u.IsAdmin)
                 .ToListAsync();
         }
 
