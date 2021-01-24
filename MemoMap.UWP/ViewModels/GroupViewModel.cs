@@ -18,6 +18,7 @@ namespace MemoMap.UWP.ViewModels
     public class GroupViewModel : BindableBase
     {
         public Group Group { get; set; }
+        public ObservableCollection<Map> Maps;
         private BitmapImage _uploadedImage;
         private string _invitedUsername;
         public GroupPageService GroupPageService { get; set; }
@@ -49,18 +50,26 @@ namespace MemoMap.UWP.ViewModels
         }
 
         public bool AdminFunctionsVisibility { get; set; }
+        public bool ModeratorFunctionsVisibility { get; set; }
 
         public GroupViewModel()
         {
             Group = new Group();
             Groups = new ObservableCollection<GroupUser>();
             Users = new ObservableCollection<User>();
+            Maps = new ObservableCollection<Map>();
 
             DbContextOptionsBuilder<MemoMapDbContext> options =
                new DbContextOptionsBuilder<MemoMapDbContext>();
 
             options.UseSqlServer(App.connectionString);
             GroupPageService = new GroupPageService(new UnitOfWork(options.Options));
+        }
+
+        internal async Task LoadMapsAsync()
+        {
+            List<Map> maps = await App.UnitOfWork.MapRepository.FindMapBelongGroup(Group.Id);
+            _updatedObservableCollection(Maps, maps);
         }
 
         public BitmapImage UploadedImage
@@ -188,6 +197,7 @@ namespace MemoMap.UWP.ViewModels
                           GroupId = newGroup.Id,
                           UserId = App.UserViewModel.LoggedUser.Id,
                           IsAdmin = true,
+                          IsModerator = true,
                       }
                  );
             }

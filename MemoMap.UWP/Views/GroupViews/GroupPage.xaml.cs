@@ -1,6 +1,7 @@
 ﻿using MemoMap.Domain;
 using MemoMap.Domain.Models;
 using MemoMap.UWP.ViewModels;
+using MemoMap.UWP.Views.MapViews;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,8 +28,6 @@ namespace MemoMap.UWP.Views.GroupViews
     {
 
         public GroupViewModel GroupViewModel { get; set; }
-        public UserViewModel UserViewModel { get; set; }
-
         public GroupPage()
         {
             this.InitializeComponent();
@@ -42,8 +41,11 @@ namespace MemoMap.UWP.Views.GroupViews
             {
                 GroupViewModel.Group = (e.Parameter as GroupUser).Group;
                 GroupViewModel.AdminFunctionsVisibility = (e.Parameter as GroupUser).IsAdmin;
+                GroupViewModel.ModeratorFunctionsVisibility = (e.Parameter as GroupUser).IsModerator;
 
                 var users = await GroupViewModel.LoadUsersAsync();
+                await GroupViewModel.LoadMapsAsync();
+
                 if (users.Count() > 1)
                 {
                     GroupViewModel.LoadGroupAdmin();
@@ -96,14 +98,12 @@ namespace MemoMap.UWP.Views.GroupViews
 
                 var suggestions = await GroupViewModel.LoadUsersByUsernameStartWith();
                 sender.ItemsSource = suggestions;
-            }
-            
-                
+            }           
         }
 
         private void UserProfile_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (sender is FrameworkElement b && GroupViewModel.AdminFunctionsVisibility 
+            if (sender is FrameworkElement b && GroupViewModel.ModeratorFunctionsVisibility 
                 && b.DataContext is User user)
             {
                 if (user.Id != App.UserViewModel.LoggedUser.Id)
@@ -122,6 +122,21 @@ namespace MemoMap.UWP.Views.GroupViews
             {
                 await GroupViewModel.KickUser(user);
             }
+        }
+
+        private void MapGroup_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CreateMapPage), GroupViewModel.Group.Id);
+        }
+
+        private void EditGroup_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CreateGroupPage), GroupViewModel.Group);
+        }
+
+        private void Pin_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
         }
     }
 }

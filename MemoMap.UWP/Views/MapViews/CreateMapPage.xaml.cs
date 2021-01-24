@@ -1,5 +1,6 @@
 ﻿using MemoMap.Domain.Models;
 using MemoMap.UWP.ViewModels;
+using MemoMap.UWP.Views.GroupViews;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,12 +36,21 @@ namespace MemoMap.UWP.Views.MapViews
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null)
+            var cameFrom = this.Frame.BackStack.LastOrDefault();
+            if (cameFrom != null && e.Parameter != null)
             {
-                var model = (e.Parameter as UserMap).Map;
-                MapViewModel.Map = model;
-                base.OnNavigatedTo(e);
+                if (cameFrom.SourcePageType == typeof(GroupPage))
+                {
+                    MapViewModel.Map.GroupId = (int)e.Parameter;
+                }
+                else
+                {
+                    var model = e.Parameter as Map;
+                    MapViewModel.Map = model;
+                }
             }
+            base.OnNavigatedTo(e);
+
         }
 
         private async void Save_Click(object sender, RoutedEventArgs e)

@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:MemoMap.UWP.Views.GroupViews"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:model="using:MemoMap.Domain"
+    xmlns:model="using:MemoMap.Domain.Models"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
     <Grid>
@@ -13,20 +13,15 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-
         <TextBlock
             Grid.Row="0"
-            Grid.Column="0"
             FontSize="40"
             Text="{x:Bind GroupViewModel.Group.Name}" />
         <CommandBar
-            Grid.Column="1"
             VerticalAlignment="Center"
             Background="Transparent"
             DefaultLabelPosition="Right">
@@ -36,7 +31,7 @@
                 Icon="AddFriend"
                 Label="Invite"
                 ToolTipService.ToolTip="Invite a new user to the group."
-                Visibility="{x:Bind GroupViewModel.AdminFunctionsVisibility}">
+                Visibility="{x:Bind GroupViewModel.ModeratorFunctionsVisibility}">
                 <AppBarButton.Flyout>
                     <Flyout x:Name="InvitationalFlyout">
                         <StackPanel>
@@ -64,19 +59,37 @@
                     </Flyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
+            <AppBarButton
+                x:Name="MapGroup"
+                Icon="Map"
+                Label="Create a map"
+                Tapped="MapGroup_Tapped"
+                Visibility="{x:Bind GroupViewModel.ModeratorFunctionsVisibility}" />
+            <AppBarButton
+                x:Name="Pin"
+                Icon="Pin"
+                Label="Pin a map"
+                Tapped="Pin_Tapped"
+                Visibility="{x:Bind GroupViewModel.ModeratorFunctionsVisibility}" />
+            <AppBarButton
+                x:Name="EditGroup"
+                Icon="Edit"
+                Label="Edit"
+                Tapped="EditGroup_Tapped"
+                Visibility="{x:Bind GroupViewModel.ModeratorFunctionsVisibility}" />
         </CommandBar>
-
         <Border BorderBrush="Gray" BorderThickness="0,0,0,1" />
-        <StackPanel
-            Grid.Row="1"
-            HorizontalAlignment="Center"
-            Orientation="Vertical">
+        <StackPanel Grid.Row="1" Orientation="Vertical">
             <TextBlock FontSize="28" Text="Group Admin" />
-            <PersonPicture DisplayName="{x:Bind GroupViewModel.GroupAdmin.Username, Mode=TwoWay}" />
-            <TextBlock
-                HorizontalAlignment="Center"
-                FontSize="16"
-                Text="{x:Bind GroupViewModel.GroupAdmin.Username, Mode=TwoWay}" />
+            <GridView>
+                <StackPanel Margin="10">
+                    <PersonPicture Width="300" DisplayName="{x:Bind GroupViewModel.GroupAdmin.Username, Mode=TwoWay}" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontSize="16"
+                        Text="{x:Bind GroupViewModel.GroupAdmin.Username, Mode=TwoWay}" />
+                </StackPanel>
+            </GridView>
         </StackPanel>
         <Border BorderBrush="Gray" BorderThickness="0,0,0,1" />
         <TextBlock
@@ -84,6 +97,7 @@
             FontSize="28"
             Text="Group members" />
         <Border BorderBrush="Gray" BorderThickness="0,0,0,1" />
+        <!--  The list of users  -->
         <GridView Grid.Row="3" ItemsSource="{x:Bind GroupViewModel.Users}">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="model:User">
@@ -104,7 +118,7 @@
                                     x:Name="Promote"
                                     Click="Promote_Click"
                                     Icon="Admin"
-                                    Text="Promote to Admin" />
+                                    Text="Promote to Moderator" />
                                 <MenuFlyoutItem
                                     x:Name="Kick"
                                     Click="Kick_Click"
@@ -112,6 +126,32 @@
                                     Text="Kick user" />
                             </MenuFlyout>
                         </StackPanel.ContextFlyout>
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <StackPanel Grid.Row="4">
+            <TextBlock
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                FontSize="28"
+                Text="Group maps" />
+        </StackPanel>
+        <!--  The list of maps  -->
+        <GridView Grid.Row="5" ItemsSource="{x:Bind GroupViewModel.Maps}">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="model:Map">
+                    <StackPanel
+                        x:Name="MapTemplate"
+                        Width="300"
+                        Height="300">
+                        <TextBlock
+                            Name="outputTextBox"
+                            Margin="10,10,10,10"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            FontSize="20"
+                            Text="{x:Bind MapName}" />
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>

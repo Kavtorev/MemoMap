@@ -1,4 +1,5 @@
 ﻿using MemoMap.Domain;
+using MemoMap.Domain.Models;
 using MemoMap.UWP.ViewModels;
 using MemoMap.UWP.Views.GroupViews;
 using System;

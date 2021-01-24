@@ -38,12 +38,19 @@ namespace MemoMap.UWP.Views.GroupViews
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null)
+            var cameFrom = this.Frame.BackStack.LastOrDefault();
+            if (cameFrom != null && e.Parameter != null)
             {
-                var model = (e.Parameter as GroupUser).Group;
-                GroupViewModel.Group = model;
-                base.OnNavigatedTo(e);
+                if (cameFrom.SourcePageType == typeof(GroupPage))
+                {
+                    GroupViewModel.Group = e.Parameter as Group;
+                }
+                else
+                {
+                    GroupViewModel.Group = (e.Parameter as GroupUser).Group;
+                }
             }
+            base.OnNavigatedTo(e);
         }
 
         private async void Save_Click(object sender, RoutedEventArgs e)

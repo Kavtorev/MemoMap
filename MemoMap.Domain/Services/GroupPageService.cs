@@ -1,4 +1,5 @@
-﻿using MemoMap.Domain.Validation;
+﻿using MemoMap.Domain.Models;
+using MemoMap.Domain.Validation;
 using System;
 using System.Collections.Generic;
 using System.Text;
