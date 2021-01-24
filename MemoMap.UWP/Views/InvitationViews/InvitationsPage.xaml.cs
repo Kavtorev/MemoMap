@@ -1,5 +1,6 @@
 ﻿using MemoMap.Domain.Models;
 using MemoMap.UWP.ViewModels;
+using MemoMap.UWP.Views.GroupViews;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,6 +50,7 @@ namespace MemoMap.UWP.Views.InvitationViews
             {
                 await InvitationViewModel.AcceptGroupInvite(invitation);
                 _updateTheNumberOfInvites();
+                this.Frame.Navigate(typeof(ViewGroupPage));
             }
         }
 

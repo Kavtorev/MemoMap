@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using MemoMap.UWP.Views.InvitationViews;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -34,9 +35,21 @@ namespace MemoMap.UWP.Views.GroupViews
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await GroupViewModel.LoadAllAsync();
+            var cameFrom = this.Frame.BackStack.LastOrDefault();
+            if (cameFrom != null)
+            {
+                if (cameFrom.SourcePageType == typeof(InvitationsPage))
+                {
+                   await GroupViewModel.LoadAllNormalUser();
+                }
+                else
+                {
+                   await GroupViewModel.LoadAllAdmin();
+                }
+            }         
             base.OnNavigatedTo(e);
         }
+
 
         private async void DeleteGroup_Click(object sender, RoutedEventArgs e)
         {
@@ -70,18 +83,18 @@ namespace MemoMap.UWP.Views.GroupViews
             if (sender is FrameworkElement b && b.DataContext is GroupUser g2u)
             {
                 await GroupViewModel.LeaveTheGroup(g2u);
-                await GroupViewModel.LoadAllAsync("normalUser");
+                await GroupViewModel.LoadAllNormalUser();
             }
         }
 
         private async void NormalUserButton_Click(object sender, RoutedEventArgs e)
         {
-            await GroupViewModel.LoadAllAsync("normalUser");
+            await GroupViewModel.LoadAllNormalUser();
         }
 
         private async void AdminButton_Click(object sender, RoutedEventArgs e)
         {
-            await GroupViewModel.LoadAllAsync();
+            await GroupViewModel.LoadAllAdmin();
         }
     }
 }
