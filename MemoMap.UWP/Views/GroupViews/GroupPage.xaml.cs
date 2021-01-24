@@ -1,6 +1,7 @@
 ﻿using MemoMap.Domain;
 using MemoMap.Domain.Models;
 using MemoMap.UWP.ViewModels;
+using MemoMap.UWP.Views.MapViews;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,8 +28,6 @@ namespace MemoMap.UWP.Views.GroupViews
     {
 
         public GroupViewModel GroupViewModel { get; set; }
-        public UserViewModel UserViewModel { get; set; }
-
         public GroupPage()
         {
             this.InitializeComponent();
@@ -44,6 +43,8 @@ namespace MemoMap.UWP.Views.GroupViews
                 GroupViewModel.AdminFunctionsVisibility = (e.Parameter as GroupUser).IsAdmin;
 
                 var users = await GroupViewModel.LoadUsersAsync();
+                await GroupViewModel.LoadMapsAsync();
+
                 if (users.Count() > 1)
                 {
                     GroupViewModel.LoadGroupAdmin();
@@ -122,6 +123,21 @@ namespace MemoMap.UWP.Views.GroupViews
             {
                 await GroupViewModel.KickUser(user);
             }
+        }
+
+        private void MapGroup_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CreateMapPage), GroupViewModel.Group.Id);
+        }
+
+        private void EditGroup_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CreateGroupPage), GroupViewModel.Group);
+        }
+
+        private void Pin_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
         }
     }
 }
