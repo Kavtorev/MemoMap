@@ -12,6 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -25,9 +26,11 @@
                 <AppBarButton x:Name="Cancel" Icon="Cancel" Label="Cancel" ToolTipService.ToolTip="Cancel the creating process" Click="Cancel_Click"/>
             </CommandBar>
         </Grid>
-        <StackPanel Grid.Row="1">
+        <!-- Error handler -->
+        <!--<TextBlock Grid.Row="1" Margin="10 5 0 5" x:Name="ErrorHandler" Text="{x:Bind MapViewModel.MapFormValidator.Errors, Mode=TwoWay}"/>-->
+        <StackPanel Grid.Row="2">
             <TextBox x:Name="MapNameInput" PlaceholderText="Map Name" Text="{x:Bind MapViewModel.Map.MapName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
     </Grid>
-    
+
 </Page>

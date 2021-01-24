@@ -35,9 +35,9 @@ namespace MemoMap.UWP.Views.MapViews
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if(e.Parameter != null)
+            if (e.Parameter != null)
             {
-                var model = e.Parameter as Map;
+                var model = (e.Parameter as UserMap).Map;
                 MapViewModel.Map = model;
                 base.OnNavigatedTo(e);
             }
