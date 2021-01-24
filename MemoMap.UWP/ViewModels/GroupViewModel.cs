@@ -50,6 +50,7 @@ namespace MemoMap.UWP.ViewModels
         }
 
         public bool AdminFunctionsVisibility { get; set; }
+        public bool ModeratorFunctionsVisibility { get; set; }
 
         public GroupViewModel()
         {
@@ -196,6 +197,7 @@ namespace MemoMap.UWP.ViewModels
                           GroupId = newGroup.Id,
                           UserId = App.UserViewModel.LoggedUser.Id,
                           IsAdmin = true,
+                          IsModerator = true,
                       }
                  );
             }

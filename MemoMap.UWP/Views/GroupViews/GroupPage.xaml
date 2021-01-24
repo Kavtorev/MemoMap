@@ -31,7 +31,7 @@
                 Icon="AddFriend"
                 Label="Invite"
                 ToolTipService.ToolTip="Invite a new user to the group."
-                Visibility="{x:Bind GroupViewModel.AdminFunctionsVisibility}">
+                Visibility="{x:Bind GroupViewModel.ModeratorFunctionsVisibility}">
                 <AppBarButton.Flyout>
                     <Flyout x:Name="InvitationalFlyout">
                         <StackPanel>
@@ -64,19 +64,19 @@
                 Icon="Map"
                 Label="Create a map"
                 Tapped="MapGroup_Tapped"
-                Visibility="{x:Bind GroupViewModel.AdminFunctionsVisibility}" />
+                Visibility="{x:Bind GroupViewModel.ModeratorFunctionsVisibility}" />
             <AppBarButton
                 x:Name="Pin"
                 Icon="Pin"
                 Label="Pin a map"
                 Tapped="Pin_Tapped"
-                Visibility="{x:Bind GroupViewModel.AdminFunctionsVisibility}" />
+                Visibility="{x:Bind GroupViewModel.ModeratorFunctionsVisibility}" />
             <AppBarButton
                 x:Name="EditGroup"
                 Icon="Edit"
                 Label="Edit"
                 Tapped="EditGroup_Tapped"
-                Visibility="{x:Bind GroupViewModel.AdminFunctionsVisibility}" />
+                Visibility="{x:Bind GroupViewModel.ModeratorFunctionsVisibility}" />
         </CommandBar>
         <Border BorderBrush="Gray" BorderThickness="0,0,0,1" />
         <StackPanel Grid.Row="1" Orientation="Vertical">
@@ -118,7 +118,7 @@
                                     x:Name="Promote"
                                     Click="Promote_Click"
                                     Icon="Admin"
-                                    Text="Promote to Admin" />
+                                    Text="Promote to Moderator" />
                                 <MenuFlyoutItem
                                     x:Name="Kick"
                                     Click="Kick_Click"

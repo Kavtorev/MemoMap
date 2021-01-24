@@ -19,6 +19,7 @@ namespace MemoMap.Infrastructure.EntityConfigurations
 
             builder.Ignore(p => p.IsNotAdmin);
             builder.Property(p => p.IsAdmin).IsRequired();
+            builder.Property(p => p.IsModerator).IsRequired();
 
             builder
                 .HasOne(bc => bc.Group)
