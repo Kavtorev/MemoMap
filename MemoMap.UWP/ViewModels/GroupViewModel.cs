@@ -124,6 +124,16 @@ namespace MemoMap.UWP.ViewModels
                 });
         }
 
+        internal async Task PromoteToModer(User user)
+        {
+            GroupUser g2u = 
+                await App.UnitOfWork.GroupUserRepository.FindByUserGroupId(user.Id, Group.Id);
+            g2u.IsModerator = true;
+            await App.UnitOfWork.GroupUserRepository.UpdateAsync(g2u);
+            Users.Remove(user);
+            Moderators.Add(user);
+
+        }
 
         public async Task<bool> DoesUserExist()
         {
