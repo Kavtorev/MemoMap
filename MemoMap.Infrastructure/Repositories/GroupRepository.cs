@@ -17,11 +17,21 @@ namespace MemoMap.Infrastructure.Repositories
         {
             
         }
-        public async Task<List<User>> FindAllGroupUsers(int groupId)
+
+        public async Task<List<User>> FindAllGroupModerators(int groupId)
         {
             var res = await _dbContext.Users
                 .Where(user => user.GroupUsers
-                .Any(u2g => u2g.GroupId == groupId))
+                .Any(u2g => u2g.GroupId == groupId && u2g.IsModerator))
+                .ToListAsync();
+            return res;
+        }
+
+        public async Task<List<User>> FindAllGroupNormalUsers(int groupId)
+        {
+            var res = await _dbContext.Users
+                .Where(user => user.GroupUsers
+                .Any(u2g => u2g.GroupId == groupId && !u2g.IsAdmin && !u2g.IsModerator))
                 .ToListAsync();
             return res;
         }
@@ -30,7 +40,7 @@ namespace MemoMap.Infrastructure.Repositories
         {
             var res =  _dbContext.Users
                 .Where(user => user.GroupUsers
-                .Any(u2g => u2g.GroupId == groupId && u2g.IsAdmin == true))
+                .Any(u2g => u2g.GroupId == groupId && u2g.IsAdmin))
                 .SingleOrDefault();
 
             return res;

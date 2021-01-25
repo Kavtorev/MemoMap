@@ -43,17 +43,10 @@ namespace MemoMap.UWP.Views.GroupViews
                 GroupViewModel.AdminFunctionsVisibility = (e.Parameter as GroupUser).IsAdmin;
                 GroupViewModel.ModeratorFunctionsVisibility = (e.Parameter as GroupUser).IsModerator;
 
-                var users = await GroupViewModel.LoadUsersAsync();
+                await GroupViewModel.LoadNormalUsersAsync();
                 await GroupViewModel.LoadMapsAsync();
-
-                if (users.Count() > 1)
-                {
-                    GroupViewModel.LoadGroupAdmin();
-                }
-                else if (users.Count() == 1)
-                {
-                    GroupViewModel.GroupAdmin = users[0];
-                }
+                await GroupViewModel.LoadModeratorsAsync();
+                GroupViewModel.LoadGroupAdmin();
                 base.OnNavigatedTo(e);
             }
 
@@ -95,15 +88,14 @@ namespace MemoMap.UWP.Views.GroupViews
         {
             if (sender.Text != null)
             {
-
                 var suggestions = await GroupViewModel.LoadUsersByUsernameStartWith();
                 sender.ItemsSource = suggestions;
-            }           
+            }
         }
 
         private void UserProfile_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (sender is FrameworkElement b && GroupViewModel.ModeratorFunctionsVisibility 
+            if (sender is FrameworkElement b && GroupViewModel.ModeratorFunctionsVisibility
                 && b.DataContext is User user)
             {
                 if (user.Id != App.UserViewModel.LoggedUser.Id)
@@ -111,9 +103,12 @@ namespace MemoMap.UWP.Views.GroupViews
             }
         }
 
-        private void Promote_Click(object sender, RoutedEventArgs e)
+        private async void Promote_Click(object sender, RoutedEventArgs e)
         {
-
+            if (sender is FrameworkElement u && u.DataContext is User user)
+            {
+                await GroupViewModel.PromoteToModer(user);
+            }
         }
 
         private async void Kick_Click(object sender, RoutedEventArgs e)
@@ -121,6 +116,14 @@ namespace MemoMap.UWP.Views.GroupViews
             if (sender is FrameworkElement u && u.DataContext is User user)
             {
                 await GroupViewModel.KickUser(user);
+            }
+        }
+
+        private async void Downgrade_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is FrameworkElement u && u.DataContext is User user)
+            {
+                await GroupViewModel.DowngradeUser(user);
             }
         }
 
@@ -136,8 +139,17 @@ namespace MemoMap.UWP.Views.GroupViews
 
         private void Pin_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            
+        }
 
+        private void ModeratorProfile_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (sender is FrameworkElement b && GroupViewModel.AdminFunctionsVisibility
+                && b.DataContext is User user)
+            {
+                if (user.Id != App.UserViewModel.LoggedUser.Id)
+                    b.ContextFlyout.ShowAt(b);
+            }
         }
     }
 }
-    

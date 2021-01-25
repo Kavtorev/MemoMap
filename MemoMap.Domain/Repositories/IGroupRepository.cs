@@ -11,8 +11,9 @@ namespace MemoMap.Domain.Repositories
     {
         // add methods which are specific for this entity, otherwise include them to ../SeedWork/IRepository.cs
 
-        Task<List<User>> FindAllGroupUsers(int groupId);
+        Task<List<User>> FindAllGroupNormalUsers(int groupId);
         Task<Group> UpsertAsync(Group group);
         User FindGroupAdmin(int id);
+        Task<List<User>> FindAllGroupModerators(int groupId);
     }
 }
