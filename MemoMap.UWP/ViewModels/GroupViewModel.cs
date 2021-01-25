@@ -25,6 +25,7 @@ namespace MemoMap.UWP.ViewModels
         private User _groupAdmin;
         public ObservableCollection<GroupUser> Groups { get; set; }
         public ObservableCollection<User> Users { get; set; }
+        public ObservableCollection<User> Moderators { get; set; }
 
         public User InvitedUser { get; set; }
 
@@ -58,12 +59,19 @@ namespace MemoMap.UWP.ViewModels
             Groups = new ObservableCollection<GroupUser>();
             Users = new ObservableCollection<User>();
             Maps = new ObservableCollection<Map>();
+            Moderators = new ObservableCollection<User>();
 
             DbContextOptionsBuilder<MemoMapDbContext> options =
                new DbContextOptionsBuilder<MemoMapDbContext>();
 
             options.UseSqlServer(App.connectionString);
             GroupPageService = new GroupPageService(new UnitOfWork(options.Options));
+        }
+
+        internal async Task LoadModeratorsAsync()
+        {
+            List<User> moders = await App.UnitOfWork.GroupRepository.FindAllGroupModerators(Group.Id);
+            _updatedObservableCollection(Moderators, moders);
         }
 
         internal async Task LoadMapsAsync()

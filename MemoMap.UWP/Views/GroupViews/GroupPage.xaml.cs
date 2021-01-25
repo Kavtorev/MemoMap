@@ -43,17 +43,10 @@ namespace MemoMap.UWP.Views.GroupViews
                 GroupViewModel.AdminFunctionsVisibility = (e.Parameter as GroupUser).IsAdmin;
                 GroupViewModel.ModeratorFunctionsVisibility = (e.Parameter as GroupUser).IsModerator;
 
-                var users = await GroupViewModel.LoadUsersAsync();
+                await GroupViewModel.LoadUsersAsync();
                 await GroupViewModel.LoadMapsAsync();
-
-                if (users.Count() > 1)
-                {
-                    GroupViewModel.LoadGroupAdmin();
-                }
-                else if (users.Count() == 1)
-                {
-                    GroupViewModel.GroupAdmin = users[0];
-                }
+                await GroupViewModel.LoadModeratorsAsync();
+                GroupViewModel.LoadGroupAdmin();
                 base.OnNavigatedTo(e);
             }
 
@@ -98,12 +91,12 @@ namespace MemoMap.UWP.Views.GroupViews
 
                 var suggestions = await GroupViewModel.LoadUsersByUsernameStartWith();
                 sender.ItemsSource = suggestions;
-            }           
+            }
         }
 
         private void UserProfile_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (sender is FrameworkElement b && GroupViewModel.ModeratorFunctionsVisibility 
+            if (sender is FrameworkElement b && GroupViewModel.ModeratorFunctionsVisibility
                 && b.DataContext is User user)
             {
                 if (user.Id != App.UserViewModel.LoggedUser.Id)
@@ -140,4 +133,3 @@ namespace MemoMap.UWP.Views.GroupViews
         }
     }
 }
-    

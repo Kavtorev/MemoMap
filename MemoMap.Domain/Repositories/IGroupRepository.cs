@@ -14,5 +14,6 @@ namespace MemoMap.Domain.Repositories
         Task<List<User>> FindAllGroupUsers(int groupId);
         Task<Group> UpsertAsync(Group group);
         User FindGroupAdmin(int id);
+        Task<List<User>> FindAllGroupModerators(int groupId);
     }
 }

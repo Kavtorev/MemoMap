@@ -17,11 +17,32 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
         <TextBlock
             Grid.Row="0"
+            Grid.Column="0"
             FontSize="40"
             Text="{x:Bind GroupViewModel.Group.Name}" />
+        <StackPanel
+            Grid.Column="1"
+            Margin="10,0,0,0"
+            Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,10,0"
+                VerticalAlignment="Center"
+                FontSize="20"
+                Text="Administrator:" />
+            <PersonPicture
+                Width="40"
+                DisplayName="{x:Bind GroupViewModel.GroupAdmin.Username, Mode=TwoWay}"
+                ToolTipService.ToolTip="{x:Bind GroupViewModel.GroupAdmin.Username, Mode=TwoWay}" />
+        </StackPanel>
         <CommandBar
+            Grid.Column="2"
             VerticalAlignment="Center"
             Background="Transparent"
             DefaultLabelPosition="Right">
@@ -78,27 +99,51 @@
                 Tapped="EditGroup_Tapped"
                 Visibility="{x:Bind GroupViewModel.ModeratorFunctionsVisibility}" />
         </CommandBar>
-        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" />
-        <StackPanel Grid.Row="1" Orientation="Vertical">
-            <TextBlock FontSize="28" Text="Group Admin" />
-            <GridView>
-                <StackPanel Margin="10">
-                    <PersonPicture Width="300" DisplayName="{x:Bind GroupViewModel.GroupAdmin.Username, Mode=TwoWay}" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontSize="16"
-                        Text="{x:Bind GroupViewModel.GroupAdmin.Username, Mode=TwoWay}" />
-                </StackPanel>
-            </GridView>
-        </StackPanel>
+        <GridView />
         <Border BorderBrush="Gray" BorderThickness="0,0,0,1" />
         <TextBlock
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            FontSize="28"
+            Text="Moderators" />
+        <GridView
             Grid.Row="2"
+            Grid.ColumnSpan="3"
+            ItemsSource="{x:Bind GroupViewModel.Moderators}">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="model:User">
+                    <StackPanel
+                        x:Name="ModeratorProfile"
+                        MinWidth="100"
+                        MinHeight="100"
+                        Margin="10">
+                        <PersonPicture DisplayName="{x:Bind Username}" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontSize="16"
+                            Text="{x:Bind Username}" />
+                        <StackPanel.ContextFlyout>
+                            <MenuFlyout />
+                        </StackPanel.ContextFlyout>
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" />
+        <TextBlock
+            Grid.Row="3"
+            Grid.ColumnSpan="3"
             FontSize="28"
             Text="Group members" />
-        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" />
+        <Border
+            Grid.ColumnSpan="3"
+            BorderBrush="Gray"
+            BorderThickness="0,0,0,1" />
         <!--  The list of users  -->
-        <GridView Grid.Row="3" ItemsSource="{x:Bind GroupViewModel.Users}">
+        <GridView
+            Grid.Row="4"
+            Grid.ColumnSpan="3"
+            ItemsSource="{x:Bind GroupViewModel.Users}">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="model:User">
                     <StackPanel
@@ -130,7 +175,7 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
-        <StackPanel Grid.Row="4">
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="3">
             <TextBlock
                 Grid.Column="0"
                 VerticalAlignment="Center"
@@ -138,7 +183,10 @@
                 Text="Group maps" />
         </StackPanel>
         <!--  The list of maps  -->
-        <GridView Grid.Row="5" ItemsSource="{x:Bind GroupViewModel.Maps}">
+        <GridView
+            Grid.Row="6"
+            Grid.ColumnSpan="3"
+            ItemsSource="{x:Bind GroupViewModel.Maps}">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="model:Map">
                     <StackPanel
@@ -157,4 +205,5 @@
             </GridView.ItemTemplate>
         </GridView>
     </Grid>
+
 </Page>
