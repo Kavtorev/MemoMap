@@ -19,16 +19,17 @@ namespace MemoMap.UWP.ViewModels
             MapViewModel = new MapViewModel();
         }
 
-        internal async Task InsertAsync(string lat, string longt, int mapId)
+        internal async Task InsertAsync(string lat, string longt, string pointName, int mapId)
         {
+            // insert into Location
             var lastPoint = await App.UnitOfWork.LocationRepository.CreateAsync(new Location
             { Latitude = lat, Longitude = longt });
 
             // insert into MapLocation 
             await App.UnitOfWork.MapLocationRepository.CreateAsync(new MapLocation { LocationId = lastPoint.Id, MapId = mapId });
 
-            var _pointId = lastPoint.Id; // for the testing purposes
-            var _mapId = mapId;
+            // insert into Note
+            await App.UnitOfWork.NoteRepository.CreateAsync(new Note { Title = pointName, LocationId = lastPoint.Id });
         }
     }
 }

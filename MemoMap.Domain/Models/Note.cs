@@ -16,6 +16,7 @@ namespace MemoMap.Domain.Models
         public string Description { get; set; }
         public byte[] Image { get; set; }
         
+        public int LocationId { get; set; }
         // one note can belong to one location (point) 
         public Location Location { get; set; }
     }

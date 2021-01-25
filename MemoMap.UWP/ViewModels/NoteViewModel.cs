@@ -14,11 +14,14 @@ namespace MemoMap.UWP.ViewModels
 
         public ObservableCollection<Note> Notes { get; set; }
 
+        public MapViewModel MapViewModel { get; set; }
+
         public NoteViewModel()
         {
             Note = new Note();
-            Notes = new ObservableCollection<Note>();
+            MapViewModel = new MapViewModel();
         }
+
 
 
     }

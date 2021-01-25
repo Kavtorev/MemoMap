@@ -61,7 +61,7 @@ namespace MemoMap.UWP.Views.Location
             await pnt.ShowAsync();
 
             // get provided name of the point
-            var title = pnt.pointname;
+            var title = pnt._pointname;
             if (title == null)
                 return; // close the method execution without closing the program
 
