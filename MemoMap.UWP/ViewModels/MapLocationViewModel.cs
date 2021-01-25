@@ -26,15 +26,15 @@ namespace MemoMap.UWP.ViewModels
             await App.UnitOfWork.LocationRepository.CreateAsync(new Location
             { Latitude = lat, Longitude = longt });
 
-            // create async for the adjacent table (given params: MapId and LocationId
-            await App.UnitOfWork.MapLocationRepository.CreateAsync(
-                new MapLocation
-                {
-                    MapId = MapViewModel.Map.Id,
-                    // It probably will not work because I initialized 
-                    // new LocatioViewModel and _pointId will be empty
-                    LocationId = LocationViewModel._pointId
-                });
+            //// create async for the adjacent table (given params: MapId and LocationId
+            //await App.UnitOfWork.MapLocationRepository.CreateAsync(
+            //    new MapLocation
+            //    {
+            //        MapId = MapViewModel.Map.Id,
+            //        // It probably will not work because I initialized 
+            //        // new LocatioViewModel and _pointId will be empty
+            //        LocationId = LocationViewModel._pointId
+            //    });
         }
     }
 }

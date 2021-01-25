@@ -9,7 +9,6 @@ namespace MemoMap.UWP.ViewModels
 {
     public class LocationViewModel
     {
-        public int _pointId;
         public Location Location { get; set; }
 
         public MapViewModel MapViewModel { get; set; }
@@ -20,11 +19,16 @@ namespace MemoMap.UWP.ViewModels
             MapViewModel = new MapViewModel();
         }
 
-        internal async Task InsertAsync(string lat, string longt)
+        internal async Task InsertAsync(string lat, string longt, int mapId)
         {
-            await App.UnitOfWork.LocationRepository.CreateAsync(new Location
+            var lastPoint = await App.UnitOfWork.LocationRepository.CreateAsync(new Location
             { Latitude = lat, Longitude = longt });
-            _pointId = Location.Id;
+
+            // insert into MapLocation 
+            await App.UnitOfWork.MapLocationRepository.CreateAsync(new MapLocation { LocationId = lastPoint.Id, MapId = mapId });
+
+            var _pointId = lastPoint.Id; // for the testing purposes
+            var _mapId = mapId;
         }
     }
 }

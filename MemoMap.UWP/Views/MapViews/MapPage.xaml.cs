@@ -24,6 +24,7 @@ namespace MemoMap.UWP.Views.Location
     {
         internal string MapToken = "y5u3jsMhdvyHKgngvqEi~HaMfdHCJ_mjaxrQcErYZhA~AndzA0R4aQZ8y5Oyrpzxme12X5U6j_ZlF7SeczHMd6T1LNmoIpvvRpUZWxdghm9M";
         private ObservableCollection<MapElement> _points;
+        public int _currentMap;
         public MapViewModel MapViewModel { get; set; }
 
         public MapPage()
@@ -41,6 +42,7 @@ namespace MemoMap.UWP.Views.Location
             {
                 var model = (e.Parameter as UserMap).Map;
                 MapViewModel.Map = model; // the current map will be loaded in MapViewModel.Map
+                _currentMap = model.Id; // current mapId
                 base.OnNavigatedTo(e);
             }
         }
@@ -53,9 +55,9 @@ namespace MemoMap.UWP.Views.Location
             // store picked points in the MapViewModel
             var _latitude = GeoPosition.Latitude.ToString();
             var _longtitute = GeoPosition.Longitude.ToString();
-
+            
             // open pop up to ask user for additional information about point 
-            PointAdding pnt = new PointAdding(_longtitute, _latitude);
+            PointAdding pnt = new PointAdding(_longtitute, _latitude, _currentMap);
             await pnt.ShowAsync();
 
             // get provided name of the point
