@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
@@ -106,6 +107,7 @@
             Grid.ColumnSpan="3"
             FontSize="28"
             Text="Moderators" />
+        <!--  The list of moderators  -->
         <GridView
             Grid.Row="2"
             Grid.ColumnSpan="3"
@@ -116,14 +118,21 @@
                         x:Name="ModeratorProfile"
                         MinWidth="100"
                         MinHeight="100"
-                        Margin="10">
+                        Margin="10"
+                        Tapped="ModeratorProfile_Tapped">
                         <PersonPicture DisplayName="{x:Bind Username}" />
                         <TextBlock
                             HorizontalAlignment="Center"
                             FontSize="16"
                             Text="{x:Bind Username}" />
                         <StackPanel.ContextFlyout>
-                            <MenuFlyout />
+                            <MenuFlyout>
+                                <MenuFlyoutItem
+                                    x:Name="Downgrade"
+                                    Click="Downgrade_Click"
+                                    Icon="Dislike"
+                                    Text="Downgrade to Normal User" />
+                            </MenuFlyout>
                         </StackPanel.ContextFlyout>
                     </StackPanel>
                 </DataTemplate>
@@ -186,6 +195,7 @@
         <GridView
             Grid.Row="6"
             Grid.ColumnSpan="3"
+            Margin="0,0,0,10"
             ItemsSource="{x:Bind GroupViewModel.Maps}">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="model:Map">
@@ -205,5 +215,4 @@
             </GridView.ItemTemplate>
         </GridView>
     </Grid>
-
 </Page>

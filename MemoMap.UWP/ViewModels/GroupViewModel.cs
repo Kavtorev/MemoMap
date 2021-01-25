@@ -135,6 +135,16 @@ namespace MemoMap.UWP.ViewModels
 
         }
 
+        internal async Task DowngradeUser(User user)
+        {
+            GroupUser g2u =
+                await App.UnitOfWork.GroupUserRepository.FindByUserGroupId(user.Id, Group.Id);
+            g2u.IsModerator = false;
+            await App.UnitOfWork.GroupUserRepository.UpdateAsync(g2u);
+            Moderators.Remove(user);
+            Users.Add(user);
+        }
+
         public async Task<bool> DoesUserExist()
         {
             InvitedUser = await App.UnitOfWork.UserRepository.FindByUsernameAsync(InvitedUsername);
@@ -192,12 +202,12 @@ namespace MemoMap.UWP.ViewModels
         }
 
 
-        internal async Task<ObservableCollection<User>> LoadUsersAsync()
+        internal async Task<ObservableCollection<User>> LoadNormalUsersAsync()
         {
             List<User> users = await App.
                 UnitOfWork.
                 GroupRepository.
-                FindAllGroupUsers(Group.Id);
+                FindAllGroupNormalUsers(Group.Id);
 
             _updatedObservableCollection(Users, users);
             return Users;

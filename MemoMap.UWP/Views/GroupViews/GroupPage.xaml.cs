@@ -43,7 +43,7 @@ namespace MemoMap.UWP.Views.GroupViews
                 GroupViewModel.AdminFunctionsVisibility = (e.Parameter as GroupUser).IsAdmin;
                 GroupViewModel.ModeratorFunctionsVisibility = (e.Parameter as GroupUser).IsModerator;
 
-                await GroupViewModel.LoadUsersAsync();
+                await GroupViewModel.LoadNormalUsersAsync();
                 await GroupViewModel.LoadMapsAsync();
                 await GroupViewModel.LoadModeratorsAsync();
                 GroupViewModel.LoadGroupAdmin();
@@ -119,6 +119,14 @@ namespace MemoMap.UWP.Views.GroupViews
             }
         }
 
+        private async void Downgrade_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is FrameworkElement u && u.DataContext is User user)
+            {
+                await GroupViewModel.DowngradeUser(user);
+            }
+        }
+
         private void MapGroup_Tapped(object sender, TappedRoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(CreateMapPage), GroupViewModel.Group.Id);
@@ -131,7 +139,17 @@ namespace MemoMap.UWP.Views.GroupViews
 
         private void Pin_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            
+        }
 
+        private void ModeratorProfile_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (sender is FrameworkElement b && GroupViewModel.AdminFunctionsVisibility
+                && b.DataContext is User user)
+            {
+                if (user.Id != App.UserViewModel.LoggedUser.Id)
+                    b.ContextFlyout.ShowAt(b);
+            }
         }
     }
 }

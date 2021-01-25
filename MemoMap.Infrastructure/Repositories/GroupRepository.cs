@@ -27,11 +27,11 @@ namespace MemoMap.Infrastructure.Repositories
             return res;
         }
 
-        public async Task<List<User>> FindAllGroupUsers(int groupId)
+        public async Task<List<User>> FindAllGroupNormalUsers(int groupId)
         {
             var res = await _dbContext.Users
                 .Where(user => user.GroupUsers
-                .Any(u2g => u2g.GroupId == groupId))
+                .Any(u2g => u2g.GroupId == groupId && !u2g.IsAdmin && !u2g.IsModerator))
                 .ToListAsync();
             return res;
         }
