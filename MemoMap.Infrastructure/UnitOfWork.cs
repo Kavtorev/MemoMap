@@ -39,5 +39,7 @@ namespace MemoMap.Infrastructure
 
         public IGroupUserRepository GroupUserRepository => new GroupUserRepository(new MemoMapDbContext(Options));
         public IInvitationRepository InvitationRepository => new InvitationRepository(new MemoMapDbContext(Options));
+
+        public IUserMapRepository UserMapRepository => new UserMapRepository(new MemoMapDbContext(Options));
     }
 }

@@ -45,7 +45,7 @@ namespace MemoMap.UWP.Views.MapViews
                 }
                 else
                 {
-                    var model = e.Parameter as Map;
+                    var model = (e.Parameter as UserMap).Map;
                     MapViewModel.Map = model;
                 }
             }

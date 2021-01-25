@@ -10,6 +10,7 @@ namespace MemoMap.Domain.Models
         public User()
         {
             GroupUsers = new List<GroupUser>();
+            UserMaps = new List<UserMap>();
         }
         /*
          username string 
@@ -28,6 +29,7 @@ namespace MemoMap.Domain.Models
         public ICollection<Invitation> InvitingInvitations { get; set; }
         // Invitations which were received by the invited person.
         public ICollection<Invitation> InvitedInvitations { get; set; }
+        // user can own many maps
         public ICollection<UserMap> UserMaps { get; set; }
 
         public override string ToString()

@@ -39,7 +39,7 @@ namespace MemoMap.UWP.Views.Location
             // and append to the _points list that will be used to fill the POIs on the map
             if (e.Parameter != null)
             {
-                var model = e.Parameter as Map;
+                var model = (e.Parameter as UserMap).Map;
                 MapViewModel.Map = model; // the current map will be loaded in MapViewModel.Map
                 base.OnNavigatedTo(e);
             }

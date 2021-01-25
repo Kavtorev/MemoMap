@@ -10,6 +10,7 @@ namespace MemoMap.Domain.Models
     {
         public Map()
         {
+            UserMaps = new List<UserMap>();
         }
 
         public string MapName { get; set; }
@@ -20,6 +21,7 @@ namespace MemoMap.Domain.Models
         // one map can belong only to one group
         public Group Group { get; set; }
         
+        // many points can be attached to one map
         public ICollection<MapLocation> MapLocations { get; set; }
         
         public ICollection<UserMap> UserMaps { get; set; }

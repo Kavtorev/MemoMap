@@ -13,5 +13,7 @@ namespace MemoMap.Domain.Repositories
         // initializing new list of points for new map
 
         Task<List<Map>> FindMapBelongGroup(int groupId);
+
+        Task<Map> UpsertAsync(Map map);
     }
 }

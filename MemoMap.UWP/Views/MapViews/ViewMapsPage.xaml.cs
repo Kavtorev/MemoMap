@@ -27,7 +27,6 @@ namespace MemoMap.UWP.Views.MapViews
     {
         public MapViewModel MapViewModel { get; set; }
 
-
         public ViewMapsPage()
         {
             this.InitializeComponent();
@@ -35,29 +34,33 @@ namespace MemoMap.UWP.Views.MapViews
             App.MainViewModel.setTitle("The list of maps related to you.");
         }
 
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            await MapViewModel.LoadAllAsync();
+
+            base.OnNavigatedTo(e);
+        }
+
         private async void deleteMap_Click(object sender, RoutedEventArgs e)
         {
             // check if data exists in the database, if true delete
-            if(sender is FrameworkElement b && b.DataContext is Map map)
+            if (sender is FrameworkElement b && b.DataContext is UserMap u2m)
             {
-                await MapViewModel.DeleteAsync(map);
+                await MapViewModel.DeleteAsync(u2m);
             }
+            //if (sender is FrameworkElement b && b.DataContext is Map map)
+            //{
+            //    await MapViewModel.DeleteAsync(map);
+            //}
         }
 
         private void editMap_Click(object sender, RoutedEventArgs e)
         {
             // check if data exists in the database, if true navigate
-            if (sender is FrameworkElement b && b.DataContext is Map map)
+            if (sender is FrameworkElement b && b.DataContext is UserMap u2m)
             {
-                MapViewModel.Map = map;
-                this.Frame.Navigate(typeof(CreateMapPage), map);
+                this.Frame.Navigate(typeof(CreateMapPage), u2m);
             }
-        }
-
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            await MapViewModel.LoadAllAsync();
-            base.OnNavigatedTo(e);
         }
 
         private void createNewMap_Click(object sender, RoutedEventArgs e)
@@ -67,10 +70,9 @@ namespace MemoMap.UWP.Views.MapViews
 
         private void openMap_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is FrameworkElement b && b.DataContext is Map map)
+            if (sender is FrameworkElement b && b.DataContext is UserMap u2m)
             {
-                MapViewModel.Map = map;
-                this.Frame.Navigate(typeof(MapPage), map);
+                this.Frame.Navigate(typeof(MapPage), u2m);
             }
         }
     }
