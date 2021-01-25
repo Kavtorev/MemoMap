@@ -15,7 +15,7 @@
 
   <Properties>
     <DisplayName>MemoMap</DisplayName>
-    <PublisherDisplayName>Andrei Volynkin</PublisherDisplayName>
+    <PublisherDisplayName>MemoMap</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

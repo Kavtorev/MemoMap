@@ -36,7 +36,7 @@ namespace MemoMap.UWP.Views.MapViews
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await MapViewModel.LoadAllAsync(); // I think that a bug occurs because of the LoadAllAsync
+            await MapViewModel.LoadAllAsync();
 
             base.OnNavigatedTo(e);
         }
@@ -57,10 +57,9 @@ namespace MemoMap.UWP.Views.MapViews
         private void editMap_Click(object sender, RoutedEventArgs e)
         {
             // check if data exists in the database, if true navigate
-            if (sender is FrameworkElement b && b.DataContext is Map map)
+            if (sender is FrameworkElement b && b.DataContext is UserMap u2m)
             {
-                MapViewModel.Map = map;
-                this.Frame.Navigate(typeof(CreateMapPage), map);
+                this.Frame.Navigate(typeof(CreateMapPage), u2m);
             }
         }
 
@@ -71,10 +70,9 @@ namespace MemoMap.UWP.Views.MapViews
 
         private void openMap_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is FrameworkElement b && b.DataContext is Map map)
+            if (sender is FrameworkElement b && b.DataContext is UserMap u2m)
             {
-                MapViewModel.Map = map;
-                this.Frame.Navigate(typeof(MapPage), map);
+                this.Frame.Navigate(typeof(MapPage), u2m);
             }
         }
     }
