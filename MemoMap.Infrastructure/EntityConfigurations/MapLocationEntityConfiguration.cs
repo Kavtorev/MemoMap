@@ -20,12 +20,15 @@ namespace MemoMap.Infrastructure.EntityConfigurations
             builder
                .HasOne(bc => bc.Map)
                .WithMany(b => b.MapLocations)
-               .HasForeignKey(bc => bc.MapId);
+               .HasForeignKey(bc => bc.MapId)
+               .OnDelete(DeleteBehavior.Cascade);
+
 
             builder
                 .HasOne(bc => bc.Location)
                 .WithMany(c => c.MapLocations)
-                .HasForeignKey(bc => bc.LocationId);
+                .HasForeignKey(bc => bc.LocationId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

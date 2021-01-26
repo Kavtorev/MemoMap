@@ -34,7 +34,7 @@ namespace MemoMap.UWP.Views.Location
             this.MapViewModel = new MapViewModel();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             // check all LocationId related with the map that is currently used to work with
             // and append to the _points list that will be used to fill the POIs on the map
@@ -43,6 +43,9 @@ namespace MemoMap.UWP.Views.Location
                 var model = (e.Parameter as UserMap).Map;
                 MapViewModel.Map = model; // the current map will be loaded in MapViewModel.Map
                 _currentMap = model.Id; // current mapId
+
+                await MapViewModel.GetLocationsAssociatedWithMap(_currentMap);
+
                 base.OnNavigatedTo(e);
             }
         }

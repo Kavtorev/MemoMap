@@ -19,6 +19,7 @@ namespace MemoMap.Infrastructure
         public DbSet<GroupUser> GroupUsers { get; set; }
         public DbSet<UserMap> UserMaps { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
+        public DbSet<MapLocation> MapLocations { get; set; }
 
         // raw DbContext
         public MemoMapDbContext() { }

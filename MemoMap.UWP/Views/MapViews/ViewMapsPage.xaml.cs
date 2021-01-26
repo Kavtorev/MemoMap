@@ -48,10 +48,6 @@ namespace MemoMap.UWP.Views.MapViews
             {
                 await MapViewModel.DeleteAsync(u2m);
             }
-            //if (sender is FrameworkElement b && b.DataContext is Map map)
-            //{
-            //    await MapViewModel.DeleteAsync(map);
-            //}
         }
 
         private void editMap_Click(object sender, RoutedEventArgs e)

@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls.Maps;
 
 namespace MemoMap.UWP.ViewModels
 {
@@ -16,7 +17,8 @@ namespace MemoMap.UWP.ViewModels
         public Map Map { get; set; }
 
         public ObservableCollection<UserMap> Maps { get; set; }
-        //public ObservableCollection<Map> Maps { get; set; }
+        public ObservableCollection<MapLocation> Locations { get; set; }
+        public ObservableCollection<MapElement> _points;
 
         //public MapFormValidation MapFormValidation { get; set; }
 
@@ -24,14 +26,13 @@ namespace MemoMap.UWP.ViewModels
         {
             Map = new Map();
             Maps = new ObservableCollection<UserMap>();
-            //Maps = new ObservableCollection<Map>();
+            _points = new ObservableCollection<MapElement>();
 
             //MapFormValidation = new MapFormValidation();
         }
 
         public async Task LoadAllAsync()
         {
-            //List<Map> maps = await App.UnitOfWork.MapRepository.FindAllAsync();
             List<UserMap> maps = await App.UnitOfWork
                 .UserMapRepository
                 .FindAllJoinedMapsAsync(App.UserViewModel.LoggedUser.Id);
@@ -41,11 +42,23 @@ namespace MemoMap.UWP.ViewModels
             {
                 Maps.Add(m);
             }
-            //Maps.Clear();
-            //foreach (Map m in maps)
-            //{
-            //    Maps.Add(m);
-            //}
+        }
+
+        //private void _updatedObservableCollection<T>
+        //    (ObservableCollection<T> observableCollection, List<T> newCollection)
+        //{
+        //    observableCollection.Clear();
+        //    foreach (T entity in newCollection) observableCollection.Add(entity);
+        //}
+
+        public async Task<List<MapLocation>> GetLocationsAssociatedWithMap(int mapId)
+        {
+            List<MapLocation> locations = await App.UnitOfWork
+                .MapLocationRepository
+                .FindAllRelatedLocationsAsync(mapId);
+
+            //_updatedObservableCollection(Locations, locations);
+            return locations;
         }
 
         internal async Task InsertAsync()
@@ -58,11 +71,6 @@ namespace MemoMap.UWP.ViewModels
             await App.UnitOfWork.MapRepository.DeleteAsync(map.Map);
             Maps.Remove(map);
         }
-        //internal async Task DeleteAsync(Map map)
-        //{
-        //    await App.UnitOfWork.MapRepository.DeleteAsync( Map);
-        //    Maps.Remove(map);
-        //}
 
         internal async Task EditAsync()
         {
@@ -83,11 +91,6 @@ namespace MemoMap.UWP.ViewModels
                     }
                );
             }
-            //else if (newMap == null)
-            //{
-            //    // inform user that empty value will not be inserted
-
-            //}
         }
     }
 }
