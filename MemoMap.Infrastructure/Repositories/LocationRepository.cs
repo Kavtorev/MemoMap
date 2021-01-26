@@ -19,7 +19,6 @@ namespace MemoMap.Infrastructure.Repositories
         public async Task<List<Location>> FindPositionAssociatedWithLocationId (MapLocation l)
         {
             return await _dbContext.Locations
-                //.Where(loc => loc.Id == locationId)
                 .Where(loc => loc.Id == l.Id)
                 .ToListAsync();
         }

@@ -44,8 +44,9 @@ namespace MemoMap.UWP.Views.Location
                 MapViewModel.Map = model; // the current map will be loaded in MapViewModel.Map
                 _currentMap = model.Id; // current mapId
 
-                var _locations = await MapViewModel.GetLocationsAssociatedWithMap(_currentMap);
-                await MapViewModel.GetLocationsDataAssociatedWithMap(_locations);
+                var _locationsAssociated = await MapViewModel.GetLocationsAssociatedWithMap(_currentMap);
+                await MapViewModel.GetLocationsDataAssociatedWithMap(_locationsAssociated);
+                await MapViewModel.GetAssociatedNoteData(MapViewModel._locations);
 
                 base.OnNavigatedTo(e);
             }

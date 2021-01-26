@@ -1,7 +1,9 @@
 ﻿using MemoMap.Domain.Models;
 using MemoMap.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,9 +16,11 @@ namespace MemoMap.Infrastructure.Repositories
 
         }
 
-        Task<Note> INoteRepository.AddNewNoteAsync(string Title, string Description)
+        public async Task<List<Note>> FindAssociatedNote(int noteId)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Notes
+                .Where(loc => loc.LocationId == noteId)
+                .ToListAsync();
         }
     }
 }
