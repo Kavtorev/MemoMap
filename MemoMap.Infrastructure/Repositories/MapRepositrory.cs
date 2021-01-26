@@ -18,7 +18,9 @@ namespace MemoMap.Infrastructure.Repositories
 
         public async Task<List<Map>> FindMapBelongGroup(int groupId)
         {
-            return await _dbContext.Maps.Where(map => map.GroupId == groupId).ToListAsync();
+            return await _dbContext.Maps
+                .Where(map => map.GroupId == groupId)
+                .ToListAsync();
         }
 
         public async Task<Map> UpsertAsync(Map map)

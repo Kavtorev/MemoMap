@@ -19,6 +19,7 @@ namespace MemoMap.UWP.ViewModels
         public ObservableCollection<UserMap> Maps { get; set; }
         public ObservableCollection<MapLocation> Locations { get; set; }
         public ObservableCollection<MapElement> _points;
+        public List<Location> _locations;
 
         //public MapFormValidation MapFormValidation { get; set; }
 
@@ -27,6 +28,7 @@ namespace MemoMap.UWP.ViewModels
             Map = new Map();
             Maps = new ObservableCollection<UserMap>();
             _points = new ObservableCollection<MapElement>();
+            _locations = new List<Location>();
 
             //MapFormValidation = new MapFormValidation();
         }
@@ -56,9 +58,21 @@ namespace MemoMap.UWP.ViewModels
             List<MapLocation> locations = await App.UnitOfWork
                 .MapLocationRepository
                 .FindAllRelatedLocationsAsync(mapId);
+           
 
             //_updatedObservableCollection(Locations, locations);
             return locations;
+        }
+
+        public async Task<List<Location>> GetLocationsDataAssociatedWithMap(List<MapLocation> locationsData)
+        {
+            foreach (MapLocation l in locationsData)
+            {
+                _locations = await App.UnitOfWork
+                    .LocationRepository
+                    .FindPositionAssociatedWithLocationId(l);
+            }
+            return _locations;
         }
 
         internal async Task InsertAsync()
