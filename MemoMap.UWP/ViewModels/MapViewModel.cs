@@ -66,7 +66,7 @@ namespace MemoMap.UWP.ViewModels
             return locations;
         }
 
-        public async Task<List<Location>> GetLocationsDataAssociatedWithMap(List<MapLocation> locationsData)
+        public async Task<List<MapLocation>> GetLocationsDataAssociatedWithMap(List<MapLocation> locationsData)
         {
             foreach (MapLocation l in locationsData)
             {
