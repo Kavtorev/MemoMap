@@ -54,9 +54,7 @@ namespace MemoMap.UWP.Views.Location
                 // locationIds + locationsData (longtitute / latitute)
                 _locationsAssociated = await MapViewModel.GetLocationsAssociatedWithMap(_currentMap);
                 _locationsData = await MapViewModel.GetLocationsDataAssociatedWithMap(_locationsAssociated);
-                // notes data (title)
-                _notesData = await MapViewModel.GetAssociatedNoteData(MapViewModel._locations);
-
+                
 
                 var landmarks = _points;
                 // if locations exists will be displayed on the map
@@ -64,6 +62,9 @@ namespace MemoMap.UWP.Views.Location
                 {
                     if (loc != null)
                     {
+                        var currentLocation = loc.LocationId;
+                        var note = await MapViewModel.GetAssociatedNoteData(currentLocation);
+
                         // get the longt and lat
                         BasicGeoposition _pos = new BasicGeoposition { Latitude = Convert.ToDouble(loc.Location.Latitude), Longitude = Convert.ToDouble(loc.Location.Longitude) };
                         Geopoint _position = new Geopoint(_pos);
@@ -74,7 +75,7 @@ namespace MemoMap.UWP.Views.Location
                             NormalizedAnchorPoint = new Point(0.5, 1.0),
                             ZIndex = 0,
                             // point will be added with defined name
-                            Title = "!Working"
+                            Title = note.Title
                         };
 
                         landmarks.Add(_spaceNeedleIcon);

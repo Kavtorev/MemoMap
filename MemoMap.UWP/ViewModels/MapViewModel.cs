@@ -80,16 +80,13 @@ namespace MemoMap.UWP.ViewModels
             return null;
         }
 
-        public async Task<List<Note>> GetAssociatedNoteData(List<int> noteData)
+        public async Task<Note> GetAssociatedNoteData(int locationId)
         {
-            foreach (int LocationIdentifier in noteData)
-            {
-                // store noteId associated with locationId 
-                await App.UnitOfWork
-                    .NoteRepository
-                    .FindAssociatedNote(LocationIdentifier);
-            }
-            return null;
+            var currentNote = await App.UnitOfWork
+                .NoteRepository
+                .FindAssociatedNote(locationId);
+
+            return currentNote;
         }
 
         internal async Task InsertAsync()

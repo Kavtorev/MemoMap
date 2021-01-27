@@ -9,6 +9,6 @@ namespace MemoMap.Domain.Repositories
 {
     public interface INoteRepository : IRepository<Note>
     {
-        Task<List<Note>> FindAssociatedNote(int noteId);
+        Task<Note> FindAssociatedNote(int locationId);
     }
 }

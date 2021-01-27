@@ -16,11 +16,11 @@ namespace MemoMap.Infrastructure.Repositories
 
         }
 
-        public async Task<List<Note>> FindAssociatedNote(int noteId)
+        public async Task<Note> FindAssociatedNote(int locationId)
         {
             return await _dbContext.Notes
-                .Where(loc => loc.LocationId == noteId)
-                .ToListAsync();
+                .Where(loc => loc.LocationId == locationId)
+                .SingleOrDefaultAsync();
         }
     }
 }
