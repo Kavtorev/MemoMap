@@ -20,7 +20,7 @@ namespace MemoMap.Infrastructure.Repositories
         {
             return await _dbContext.UserMaps
                 .Include(u2m => u2m.Map)
-                .Where(u2m => u2m.UserId == userId)
+                .Where(u2m => u2m.UserId == userId && u2m.Map.GroupId == null)
                 .ToListAsync();
         }
 

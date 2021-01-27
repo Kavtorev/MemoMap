@@ -40,7 +40,7 @@ namespace MemoMap.UWP.ViewModels
             List<UserMap> maps = await App.UnitOfWork
                 .UserMapRepository
                 .FindAllJoinedMapsAsync(App.UserViewModel.LoggedUser.Id);
-
+            
             Maps.Clear();
             foreach (UserMap m in maps)
             {
@@ -48,21 +48,12 @@ namespace MemoMap.UWP.ViewModels
             }
         }
 
-        //private void _updatedObservableCollection<T>
-        //    (ObservableCollection<T> observableCollection, List<T> newCollection)
-        //{
-        //    observableCollection.Clear();
-        //    foreach (T entity in newCollection) observableCollection.Add(entity);
-        //}
-
         public async Task<List<MapLocation>> GetLocationsAssociatedWithMap(int mapId)
         {
             List<MapLocation> locations = await App.UnitOfWork
                 .MapLocationRepository
                 .FindAllRelatedLocationsAsync(mapId);
-           
 
-            //_updatedObservableCollection(Locations, locations);
             return locations;
         }
 
