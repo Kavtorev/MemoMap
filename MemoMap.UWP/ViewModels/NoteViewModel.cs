@@ -13,7 +13,6 @@ namespace MemoMap.UWP.ViewModels
         public Note Note { get; set; }
 
         public ObservableCollection<Note> Notes { get; set; }
-
         public MapViewModel MapViewModel { get; set; }
 
         public NoteViewModel()
@@ -21,8 +20,5 @@ namespace MemoMap.UWP.ViewModels
             Note = new Note();
             MapViewModel = new MapViewModel();
         }
-
-
-
     }
 }

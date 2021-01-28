@@ -25,11 +25,55 @@
         </Grid>
         
         <!-- content row -->
-        <Maps:MapControl x:Name="MemoMap"
-                         Grid.Row="1"
-                         ZoomInteractionMode="GestureAndControl"
-                         TiltInteractionMode="GestureAndControl"
-                         MapServiceToken="{x:Bind MapToken}"
-                         MapTapped="MemoMap_MapTapped"/>
+        <Grid Grid.Row="1">
+            <Maps:MapControl x:Name="MemoMap"
+                             ZoomInteractionMode="GestureAndControl"
+                             TiltInteractionMode="GestureAndControl"
+                             MapServiceToken="{x:Bind MapToken}"
+                             MapTapped="MemoMap_MapTapped">
+                <AppBarButton CornerRadius="2" Margin="5 5 5 5" Label="Manage Notes" Icon="Edit" Background="#F3F3F3" Click="AppBarButton_Click"/>
+            </Maps:MapControl>
+            <Grid Name="OverlayGrid"
+                      Background="Transparent"
+                      Visibility="Collapsed"
+                      Tapped="OverlayGrid_Tapped"/>
+            <Grid Name="InfoGrid"
+                      Margin="100, 100, 100, 100"
+                      CornerRadius="2"
+                      BorderBrush="#6C6C6C"
+                      BorderThickness="2"
+                      Background="#FFFF"
+                      Visibility="Collapsed">
+                <ListView ItemsSource="{x:Bind MapViewModel.Notes}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Note">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="5" Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" FontSize="16" Text="{x:Bind Title}"/>
+                                </StackPanel>
+                                <CommandBar Grid.Column="1" Background="Transparent" DefaultLabelPosition="Right">
+                                    <AppBarButton x:Name="editNote" Icon="Edit" Label="Edit" Tag="edit_note" ToolTipService.ToolTip="Edit note" Click="editNote_Click"/>
+                                    <AppBarButton x:Name="deleteNote" Icon="Delete" Label="Delete" Tag="delete_note" ToolTipService.ToolTip="Delete note" Click="deleteNote_Click"/>
+                                </CommandBar>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

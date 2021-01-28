@@ -20,7 +20,7 @@ namespace MemoMap.UWP.ViewModels
         public ObservableCollection<MapLocation> Locations { get; set; }
         public ObservableCollection<MapElement> _points;
         public List<int> _locations;
-        public List<int> _notes;
+        public ObservableCollection<Note> Notes { get; set; }
 
         //public MapFormValidation MapFormValidation { get; set; }
 
@@ -28,9 +28,9 @@ namespace MemoMap.UWP.ViewModels
         {
             Map = new Map();
             Maps = new ObservableCollection<UserMap>();
+            Notes = new ObservableCollection<Note>();
             _points = new ObservableCollection<MapElement>();
             _locations = new List<int>();
-            _notes = new List<int>();
 
             //MapFormValidation = new MapFormValidation();
         }
@@ -57,6 +57,13 @@ namespace MemoMap.UWP.ViewModels
             return locations;
         }
 
+        private void _updatedObservableCollection<T>
+            (ObservableCollection<T> observableCollection, List<T> newCollection)
+        {
+            observableCollection.Clear();
+            foreach (T entity in newCollection) observableCollection.Add(entity);
+        }
+
         public async Task<List<MapLocation>> GetLocationsDataAssociatedWithMap(List<MapLocation> locationsData)
         {
             foreach (MapLocation l in locationsData)
@@ -76,6 +83,8 @@ namespace MemoMap.UWP.ViewModels
             var currentNote = await App.UnitOfWork
                 .NoteRepository
                 .FindAssociatedNote(locationId);
+            
+            Notes.Add(currentNote);
 
             return currentNote;
         }

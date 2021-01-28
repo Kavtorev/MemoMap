@@ -29,12 +29,14 @@ namespace MemoMap.UWP.Views.Location
         public List<MapLocation> _locationsData;
         public List<Note> _notesData;
         public MapViewModel MapViewModel { get; set; }
+        public NoteViewModel NoteViewModel { get; set; }
 
         public MapPage()
         {
             this.InitializeComponent();
             _points = new ObservableCollection<MapElement>();
             this.MapViewModel = new MapViewModel();
+            this.NoteViewModel = new NoteViewModel();
 
             _locationsAssociated = new List<MapLocation>();
             //_locationsData = new List<MapLocation>();
@@ -143,6 +145,28 @@ namespace MemoMap.UWP.Views.Location
 
             MemoMap.Center = position;
             MemoMap.ZoomLevel = 14;
+        }
+
+        private void OverlayGrid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            InfoGrid.Visibility = Visibility.Collapsed;
+            OverlayGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void editNote_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void deleteNote_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            InfoGrid.Visibility = Visibility.Visible;
+            OverlayGrid.Visibility = Visibility.Visible;
         }
     }
 }
