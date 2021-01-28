@@ -158,9 +158,12 @@ namespace MemoMap.UWP.Views.Location
 
         }
 
-        private void deleteNote_Click(object sender, RoutedEventArgs e)
+        private async void deleteNote_Click(object sender, RoutedEventArgs e)
         {
-
+            if (sender is FrameworkElement b && b.DataContext is Note note)
+            {
+                await MapViewModel.DeleteNoteAsync(note);
+            }
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)

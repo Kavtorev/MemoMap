@@ -100,6 +100,12 @@ namespace MemoMap.UWP.ViewModels
             Maps.Remove(map);
         }
 
+        internal async Task DeleteNoteAsync(Note note)
+        {
+            await App.UnitOfWork.NoteRepository.DeleteAsync(note);
+            Notes.Remove(note);
+        }
+
         internal async Task EditAsync()
         {
             await App.UnitOfWork.MapRepository.UpdateAsync(Map);
