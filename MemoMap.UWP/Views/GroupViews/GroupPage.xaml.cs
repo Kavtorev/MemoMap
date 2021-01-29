@@ -1,6 +1,7 @@
 ﻿using MemoMap.Domain;
 using MemoMap.Domain.Models;
 using MemoMap.UWP.ViewModels;
+using MemoMap.UWP.Views.LocationViews;
 using MemoMap.UWP.Views.MapViews;
 using System;
 using System.Collections.Generic;
@@ -149,6 +150,14 @@ namespace MemoMap.UWP.Views.GroupViews
             {
                 if (user.Id != App.UserViewModel.LoggedUser.Id)
                     b.ContextFlyout.ShowAt(b);
+            }
+        }
+
+        private void MapTemplate_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            if (sender is FrameworkElement b && b.DataContext is Map map)
+            {
+                this.Frame.Navigate(typeof(MapPage), map);
             }
         }
     }

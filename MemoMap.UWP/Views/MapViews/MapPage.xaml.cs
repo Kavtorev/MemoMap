@@ -17,6 +17,7 @@ using Windows.Devices.Geolocation;
 using System.Collections.ObjectModel;
 using MemoMap.UWP.ViewModels;
 using MemoMap.Domain.Models;
+using MemoMap.UWP.Views.GroupViews;
 
 namespace MemoMap.UWP.Views.LocationViews
 {
@@ -47,9 +48,61 @@ namespace MemoMap.UWP.Views.LocationViews
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            // check all LocationId related with the map that is currently used to work with
-            // and append to the _points list that will be used to fill the POIs on the map
-            if (e.Parameter != null)
+            var cameFrom = this.Frame.BackStack.LastOrDefault();
+            if (cameFrom != null && e.Parameter != null)
+            {
+                if (cameFrom.SourcePageType == typeof(GroupPage))
+                {
+                    var model = e.Parameter as Map;
+                    MapViewModel.Map = model;
+
+                    _currentMap = model.Id; // current mapId
+
+                    // locationIds + locationsData (longtitute / latitute)
+                    _locationsAssociated = await MapViewModel.GetLocationsAssociatedWithMap(_currentMap);
+                    _locationsData = await MapViewModel.GetLocationsDataAssociatedWithMap(_locationsAssociated);
+
+
+                    var landmarks = _points;
+                    // if locations exists will be displayed on the map
+                    foreach (MapLocation loc in _locationsAssociated)
+                    {
+                        if (loc != null)
+                        {
+                            var currentLocation = loc.LocationId;
+                            var note = await MapViewModel.GetAssociatedNoteData(currentLocation);
+
+                            // get the longt and lat
+                            BasicGeoposition _pos = new BasicGeoposition { Latitude = Convert.ToDouble(loc.Location.Latitude), Longitude = Convert.ToDouble(loc.Location.Longitude) };
+                            Geopoint _position = new Geopoint(_pos);
+
+                            var _spaceNeedleIcon = new MapIcon
+                            {
+                                Location = _position,
+                                NormalizedAnchorPoint = new Point(0.5, 1.0),
+                                ZIndex = 0,
+                                // point will be added with defined name
+                                Title = note.Title
+                            };
+
+                            landmarks.Add(_spaceNeedleIcon);
+
+                            var LandMarksLayer = new MapElementsLayer
+                            {
+                                ZIndex = 1,
+                                MapElements = landmarks
+                            };
+
+                            MemoMap.Layers.Add(LandMarksLayer);
+                        }
+                        else if (loc == null) // if there are no points in the database related with current map 
+                        {
+                            return; // exit the loop
+                        }
+                    }
+                }
+            } 
+            else 
             {
                 var model = (e.Parameter as UserMap).Map;
                 MapViewModel.Map = model; // the current map will be loaded in MapViewModel.Map
@@ -97,8 +150,6 @@ namespace MemoMap.UWP.Views.LocationViews
                         return; // exit the loop
                     }
                 }
-
-
 
                 base.OnNavigatedTo(e);
             }

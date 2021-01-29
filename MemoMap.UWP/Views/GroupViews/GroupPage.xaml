@@ -202,7 +202,8 @@
                     <StackPanel
                         x:Name="MapTemplate"
                         Width="300"
-                        Height="300">
+                        Height="300"
+                        DoubleTapped="MapTemplate_DoubleTapped">
                         <TextBlock
                             Name="outputTextBox"
                             Margin="10,10,10,10"
