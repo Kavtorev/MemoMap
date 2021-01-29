@@ -18,7 +18,7 @@ using System.Collections.ObjectModel;
 using MemoMap.UWP.ViewModels;
 using MemoMap.Domain.Models;
 
-namespace MemoMap.UWP.Views.Location
+namespace MemoMap.UWP.Views.LocationViews
 {
     public sealed partial class MapPage : Page
     {
@@ -30,6 +30,7 @@ namespace MemoMap.UWP.Views.Location
         public List<Note> _notesData;
         public MapViewModel MapViewModel { get; set; }
         public NoteViewModel NoteViewModel { get; set; }
+        public LocationViewModel LocationViewModel { get; set; }
 
         public MapPage()
         {
@@ -37,6 +38,7 @@ namespace MemoMap.UWP.Views.Location
             _points = new ObservableCollection<MapElement>();
             this.MapViewModel = new MapViewModel();
             this.NoteViewModel = new NoteViewModel();
+            this.LocationViewModel = new LocationViewModel();
 
             _locationsAssociated = new List<MapLocation>();
             //_locationsData = new List<MapLocation>();
@@ -158,11 +160,11 @@ namespace MemoMap.UWP.Views.Location
 
         }
 
-        private async void deleteNote_Click(object sender, RoutedEventArgs e)
+        private async void deleteLocation_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is FrameworkElement b && b.DataContext is Note note)
+            if (sender is FrameworkElement b && b.DataContext is Location location)
             {
-                await MapViewModel.DeleteNoteAsync(note);
+                await LocationViewModel.DeleteAsync(location);
             }
         }
 

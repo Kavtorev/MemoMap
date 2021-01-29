@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using MemoMap.UWP.ViewModels;
 
 
-namespace MemoMap.UWP.Views.Location
+namespace MemoMap.UWP.Views.LocationViews
 {
     public sealed partial class PointAdding : ContentDialog
     {

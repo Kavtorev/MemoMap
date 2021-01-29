@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="MemoMap.UWP.Views.Location.MapPage"
+    x:Class="MemoMap.UWP.Views.LocationViews.MapPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MemoMap.UWP.Views.MapViews"
@@ -44,9 +44,9 @@
                       BorderThickness="2"
                       Background="#FFFF"
                       Visibility="Collapsed">
-                <ListView ItemsSource="{x:Bind MapViewModel.Notes}">
+                <ListView ItemsSource="{x:Bind MapViewModel.Locations}">
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Note">
+                        <DataTemplate x:DataType="model:Location">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -57,11 +57,10 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Margin="5" Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" FontSize="16" Text="{x:Bind Title}"/>
+                                    <TextBlock VerticalAlignment="Center" FontSize="16" Text="{x:Bind Note.Title}"/>
                                 </StackPanel>
                                 <CommandBar Grid.Column="1" Background="Transparent" DefaultLabelPosition="Right">
-                                    <AppBarButton x:Name="editNote" Icon="Edit" Label="Edit" Tag="edit_note" ToolTipService.ToolTip="Edit note" Click="editNote_Click"/>
-                                    <AppBarButton x:Name="deleteNote" Icon="Delete" Label="Delete" Tag="delete_note" ToolTipService.ToolTip="Delete note" Click="deleteNote_Click"/>
+                                    <AppBarButton x:Name="deleteLocation" Icon="Delete" Label="Delete" Tag="delete_location" ToolTipService.ToolTip="Delete location" Click="deleteLocation_Click"/>
                                 </CommandBar>
                             </Grid>
                         </DataTemplate>

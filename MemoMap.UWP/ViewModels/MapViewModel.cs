@@ -17,7 +17,7 @@ namespace MemoMap.UWP.ViewModels
         public Map Map { get; set; }
 
         public ObservableCollection<UserMap> Maps { get; set; }
-        public ObservableCollection<MapLocation> Locations { get; set; }
+        public ObservableCollection<Location> Locations { get; set; }
         public ObservableCollection<MapElement> _points;
         public List<int> _locations;
         public ObservableCollection<Note> Notes { get; set; }
@@ -29,6 +29,7 @@ namespace MemoMap.UWP.ViewModels
             Map = new Map();
             Maps = new ObservableCollection<UserMap>();
             Notes = new ObservableCollection<Note>();
+            Locations = new ObservableCollection<Location>();
             _points = new ObservableCollection<MapElement>();
             _locations = new List<int>();
 
@@ -53,6 +54,12 @@ namespace MemoMap.UWP.ViewModels
             List<MapLocation> locations = await App.UnitOfWork
                 .MapLocationRepository
                 .FindAllRelatedLocationsAsync(mapId);
+
+            Locations.Clear();
+            foreach (MapLocation ml in locations)
+            {
+                Locations.Add(ml.Location);
+            }
 
             return locations;
         }

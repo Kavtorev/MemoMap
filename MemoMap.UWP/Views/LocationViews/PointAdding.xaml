@@ -1,5 +1,5 @@
 ﻿<ContentDialog
-    x:Class="MemoMap.UWP.Views.Location.PointAdding"
+    x:Class="MemoMap.UWP.Views.LocationViews.PointAdding"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MemoMap.UWP.Views.Location"

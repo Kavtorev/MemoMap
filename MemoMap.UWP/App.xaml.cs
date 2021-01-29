@@ -1,7 +1,7 @@
 ﻿using MemoMap.Domain;
 using MemoMap.Infrastructure;
 using MemoMap.UWP.ViewModels;
-using MemoMap.UWP.Views.Location;
+using MemoMap.UWP.Views.LocationViews;
 using MemoMap.UWP.Views.TemporaryViews;
 using MemoMap.UWP.Views.UserViews;
 using Microsoft.EntityFrameworkCore;

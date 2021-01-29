@@ -1,6 +1,6 @@
 ﻿using MemoMap.Domain.Models;
 using MemoMap.UWP.ViewModels;
-using MemoMap.UWP.Views.Location;
+using MemoMap.UWP.Views.LocationViews;
 using System;
 using System.Collections.Generic;
 using System.IO;

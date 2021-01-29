@@ -161,7 +161,7 @@
     <Compile Include="Views\MapViews\ViewMapsPage.xaml.cs">
       <DependentUpon>ViewMapsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Location\PointAdding.xaml.cs">
+    <Compile Include="Views\LocationViews\PointAdding.xaml.cs">
       <DependentUpon>PointAdding.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TemporaryViews\BlankPage.xaml.cs">
@@ -234,7 +234,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Location\PointAdding.xaml">
+    <Page Include="Views\LocationViews\PointAdding.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
