@@ -23,7 +23,7 @@ namespace MemoMap.Domain.Models
         public DateTime Date { get; set; }
         public ICollection<MapLocation> MapLocations { get; set; }
 
-        // one point can include many notes
-        public ICollection<Note> Notes { get; set; }
+        // one point can include one note
+        public Note Note { get; set; }
     }
 }
