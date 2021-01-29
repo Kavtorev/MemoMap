@@ -155,11 +155,6 @@ namespace MemoMap.UWP.Views.LocationViews
             OverlayGrid.Visibility = Visibility.Collapsed;
         }
 
-        private void editNote_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private async void deleteLocation_Click(object sender, RoutedEventArgs e)
         {
             if (sender is FrameworkElement b && b.DataContext is Location location)

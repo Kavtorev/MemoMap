@@ -20,6 +20,7 @@ namespace MemoMap.Infrastructure.Repositories
         {
             return await _dbContext.MapLocations
                 .Include(m2l => m2l.Location)
+                .ThenInclude(m2l => m2l.Note)
                 .Where(m2l => m2l.MapId == mapId)
                 .ToListAsync();
         }
