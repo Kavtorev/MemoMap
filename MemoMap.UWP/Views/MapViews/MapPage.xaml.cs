@@ -101,58 +101,58 @@ namespace MemoMap.UWP.Views.LocationViews
                         }
                     }
                 }
-            } 
-            else 
-            {
-                var model = (e.Parameter as UserMap).Map;
-                MapViewModel.Map = model; // the current map will be loaded in MapViewModel.Map
-                _currentMap = model.Id; // current mapId
-
-                // locationIds + locationsData (longtitute / latitute)
-                _locationsAssociated = await MapViewModel.GetLocationsAssociatedWithMap(_currentMap);
-                _locationsData = await MapViewModel.GetLocationsDataAssociatedWithMap(_locationsAssociated);
-                
-
-                var landmarks = _points;
-                // if locations exists will be displayed on the map
-                foreach (MapLocation loc in _locationsAssociated)
+                else
                 {
-                    if (loc != null)
+                    var model = (e.Parameter as UserMap).Map;
+                    MapViewModel.Map = model; // the current map will be loaded in MapViewModel.Map
+                    _currentMap = model.Id; // current mapId
+
+                    // locationIds + locationsData (longtitute / latitute)
+                    _locationsAssociated = await MapViewModel.GetLocationsAssociatedWithMap(_currentMap);
+                    _locationsData = await MapViewModel.GetLocationsDataAssociatedWithMap(_locationsAssociated);
+
+
+                    var landmarks = _points;
+                    // if locations exists will be displayed on the map
+                    foreach (MapLocation loc in _locationsAssociated)
                     {
-                        var currentLocation = loc.LocationId;
-                        var note = await MapViewModel.GetAssociatedNoteData(currentLocation);
-
-                        // get the longt and lat
-                        BasicGeoposition _pos = new BasicGeoposition { Latitude = Convert.ToDouble(loc.Location.Latitude), Longitude = Convert.ToDouble(loc.Location.Longitude) };
-                        Geopoint _position = new Geopoint(_pos);
-
-                        var _spaceNeedleIcon = new MapIcon
+                        if (loc != null)
                         {
-                            Location = _position,
-                            NormalizedAnchorPoint = new Point(0.5, 1.0),
-                            ZIndex = 0,
-                            // point will be added with defined name
-                            Title = note.Title
-                        };
+                            var currentLocation = loc.LocationId;
+                            var note = await MapViewModel.GetAssociatedNoteData(currentLocation);
 
-                        landmarks.Add(_spaceNeedleIcon);
+                            // get the longt and lat
+                            BasicGeoposition _pos = new BasicGeoposition { Latitude = Convert.ToDouble(loc.Location.Latitude), Longitude = Convert.ToDouble(loc.Location.Longitude) };
+                            Geopoint _position = new Geopoint(_pos);
 
-                        var LandMarksLayer = new MapElementsLayer
+                            var _spaceNeedleIcon = new MapIcon
+                            {
+                                Location = _position,
+                                NormalizedAnchorPoint = new Point(0.5, 1.0),
+                                ZIndex = 0,
+                                // point will be added with defined name
+                                Title = note.Title
+                            };
+
+                            landmarks.Add(_spaceNeedleIcon);
+
+                            var LandMarksLayer = new MapElementsLayer
+                            {
+                                ZIndex = 1,
+                                MapElements = landmarks
+                            };
+
+                            MemoMap.Layers.Add(LandMarksLayer);
+                        }
+                        else if (loc == null) // if there are no points in the database related with current map 
                         {
-                            ZIndex = 1,
-                            MapElements = landmarks
-                        };
+                            return; // exit the loop
+                        }
+                    }
 
-                        MemoMap.Layers.Add(LandMarksLayer);
-                    }
-                    else if (loc == null) // if there are no points in the database related with current map 
-                    {
-                        return; // exit the loop
-                    }
+                    base.OnNavigatedTo(e);
                 }
-
-                base.OnNavigatedTo(e);
-            }
+            }  
         }
 
         private async void MemoMap_MapTapped(MapControl sender, MapInputEventArgs args)
