@@ -13,7 +13,6 @@ namespace MemoMap.Infrastructure.EntityConfigurations
 
         public void Configure(EntityTypeBuilder<Location> builder)
         {
-            throw new NotImplementedException();
         }
     }
 }

@@ -43,16 +43,19 @@ namespace MemoMap.UWP.Views.MapViews
 
         private async void deleteMap_Click(object sender, RoutedEventArgs e)
         {
-            // check if data exists in the database, if true delete
             if (sender is FrameworkElement b && b.DataContext is UserMap u2m)
             {
+                // get the locations associated with map
+                var locationToDelete = await MapViewModel.GetLocationsAssociatedWithMap(u2m.MapId);
+                // pass locations to delete method
+                await MapViewModel.DeleteAssociatedLocationsAsync(locationToDelete);
+
                 await MapViewModel.DeleteAsync(u2m);
             }
         }
 
         private void editMap_Click(object sender, RoutedEventArgs e)
         {
-            // check if data exists in the database, if true navigate
             if (sender is FrameworkElement b && b.DataContext is UserMap u2m)
             {
                 this.Frame.Navigate(typeof(CreateMapPage), u2m);

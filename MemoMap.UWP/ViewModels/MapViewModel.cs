@@ -107,6 +107,14 @@ namespace MemoMap.UWP.ViewModels
             Maps.Remove(map);
         }
 
+        internal async Task DeleteAssociatedLocationsAsync(List<MapLocation> locations)
+        {
+            foreach (MapLocation mapLocation in locations)
+            {
+                await App.UnitOfWork.LocationRepository.DeleteAsync(mapLocation.Location);
+            }
+        }
+
         internal async Task DeleteNoteAsync(Note note)
         {
             await App.UnitOfWork.NoteRepository.DeleteAsync(note);
